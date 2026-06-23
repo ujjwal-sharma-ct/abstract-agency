@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Details - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
+        <div class="h-16 flex items-center px-6 border-b border-white/10 flex-shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue rounded flex items-center justify-center text-white font-sora font-bold text-sm">
+                    A2
+                </div>
+                <span class="text-lg font-sora font-bold tracking-tight">Abstractvms 2</span>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="3-Abstractvms 2 - Dashboard Over.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="4-Abstractvms 2 - Job Vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="6-Abstractvms 2 - Candidates Ove.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="9-Abstractvms 2 - Proposal Manag.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="12-Abstractvms 2 - Bookings List.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="14-Abstractvms 2 - Self-bills Ove.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="16-Abstractvms 2 - Reports Overvi.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="18-Abstractvms 2 - Notifications.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="20-Abstractvms 2 - User Managemen.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-3 flex items-center gap-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Admin User" class="w-8 h-8 rounded-full border border-white/20">
+                <div class="overflow-hidden">
+                    <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                    <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex flex-col">
+                    <h2 class="text-lg font-sora font-semibold text-gray-900 hidden sm:block">Proposals Management</h2>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" placeholder="Search..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button class="relative text-gray-500 hover:text-gray-700">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <span class="text-sm font-medium text-gray-700 hidden sm:block">Global Branch View</span>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 w-full">
+            <div class="max-w-7xl mx-auto w-full">
+                
+                <!-- Page Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <div>
+                        <nav class="flex items-center gap-2 text-sm text-gray-500 mb-1">
+                            <a href="9-Abstractvms 2 - Proposal Manag.html" class="hover:text-blue transition-colors">Proposals</a>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span class="text-gray-900 font-medium">Proposal Details</span>
+                        </nav>
+                        <div class="flex items-center gap-3">
+                            <h1 class="text-2xl font-sora font-semibold text-gray-900">John Doe</h1>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning border border-warning/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warning"></span> Under Review
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">for Senior FLT Driver (Reach) • PROP-9942</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
+                            Withdraw Proposal
+                        </button>
+                        <button class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-2">
+                            Edit Notes
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left Column (Main Info) -->
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <!-- Vacancy Info -->
+                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                            <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Vacancy Info</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Job Role</p>
+                                    <p class="text-sm font-medium text-gray-900">Senior FLT Driver (Reach)</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Client</p>
+                                    <p class="text-sm font-medium text-gray-900">Logistics Pro UK</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Business Unit</p>
+                                    <p class="text-sm font-medium text-gray-900">Midlands Hub (Depot 3)</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Dates</p>
+                                    <p class="text-sm font-medium text-gray-900">12 Oct 2023 - 12 Jan 2024</p>
+                                </div>
+                                <div class="sm:col-span-2 bg-lightbg p-4 rounded-lg border border-gray-100 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-xs text-gray-500 mb-1">Proposed Pay Rate</p>
+                                        <p class="text-lg font-semibold font-sora text-navy">£15.50 <span class="text-xs font-normal text-gray-500">/ hr</span></p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-xs text-gray-500 mb-1">Vacancy Max</p>
+                                        <p class="text-sm font-medium text-gray-900">£15.50 / hr</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Candidate Summary -->
+                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                            <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
+                                <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider">Candidate Summary</h2>
+                                <a href="#" class="text-sm font-medium text-blue hover:text-navy transition-colors flex items-center gap-1.5">
+                                    View Full Profile <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-lg font-sora">
+                                    JD
+                                </div>
+                                <div>
+                                    <h3 class="text-base font-semibold text-gray-900">John Doe</h3>
+                                    <p class="text-xs text-gray-500 font-mono">CAN-8832</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <h4 class="text-xs font-bold text-gray-700 uppercase mb-3">Compliance Profile (Role Required)</h4>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    <div class="bg-success/5 border border-success/20 p-2.5 rounded-lg text-center">
+                                        <i class="fa-solid fa-shield-check text-success text-lg mb-1.5"></i>
+                                        <p class="text-xs font-medium text-gray-900">Right to Work</p>
+                                        <p class="text-[10px] text-success">Verified</p>
+                                    </div>
+                                    <div class="bg-success/5 border border-success/20 p-2.5 rounded-lg text-center">
+                                        <i class="fa-solid fa-truck-ramp-box text-success text-lg mb-1.5"></i>
+                                        <p class="text-xs font-medium text-gray-900">FLT Licence</p>
+                                        <p class="text-[10px] text-success">Valid till 2025</p>
+                                    </div>
+                                    <div class="bg-success/5 border border-success/20 p-2.5 rounded-lg text-center">
+                                        <i class="fa-solid fa-hard-hat text-success text-lg mb-1.5"></i>
+                                        <p class="text-xs font-medium text-gray-900">Safety Induct.</p>
+                                        <p class="text-[10px] text-success">Completed</p>
+                                    </div>
+                                    <div class="bg-warning/5 border border-warning/20 p-2.5 rounded-lg text-center">
+                                        <i class="fa-solid fa-file-medical text-warning text-lg mb-1.5"></i>
+                                        <p class="text-xs font-medium text-gray-900">Medical</p>
+                                        <p class="text-[10px] text-warning">Expires in 30d</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-700 uppercase mb-2">Submitted Notes</h4>
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 leading-relaxed">
+                                    <p>John is a highly experienced Reach driver with over 5 years working in fast-paced logistics hubs. He previously completed a 6-month stint at Logistics Pro UK's Northern Depot with excellent feedback.</p>
+                                    <p class="mt-2">Available to start immediately and happy with the proposed shift pattern. All compliance docs are up to date and attached.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Right Column (Timeline & Status) -->
+                    <div class="lg:col-span-1 space-y-6">
+                        
+                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                            <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-6 border-b border-gray-100 pb-2">Status Timeline</h2>
+                            
+                            <div class="relative">
+                                <!-- Timeline Line -->
+                                <div class="absolute left-[11px] top-2 bottom-2 w-px bg-gray-200"></div>
+                                
+                                <div class="space-y-6">
+                                    
+                                    <!-- Step 1 (Completed) -->
+                                    <div class="relative flex gap-4">
+                                        <div class="w-6 h-6 rounded-full bg-success text-white flex items-center justify-center shrink-0 z-10 border-2 border-white ring-2 ring-transparent">
+                                            <i class="fa-solid fa-check text-[10px]"></i>
+                                        </div>
+                                        <div class="pt-0.5">
+                                            <p class="text-sm font-bold text-gray-900">Proposal Submitted</p>
+                                            <p class="text-xs text-gray-500 mt-0.5">08 Oct 2023, 09:15 AM</p>
+                                            <p class="text-xs text-gray-600 mt-1">Submitted by Agency Admin</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Step 2 (Current) -->
+                                    <div class="relative flex gap-4">
+                                        <div class="w-6 h-6 rounded-full bg-warning text-white flex items-center justify-center shrink-0 z-10 border-2 border-white ring-2 ring-warning/30">
+                                            <i class="fa-solid fa-spinner fa-spin text-[10px]"></i>
+                                        </div>
+                                        <div class="pt-0.5">
+                                            <p class="text-sm font-bold text-gray-900">Under Review</p>
+                                            <p class="text-xs text-gray-500 mt-0.5">09 Oct 2023, 11:30 AM</p>
+                                            <p class="text-xs text-gray-600 mt-1">Client Manager is currently reviewing.</p>
+                                            <div class="mt-2 bg-lightbg border border-gray-200 rounded p-2.5">
+                                                <p class="text-xs text-gray-700 italic">"Reviewing candidate qualifications against FLT specific requirements. Will update shortly."</p>
+                                                <p class="text-[10px] text-gray-500 mt-1">— Client Hiring Manager</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 3 (Pending) -->
+                                    <div class="relative flex gap-4">
+                                        <div class="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center shrink-0 z-10">
+                                            <div class="w-2 h-2 rounded-full bg-gray-400"></div>
+                                        </div>
+                                        <div class="pt-0.5 opacity-50">
+                                            <p class="text-sm font-medium text-gray-500">Accepted / Rejected</p>
+                                            <p class="text-xs text-gray-400 mt-0.5">Pending client decision</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

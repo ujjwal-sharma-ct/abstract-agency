@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Bills - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
+        <div class="h-16 flex items-center px-6 border-b border-white/10 flex-shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue rounded flex items-center justify-center text-white font-sora font-bold text-sm">
+                    A2
+                </div>
+                <span class="text-lg font-sora font-bold tracking-tight">Abstractvms 2</span>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="3-Abstractvms 2 - Dashboard Over.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="4-Abstractvms 2 - Job Vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="6-Abstractvms 2 - Candidates Ove.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="9-Abstractvms 2 - Proposal Manag.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="12-Abstractvms 2 - Bookings List.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="14-Abstractvms 2 - Self-bills Ove.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="16-Abstractvms 2 - Reports Overvi.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="18-Abstractvms 2 - Notifications.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="20-Abstractvms 2 - User Managemen.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-3 flex items-center gap-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Admin User" class="w-8 h-8 rounded-full border border-white/20">
+                <div class="overflow-hidden">
+                    <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                    <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <h2 class="text-lg font-sora font-semibold text-gray-900">Self-Bills</h2>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" placeholder="Search..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button class="relative text-gray-500 hover:text-gray-700">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-6 bg-lightbg">
+            <div class="max-w-7xl mx-auto space-y-6">
+
+                <!-- Page Header & Actions -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-2xl font-sora font-bold text-navy">Agency Self-Bills</h1>
+                        <p class="text-sm text-gray-500 mt-1">Manage and view all self-billing invoices across your branches.</p>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Total Unpaid</p>
+                                <h3 class="text-2xl font-sora font-bold text-navy mt-1">£24,500.00</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-warning/10 flex items-center justify-center text-warning">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4"><span class="text-gray-900 font-medium">12</span> pending invoices</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Paid This Month</p>
+                                <h3 class="text-2xl font-sora font-bold text-navy mt-1">£85,240.50</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center text-success">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4"><span class="text-gray-900 font-medium">45</span> settled invoices</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Overdue</p>
+                                <h3 class="text-2xl font-sora font-bold text-danger mt-1">£0.00</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-danger/10 flex items-center justify-center text-danger">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4"><span class="text-gray-900 font-medium">0</span> overdue invoices</p>
+                    </div>
+                </div>
+
+                <!-- Main Data Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    
+                    <!-- Filters Bar -->
+                    <div class="p-4 border-b border-gray-200 bg-white flex flex-col md:flex-row gap-4 justify-between items-center">
+                        <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                            <!-- Branch Dropdown -->
+                            <div class="relative min-w-[160px]">
+                                <select class="w-full appearance-none pl-3 pr-10 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue text-gray-700">
+                                    <option value="">All Branches</option>
+                                    <option value="bham">Birmingham Central</option>
+                                    <option value="manc">Manchester Hub</option>
+                                    <option value="lond">London East</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                            </div>
+
+                            <!-- Status Dropdown -->
+                            <div class="relative min-w-[140px]">
+                                <select class="w-full appearance-none pl-3 pr-10 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue text-gray-700">
+                                    <option value="">All Statuses</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="paid">Paid</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                            </div>
+
+                            <!-- Date Range -->
+                            <div class="relative min-w-[200px]">
+                                <i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                <input type="text" placeholder="Filter by Date Range..." value="Last 30 Days" class="w-full pl-9 pr-3 py-2 bg-white border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue text-gray-700 cursor-pointer" readonly>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 w-full md:w-auto">
+                            <button class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors whitespace-nowrap">
+                                <i class="fa-solid fa-download mr-1.5"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse whitespace-nowrap">
+                            <thead class="bg-gray-50 border-b border-gray-200">
+                                <tr>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group">
+                                        Self-Bill Number <i class="fa-solid fa-arrow-down-long text-gray-300 group-hover:text-gray-500 ml-1"></i>
+                                    </th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group">
+                                        Date <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500 ml-1"></i>
+                                    </th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 group">
+                                        Branch <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500 ml-1"></i>
+                                    </th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider">Period</th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Total (GBP)</th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">VAT (GBP)</th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right cursor-pointer hover:bg-gray-100 group">
+                                        Grand Total <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500 ml-1"></i>
+                                    </th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">Status</th>
+                                    <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-blue/5 transition-colors cursor-pointer group">
+                                    <td class="py-4 px-5 text-sm font-mono font-medium text-blue group-hover:underline">SB-2023-1042</td>
+                                    <td class="py-4 px-5 text-sm text-gray-900">01 Nov 2023</td>
+                                    <td class="py-4 px-5 text-sm text-gray-700">Birmingham Central</td>
+                                    <td class="py-4 px-5 text-sm text-gray-500">Oct 2023</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-700 text-right">£4,500.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-500 text-right">£900.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono font-bold text-navy text-right">£5,400.00</td>
+                                    <td class="py-4 px-5 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-warning/10 text-warning border border-warning/20">
+                                            Pending
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-5 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="View Detail">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </button>
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="Download PDF">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-blue/5 transition-colors cursor-pointer group">
+                                    <td class="py-4 px-5 text-sm font-mono font-medium text-blue group-hover:underline">SB-2023-1041</td>
+                                    <td class="py-4 px-5 text-sm text-gray-900">15 Oct 2023</td>
+                                    <td class="py-4 px-5 text-sm text-gray-700">Manchester Hub</td>
+                                    <td class="py-4 px-5 text-sm text-gray-500">Sep 2023</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-700 text-right">£8,250.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-500 text-right">£1,650.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono font-bold text-navy text-right">£9,900.00</td>
+                                    <td class="py-4 px-5 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-success/10 text-success border border-success/20">
+                                            Paid
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-5 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="View Detail">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </button>
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="Download PDF">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-blue/5 transition-colors cursor-pointer group">
+                                    <td class="py-4 px-5 text-sm font-mono font-medium text-blue group-hover:underline">SB-2023-1040</td>
+                                    <td class="py-4 px-5 text-sm text-gray-900">01 Oct 2023</td>
+                                    <td class="py-4 px-5 text-sm text-gray-700">Birmingham Central</td>
+                                    <td class="py-4 px-5 text-sm text-gray-500">Sep 2023</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-700 text-right">£3,100.50</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-500 text-right">£620.10</td>
+                                    <td class="py-4 px-5 text-sm font-mono font-bold text-navy text-right">£3,720.60</td>
+                                    <td class="py-4 px-5 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-success/10 text-success border border-success/20">
+                                            Paid
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-5 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="View Detail">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </button>
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="Download PDF">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 4 -->
+                                <tr class="hover:bg-blue/5 transition-colors cursor-pointer group">
+                                    <td class="py-4 px-5 text-sm font-mono font-medium text-blue group-hover:underline">SB-2023-1039</td>
+                                    <td class="py-4 px-5 text-sm text-gray-900">15 Sep 2023</td>
+                                    <td class="py-4 px-5 text-sm text-gray-700">London East</td>
+                                    <td class="py-4 px-5 text-sm text-gray-500">Aug 2023</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-700 text-right">£12,400.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono text-gray-500 text-right">£2,480.00</td>
+                                    <td class="py-4 px-5 text-sm font-mono font-bold text-navy text-right">£14,880.00</td>
+                                    <td class="py-4 px-5 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-success/10 text-success border border-success/20">
+                                            Paid
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-5 text-right">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="View Detail">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </button>
+                                            <button class="p-1.5 text-gray-400 hover:text-blue transition-colors rounded hover:bg-blue/10" title="Download PDF">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="p-4 border-t border-gray-200 bg-white flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div class="text-sm text-gray-500">
+                            Showing <span class="font-medium text-gray-900">1</span> to <span class="font-medium text-gray-900">4</span> of <span class="font-medium text-gray-900">128</span> results
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-2 mr-4 hidden sm:flex">
+                                <span class="text-xs text-gray-500">Rows per page:</span>
+                                <select class="text-sm border-gray-300 rounded focus:ring-blue focus:border-blue py-1 pl-2 pr-6">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                </select>
+                            </div>
+                            <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                <a href="#" class="relative inline-flex items-center px-3 py-1.5 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Previous</span>
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </a>
+                                <a href="#" aria-current="page" class="z-10 bg-blue/10 border-blue text-blue relative inline-flex items-center px-4 py-1.5 border text-sm font-medium">1</a>
+                                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-1.5 border text-sm font-medium">2</a>
+                                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-1.5 border text-sm font-medium">3</a>
+                                <span class="relative inline-flex items-center px-4 py-1.5 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
+                                <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-1.5 border text-sm font-medium">13</a>
+                                <a href="#" class="relative inline-flex items-center px-3 py-1.5 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Next</span>
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

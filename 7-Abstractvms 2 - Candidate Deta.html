@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Details - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
+        <div class="h-16 flex items-center px-6 border-b border-white/10 flex-shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue rounded flex items-center justify-center text-white font-sora font-bold text-sm">
+                    A2
+                </div>
+                <span class="text-lg font-sora font-bold tracking-tight">Abstractvms 2</span>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="3-Abstractvms 2 - Dashboard Over.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="4-Abstractvms 2 - Job Vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="6-Abstractvms 2 - Candidates Ove.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="9-Abstractvms 2 - Proposal Manag.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="12-Abstractvms 2 - Bookings List.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="14-Abstractvms 2 - Self-bills Ove.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="16-Abstractvms 2 - Reports Overvi.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="18-Abstractvms 2 - Notifications.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="20-Abstractvms 2 - User Managemen.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-3 flex items-center gap-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Admin User" class="w-8 h-8 rounded-full border border-white/20">
+                <div class="overflow-hidden">
+                    <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                    <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mb-0.5">
+                        <a href="6-Abstractvms 2 - Candidates Ove.html" class="hover:text-blue"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Candidates</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" placeholder="Search..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button class="relative text-gray-500 hover:text-gray-700">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <span class="text-sm font-medium text-gray-700 hidden sm:block">Global Branch View</span>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div id="candidate-detail-scroll" class="flex-1 overflow-y-auto p-6">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Candidate Header Profile Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row justify-between items-start gap-6 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue to-purple"></div>
+                    <div class="flex items-start gap-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="James Smith" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-sm">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <h1 class="text-2xl font-sora font-semibold text-gray-900">James Smith</h1>
+                                <span class="text-sm text-gray-500 font-medium">CAN-0012</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success bg-success/10 border border-success/20">
+                                    <i class="fa-solid fa-shield-check"></i> Compliant
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-gray-600 bg-gray-100 border border-gray-200">
+                                    AWR: Week 2
+                                </span>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-blue bg-blue/10 border border-blue/20">
+                                    Birmingham Hub
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-pen"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabs & Content -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-full min-h-[600px]">
+                    <!-- Tab Navigation -->
+                    <div class="flex overflow-x-auto border-b border-gray-100 hide-scrollbar bg-gray-50/50">
+                        <button onclick="switchTab('personal')" class="tab-btn px-6 py-4 text-sm font-medium text-blue border-b-2 border-blue whitespace-nowrap" data-target="personal">Personal Details</button>
+                        <button onclick="switchTab('compliance')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="compliance">Compliance & Licences</button>
+                        <button onclick="switchTab('documents')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="documents">Documents</button>
+                        <button onclick="switchTab('proposals')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="proposals">Proposals History</button>
+                        <button onclick="switchTab('bookings')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="bookings">Bookings</button>
+                        <button onclick="switchTab('awr')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="awr">AWR History</button>
+                    </div>
+
+                    <!-- Tab Content Area -->
+                    <div class="p-6">
+                        
+                        <!-- Personal Details Tab -->
+                        <div id="personal" class="tab-content active space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- Contact Info -->
+                                <div>
+                                    <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                        <i class="fa-regular fa-address-card text-blue"></i> Core Details
+                                    </h3>
+                                    <div class="bg-gray-50/50 rounded-lg p-5 border border-gray-100 space-y-4">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="col-span-1 text-sm text-gray-500">Full Name</div>
+                                            <div class="col-span-2 text-sm font-medium text-gray-900">James Thomas Smith</div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="col-span-1 text-sm text-gray-500">Date of Birth</div>
+                                            <div class="col-span-2 text-sm font-medium text-gray-900">14 Oct 1988 (35 yrs)</div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="col-span-1 text-sm text-gray-500">NI Number</div>
+                                            <div class="col-span-2 text-sm font-medium text-gray-900 font-mono">QQ 12 34 56 A</div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="col-span-1 text-sm text-gray-500">Email</div>
+                                            <div class="col-span-2 text-sm font-medium text-gray-900">j.smith@email.com</div>
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div class="col-span-1 text-sm text-gray-500">Telephone</div>
+                                            <div class="col-span-2 text-sm font-medium text-gray-900">07700 900123</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Address & Emergency -->
+                                <div class="space-y-8">
+                                    <div>
+                                        <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                            <i class="fa-solid fa-location-dot text-blue"></i> Address
+                                        </h3>
+                                        <div class="bg-gray-50/50 rounded-lg p-5 border border-gray-100 space-y-4">
+                                            <p class="text-sm font-medium text-gray-900 leading-relaxed">
+                                                124 Birchwood Lane<br>
+                                                Edgbaston<br>
+                                                Birmingham<br>
+                                                West Midlands<br>
+                                                B15 2TR
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                            <i class="fa-solid fa-heart-pulse text-blue"></i> Next of Kin
+                                        </h3>
+                                        <div class="bg-gray-50/50 rounded-lg p-5 border border-gray-100 space-y-4">
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <div class="col-span-1 text-sm text-gray-500">Name</div>
+                                                <div class="col-span-2 text-sm font-medium text-gray-900">Sarah Smith</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <div class="col-span-1 text-sm text-gray-500">Relationship</div>
+                                                <div class="col-span-2 text-sm font-medium text-gray-900">Spouse</div>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-4">
+                                                <div class="col-span-1 text-sm text-gray-500">Telephone</div>
+                                                <div class="col-span-2 text-sm font-medium text-gray-900">07700 900444</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Compliance Tab -->
+                        <div id="compliance" class="tab-content space-y-8">
+                            <div>
+                                <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Mandatory Compliance</h3>
+                                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                    <table class="w-full text-left">
+                                        <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+                                            <tr>
+                                                <th class="py-3 px-4 font-medium">Requirement</th>
+                                                <th class="py-3 px-4 font-medium">Status</th>
+                                                <th class="py-3 px-4 font-medium">Document</th>
+                                                <th class="py-3 px-4 font-medium text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-sm divide-y divide-gray-100">
+                                            <tr>
+                                                <td class="py-3 px-4 font-medium text-gray-900">Right to Work</td>
+                                                <td class="py-3 px-4"><span class="text-success text-xs font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Verified</span></td>
+                                                <td class="py-3 px-4"><a href="#" class="text-blue hover:underline"><i class="fa-solid fa-file-pdf mr-1 text-gray-400"></i> Passport_Copy.pdf</a></td>
+                                                <td class="py-3 px-4 text-right"><button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-upload"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3 px-4 font-medium text-gray-900">References (2x)</td>
+                                                <td class="py-3 px-4"><span class="text-success text-xs font-medium"><i class="fa-solid fa-check-circle mr-1"></i> Verified</span></td>
+                                                <td class="py-3 px-4"><span class="text-gray-500 italic">2 files uploaded</span></td>
+                                                <td class="py-3 px-4 text-right"><button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-upload"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3 px-4 font-medium text-gray-900">Health & Safety Induction</td>
+                                                <td class="py-3 px-4"><span class="text-warning text-xs font-medium"><i class="fa-solid fa-clock mr-1"></i> Expiring Soon</span></td>
+                                                <td class="py-3 px-4"><a href="#" class="text-blue hover:underline"><i class="fa-solid fa-file-pdf mr-1 text-gray-400"></i> HS_Cert_2022.pdf</a></td>
+                                                <td class="py-3 px-4 text-right"><button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-upload"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-sora font-semibold text-gray-900">Licences & Certifications</h3>
+                                    <button class="text-sm font-medium text-blue hover:text-blue/80"><i class="fa-solid fa-plus mr-1"></i> Add Licence</button>
+                                </div>
+                                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                    <table class="w-full text-left">
+                                        <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+                                            <tr>
+                                                <th class="py-3 px-4 font-medium">Type</th>
+                                                <th class="py-3 px-4 font-medium">Issuing Body</th>
+                                                <th class="py-3 px-4 font-medium">Expiry Date</th>
+                                                <th class="py-3 px-4 font-medium">Status</th>
+                                                <th class="py-3 px-4 font-medium text-right">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-sm divide-y divide-gray-100">
+                                            <tr>
+                                                <td class="py-3 px-4 font-medium text-gray-900 flex items-center gap-2"><i class="fa-solid fa-truck-moving text-gray-400"></i> FLT Counterbalance</td>
+                                                <td class="py-3 px-4 text-gray-600">RTITB</td>
+                                                <td class="py-3 px-4 text-gray-600">12 Nov 2025</td>
+                                                <td class="py-3 px-4"><span class="text-success text-xs font-medium">Valid</span></td>
+                                                <td class="py-3 px-4 text-right"><button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-ellipsis-vertical px-2"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3 px-4 font-medium text-gray-900 flex items-center gap-2"><i class="fa-solid fa-hard-hat text-gray-400"></i> CSCS Green Card</td>
+                                                <td class="py-3 px-4 text-gray-600">CITB</td>
+                                                <td class="py-3 px-4 text-danger font-medium">01 Jan 2024</td>
+                                                <td class="py-3 px-4"><span class="text-danger text-xs font-medium">Expired</span></td>
+                                                <td class="py-3 px-4 text-right"><button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-ellipsis-vertical px-2"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents Tab (Placeholder structure) -->
+                        <div id="documents" class="tab-content">
+                             <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg font-sora font-semibold text-gray-900">Uploaded Documents</h3>
+                                <button class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Document
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Doc Card 1 -->
+                                <div class="border border-gray-200 rounded-lg p-4 hover:border-blue transition-colors flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 text-lg">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate">Passport_Scan_2023.pdf</p>
+                                        <p class="text-xs text-gray-500 mt-1">Right to Work • 2.4 MB</p>
+                                        <p class="text-xs text-gray-400 mt-0.5">Uploaded 12 Jan 2024</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-blue"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Proposals Tab (Placeholder structure) -->
+                         <div id="proposals" class="tab-content">
+                            <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Proposal History</h3>
+                            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <table class="w-full text-left">
+                                    <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+                                        <tr>
+                                            <th class="py-3 px-4 font-medium">Date</th>
+                                            <th class="py-3 px-4 font-medium">Vacancy</th>
+                                            <th class="py-3 px-4 font-medium">Client</th>
+                                            <th class="py-3 px-4 font-medium">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm divide-y divide-gray-100">
+                                        <tr>
+                                            <td class="py-3 px-4 text-gray-600">10 Jan 2024</td>
+                                            <td class="py-3 px-4 font-medium text-blue hover:underline cursor-pointer">FLT Driver - Night Shift</td>
+                                            <td class="py-3 px-4 text-gray-900">LogisticsPro Ltd</td>
+                                            <td class="py-3 px-4"><span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-success bg-success/10">Accepted</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                         <!-- Bookings Tab (Placeholder structure) -->
+                         <div id="bookings" class="tab-content">
+                            <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Active & Past Bookings</h3>
+                             <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                                <table class="w-full text-left">
+                                    <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+                                        <tr>
+                                            <th class="py-3 px-4 font-medium">Ref</th>
+                                            <th class="py-3 px-4 font-medium">Role & Client</th>
+                                            <th class="py-3 px-4 font-medium">Dates</th>
+                                            <th class="py-3 px-4 font-medium">Pay Rate</th>
+                                            <th class="py-3 px-4 font-medium">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm divide-y divide-gray-100">
+                                        <tr>
+                                            <td class="py-3 px-4 font-mono text-gray-500">BKG-8892</td>
+                                            <td class="py-3 px-4">
+                                                <div class="font-medium text-gray-900">FLT Driver</div>
+                                                <div class="text-xs text-gray-500">LogisticsPro Ltd</div>
+                                            </td>
+                                            <td class="py-3 px-4 text-gray-600">15 Jan 2024 - Ongoing</td>
+                                            <td class="py-3 px-4 font-mono">£14.50/hr</td>
+                                            <td class="py-3 px-4"><span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-blue bg-blue/10">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                         <!-- AWR Tab (Placeholder structure) -->
+                         <div id="awr" class="tab-content">
+                            <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">AWR Qualifying Timeline</h3>
+                            <div class="p-8 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200 border-dashed">
+                                <i class="fa-solid fa-timeline text-3xl mb-3 text-gray-300"></i>
+                                <p>AWR timeline visualization would render here.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Reset all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('text-blue', 'border-blue');
+                el.classList.add('text-gray-500', 'border-transparent');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Highlight selected tab button
+            const activeBtn = document.querySelector(`[data-target="${tabId}"]`);
+            activeBtn.classList.remove('text-gray-500', 'border-transparent');
+            activeBtn.classList.add('text-blue', 'border-blue');
+        }
+    </script>
+</body>
+</html>
