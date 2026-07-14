@@ -175,8 +175,10 @@
                         <div class="relative">
                             <select class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
                                 <option value="">All Statuses</option>
-                                <option selected>Open</option>
-                                <option>Partially Filled</option>
+                                <option selected>Released to Agencies</option>
+                                <option>Filled</option>
+                                <option>Closed</option>
+                                <option>Cancelled</option>
                             </select>
                             <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
                         </div>
@@ -216,7 +218,7 @@
                                 <th class="py-3 px-4 font-medium text-right cursor-pointer hover:bg-gray-100 group">
                                     <div class="flex items-center justify-end gap-1">Pay Rate <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500"></i></div>
                                 </th>
-                                <th class="py-3 px-4 font-medium text-center">Remaining</th>
+                                <th class="py-3 px-4 font-medium text-center">Open Positions</th>
                                 <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
                                     <div class="flex items-center gap-1">Start Date <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500"></i></div>
                                 </th>
@@ -229,7 +231,9 @@
                         <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
                             <!-- Row 1 -->
                             <tr class="hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href='5-Abstractvms 2 - Vacancy Detail.html'">
-                                <td class="py-4 px-4 font-mono text-xs text-gray-500">VAC-1042</td>
+                                <td class="py-4 px-4 font-mono text-xs text-gray-500">VAC-1042
+                                    <div class="mt-1 text-[10px] text-purple font-sans normal-case flex items-center gap-1"><i class="fa-solid fa-share-nodes"></i> Released to you 12 Jun 2026</div>
+                                </td>
                                 <td class="py-4 px-4">
                                     <div class="font-medium text-gray-900">Senior Warehouse Operative</div>
                                     <div class="text-xs text-gray-500 mt-0.5">Warehouse Operative</div>
@@ -240,8 +244,8 @@
                                 </td>
                                 <td class="py-4 px-4 font-mono text-gray-900 text-right">£12.50/hr</td>
                                 <td class="py-4 px-4 text-center">
-                                    <span class="inline-flex items-center justify-center bg-blue/10 text-blue font-medium px-2.5 py-1 rounded-md text-xs">
-                                        5 / 10
+                                    <span class="inline-flex items-center justify-center bg-blue/10 text-blue font-semibold px-2.5 py-1 rounded-md text-xs" title="Open positions still available">
+                                        5
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-gray-600">01 Nov 2023</td>
@@ -271,8 +275,8 @@
                                 </td>
                                 <td class="py-4 px-4 font-mono text-gray-900 text-right">£14.75/hr</td>
                                 <td class="py-4 px-4 text-center">
-                                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 font-medium px-2.5 py-1 rounded-md text-xs">
-                                        3 / 3
+                                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-500 font-semibold px-2.5 py-1 rounded-md text-xs" title="Filled — no open positions">
+                                        0
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-gray-600">05 Nov 2023</td>
@@ -302,8 +306,8 @@
                                 </td>
                                 <td class="py-4 px-4 font-mono text-gray-900 text-right">£11.44/hr</td>
                                 <td class="py-4 px-4 text-center">
-                                    <span class="inline-flex items-center justify-center bg-blue/10 text-blue font-medium px-2.5 py-1 rounded-md text-xs border border-blue/20">
-                                        20 / 50
+                                    <span class="inline-flex items-center justify-center bg-blue/10 text-blue font-semibold px-2.5 py-1 rounded-md text-xs border border-blue/20" title="Open positions still available">
+                                        30
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-gray-600">15 Nov 2023</td>
@@ -333,8 +337,8 @@
                                 </td>
                                 <td class="py-4 px-4 font-mono text-gray-900 text-right">£13.00/hr</td>
                                 <td class="py-4 px-4 text-center">
-                                    <span class="inline-flex items-center justify-center bg-warning/10 text-warning font-medium px-2.5 py-1 rounded-md text-xs border border-warning/20">
-                                        1 / 2
+                                    <span class="inline-flex items-center justify-center bg-warning/10 text-warning font-semibold px-2.5 py-1 rounded-md text-xs border border-warning/20" title="Open positions still available">
+                                        1
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-gray-600">20 Nov 2023</td>
@@ -364,8 +368,8 @@
                                 </td>
                                 <td class="py-4 px-4 font-mono text-gray-900 text-right">£11.44/hr</td>
                                 <td class="py-4 px-4 text-center">
-                                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-600 font-medium px-2.5 py-1 rounded-md text-xs">
-                                        8 / 8
+                                    <span class="inline-flex items-center justify-center bg-gray-100 text-gray-500 font-semibold px-2.5 py-1 rounded-md text-xs" title="Filled — no open positions">
+                                        0
                                     </span>
                                 </td>
                                 <td class="py-4 px-4 text-gray-600">22 Nov 2023</td>

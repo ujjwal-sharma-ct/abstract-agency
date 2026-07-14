@@ -238,11 +238,85 @@
                                             <td class="py-3 px-5 text-sm text-gray-700 text-right">-</td>
                                             <td class="py-3 px-5 text-sm font-mono text-gray-900 text-right">-</td>
                                             <td class="py-3 px-5 text-center">
-                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-warning/10 text-warning border border-warning/20">Pending Entry</span>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-500 border border-gray-200">Awaiting Invoice Cycle</span>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="px-5 py-3 border-t border-gray-100 bg-gray-50/50 text-xs text-gray-500 flex items-start gap-2">
+                                <i class="fa-solid fa-lock text-gray-400 mt-0.5"></i>
+                                <span>Read-only. Hours are entered by the client; agency-facing timesheet figures become visible only after the invoice cycle.</span>
+                            </div>
+                        </div>
+
+                        <!-- Absence Justification Section -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-notes-medical text-gray-400 mr-2"></i>Absence Confirmation</h3>
+                                <span id="section-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                    <i class="fa-solid fa-hourglass-half text-[10px]"></i> Requested
+                                </span>
+                            </div>
+                            <div class="p-5 space-y-4">
+                                <!-- Requested absence card -->
+                                <div id="absence-card" class="border border-amber-200 bg-amber-50/40 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+                                                <i class="fa-solid fa-notes-medical"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-semibold text-gray-900">John Doe — Wed 25 Oct 2023</p>
+                                                <p class="text-xs text-gray-600 mt-0.5">Client-stated day status:
+                                                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 ml-1">
+                                                        <i class="fa-solid fa-notes-medical text-[10px]"></i> Sick Leave
+                                                    </span>
+                                                </p>
+                                                <p class="text-xs text-gray-500 mt-1">Logistics Pro UK asked you to confirm this absence.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <button onclick="openJustifyPanel()" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90 transition-colors whitespace-nowrap">
+                                                <i class="fa-solid fa-clipboard-check mr-1.5"></i> Justify absence
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="absence-state-note" class="mt-3 pt-3 border-t border-amber-200/70 text-xs text-amber-800 flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span>Awaiting your justification.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Justify panel (hidden until opened) -->
+                                <div id="justify-panel" class="hidden border border-gray-200 rounded-lg p-4 bg-gray-50/60">
+                                    <h4 class="text-sm font-sora font-semibold text-gray-900 mb-3">Justify absence</h4>
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Candidate</label>
+                                            <p class="text-sm font-medium text-gray-900">John Doe</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Day</label>
+                                            <p class="text-sm font-medium text-gray-900">Wed 25 Oct 2023</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Client reason</label>
+                                            <p class="text-sm font-medium text-gray-900">Sick Leave</p>
+                                        </div>
+                                    </div>
+                                    <label for="justify-reason" class="block text-xs font-bold text-gray-600 mb-1">Your justification reason</label>
+                                    <textarea id="justify-reason" rows="3" placeholder="e.g. Candidate phoned in at 06:40 reporting a stomach illness; self-certified sick note to follow." class="w-full text-sm border border-gray-300 rounded-md p-3 focus:border-blue focus:ring-1 focus:ring-blue outline-none transition-all"></textarea>
+                                    <div class="flex items-center justify-end gap-3 mt-4">
+                                        <button onclick="closeJustifyPanel()" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">Cancel</button>
+                                        <button onclick="submitJustification()" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90 transition-colors">Submit justification</button>
+                                    </div>
+                                </div>
+
+                                <div class="text-xs text-gray-500 flex items-start gap-2">
+                                    <i class="fa-solid fa-shield-halved text-gray-400 mt-0.5"></i>
+                                    <span>Your justification is shared with the client and Abstract. It does not delay the client's timesheet or invoicing (XR-015).</span>
+                                </div>
                             </div>
                         </div>
 
@@ -337,6 +411,33 @@
             </div>
         </div>
     </main>
+
+    <script>
+        function openJustifyPanel() {
+            document.getElementById('justify-panel').classList.remove('hidden');
+        }
+        function closeJustifyPanel() {
+            document.getElementById('justify-panel').classList.add('hidden');
+        }
+        function submitJustification() {
+            var reason = document.getElementById('justify-reason').value.trim() || 'Candidate reported sick; self-certification to follow.';
+            // Conceptually: Absence Confirmation state Requested -> Justified
+            document.getElementById('justify-panel').classList.add('hidden');
+            // Flip the section badge to Justified (green terminal)
+            var badge = document.getElementById('section-badge');
+            if (badge) {
+                badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
+                badge.innerHTML = '<i class="fa-solid fa-circle-check text-[10px]"></i> Justified';
+            }
+            var card = document.getElementById('absence-card');
+            if (card) card.className = 'border border-emerald-200 bg-emerald-50/40 rounded-lg p-4';
+            var note = document.getElementById('absence-state-note');
+            if (note) {
+                note.className = 'mt-3 pt-3 border-t border-emerald-200/70 text-xs text-emerald-800 flex items-start gap-2';
+                note.innerHTML = '<i class="fa-solid fa-circle-check mt-0.5"></i><span>Justified — reason: ' + reason + '</span>';
+            }
+        }
+    </script>
 
 </body>
 </html>
