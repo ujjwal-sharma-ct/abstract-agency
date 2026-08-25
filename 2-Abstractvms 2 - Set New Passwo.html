@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        window.FontAwesomeConfig = {
-          autoReplaceSvg: 'nest'
-        };
-      </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set New Password - Abstractvms 2</title>
+    <title>Set New Password · Abstract VMS Agency Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -39,47 +39,64 @@
         h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen flex items-center justify-center">
+<body class="font-manrope" style="background: linear-gradient(160deg, #0f1a3e 0%, #172554 35%, #1e1a4a 65%, #2d1a5e 100%);">
 
-    <div id="set-password-container" class="w-full max-w-7xl flex min-h-screen bg-white">
-        
-        <!-- Left Side: Form -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-16 lg:px-24">
-            
-            <!-- Logo area -->
-            <div class="mb-12 flex items-center gap-3">
-                <div class="w-10 h-10 bg-navy rounded flex items-center justify-center text-white font-sora font-bold text-xl shadow-md">
-                    A2
-                </div>
-                <span class="text-2xl font-sora font-bold text-navy tracking-tight">Abstractvms 2</span>
+<main class="min-h-screen flex items-center justify-center px-4 py-10 relative overflow-hidden">
+
+    <!-- Soft brand glows -->
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-20" style="background: radial-gradient(circle, #1D4ED8 0%, transparent 70%);"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full opacity-15" style="background: radial-gradient(circle, #5B2E91 0%, transparent 70%);"></div>
+    </div>
+
+    <div class="w-full max-w-[400px] relative z-10">
+
+        <!-- Logo on the gradient — centred, so no -ml compensation -->
+        <div class="flex justify-center mb-6">
+            <img id="brand-logo" src="logo.png" alt="Abstract VMS" class="h-24 w-auto"
+                 onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='block';"/>
+            <div id="logo-fallback" style="display:none;" class="text-center">
+                <span class="text-white font-sora font-bold text-3xl tracking-tight">Abstract</span>
+                <span class="block text-white/60 text-sm font-bold uppercase tracking-[0.3em] mt-1">VMS</span>
             </div>
+        </div>
 
-            <!-- Set Password Content -->
-            <div class="max-w-md w-full">
-                <h1 class="text-3xl font-sora font-bold text-gray-900 mb-2">Set new password</h1>
-                <p class="text-gray-500 mb-8 font-manrope">Please create a new, strong password for your account.</p>
+        <!-- Portal identity -->
+        <div class="flex flex-col items-center gap-2 mb-8">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">Agency Portal</span>
+        </div>
 
-                <div class="mb-6 bg-warning/10 border border-warning/20 rounded-md p-4 flex items-start gap-3">
-                    <i class="fa-solid fa-triangle-exclamation text-warning mt-0.5"></i>
-                    <p class="text-sm text-gray-800 font-manrope">Your new password must not be the same or contain the same password as your previous ones.</p>
-                </div>
+        <!-- Card -->
+        <div class="bg-white border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+            <div class="px-8 pt-8 pb-8">
 
-                <form id="new-password-form" class="space-y-6" onsubmit="handlePasswordSubmit(event)">
-                    <!-- New Password Input -->
-                    <div>
-                        <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">New password</label>
+                <h1 class="text-xl font-sora font-bold text-gray-900 mb-1.5">Set new password</h1>
+                <p class="text-sm text-gray-500 mb-6">Create a new password for your account. It must not match any of your previous passwords.</p>
+
+                <form id="new-password-form" class="flex flex-col gap-5" onsubmit="handlePasswordSubmit(event)">
+
+                    <!-- New password -->
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-gray-700" for="new-password">New password</label>
                         <div class="relative">
-                            <input id="new-password" name="new-password" type="password" required class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue sm:text-sm font-manrope transition-colors" placeholder="••••••••" onkeyup="checkPasswordStrength(this.value)">
-                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePasswordVisibility('new-password', 'eye-icon-1')">
-                                <i id="eye-icon-1" class="fa-regular fa-eye-slash text-gray-400 hover:text-gray-600 transition-colors"></i>
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <i class="fa-solid fa-lock text-gray-400 text-sm"></i>
+                            </div>
+                            <input type="password" id="new-password" name="new-password" autocomplete="new-password" required placeholder="Enter a new password"
+                                onkeyup="checkPasswordStrength(this.value)"
+                                class="w-full pl-11 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue focus:ring-4 focus:ring-blue/10 transition-all duration-200"/>
+                            <button type="button" id="toggle-new" aria-label="Show password"
+                                onclick="togglePasswordVisibility('new-password', 'toggle-new')"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                                <i class="fa-regular fa-eye text-sm"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Password Strength Requirements -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-md p-4 space-y-2">
-                        <p class="text-xs font-semibold text-gray-700 mb-2 font-manrope">Your password must contain:</p>
-                        <ul class="text-sm text-gray-500 space-y-1.5 font-manrope">
+                    <!-- Requirements -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 -mt-1">
+                        <p class="text-xs font-semibold text-gray-700 mb-2">Your password must contain:</p>
+                        <ul class="text-sm text-gray-500 space-y-1.5">
                             <li id="req-length" class="flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-gray-300 text-xs w-3 text-center"></i> a minimum of 10 characters</li>
                             <li id="req-upper" class="flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-gray-300 text-xs w-3 text-center"></i> an uppercase character</li>
                             <li id="req-lower" class="flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-gray-300 text-xs w-3 text-center"></i> a lowercase character</li>
@@ -88,195 +105,135 @@
                         </ul>
                     </div>
 
-                    <!-- Confirm Password Input -->
-                    <div>
-                        <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm password</label>
+                    <!-- Confirm password -->
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-gray-700" for="confirm-password">Confirm password</label>
                         <div class="relative">
-                            <input id="confirm-password" name="confirm-password" type="password" required class="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue sm:text-sm font-manrope transition-colors" placeholder="••••••••" onkeyup="checkPasswordMatch()">
-                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePasswordVisibility('confirm-password', 'eye-icon-2')">
-                                <i id="eye-icon-2" class="fa-regular fa-eye-slash text-gray-400 hover:text-gray-600 transition-colors"></i>
+                            <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <i class="fa-solid fa-lock text-gray-400 text-sm"></i>
+                            </div>
+                            <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" required placeholder="Re-enter the new password"
+                                onkeyup="checkPasswordMatch()"
+                                class="w-full pl-11 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-blue focus:ring-4 focus:ring-blue/10 transition-all duration-200"/>
+                            <button type="button" id="toggle-confirm" aria-label="Show password"
+                                onclick="togglePasswordVisibility('confirm-password', 'toggle-confirm')"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                                <i class="fa-regular fa-eye text-sm"></i>
                             </button>
                         </div>
-                        <p id="match-error" class="mt-1 text-xs text-danger hidden">Passwords do not match.</p>
+                        <p id="match-error" class="text-xs text-danger hidden">Passwords do not match.</p>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div>
-                        <button id="submit-btn" type="submit" disabled class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue hover:bg-navy focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue transition-colors font-manrope disabled:opacity-50 disabled:cursor-not-allowed">
-                            Reset Password
-                        </button>
-                    </div>
-                    
-                    <!-- Support Link -->
-                    <div class="text-center">
-                        <span class="text-sm text-gray-500 font-manrope">Having trouble logging in?</span>
-                        <a href="#" class="text-sm font-medium text-blue hover:text-navy transition-colors font-manrope ml-1">
-                            Contact support
-                        </a>
-                    </div>
+                    <!-- Submit -->
+                    <button id="submit-btn" type="submit" disabled
+                        class="w-full py-3.5 rounded-lg text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 hover:opacity-95 hover:shadow-lg active:scale-[0.99] focus:outline-none focus:ring-4 focus:ring-blue/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none mt-1"
+                        style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">
+                        <i class="fa-solid fa-check text-xs"></i> Reset password
+                    </button>
+
+                    <!-- Back to login -->
+                    <a href="21-Abstractvms 2 - Agency Portal.html" class="text-center text-sm font-semibold text-gray-500 hover:text-blue transition-colors">
+                        <i class="fa-solid fa-arrow-left text-[11px] mr-1"></i> Back to sign in
+                    </a>
                 </form>
-
             </div>
         </div>
 
-        <!-- Right Side: Imagery/Context (Preserved from previous screen) -->
-        <div class="hidden lg:flex lg:w-1/2 bg-navy relative overflow-hidden items-center justify-center p-12">
-            <!-- Background pattern/glow -->
-            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 50% 50%, #5B2E91 0%, transparent 60%);"></div>
-            
-            <div class="relative z-10 text-white max-w-lg">
-                <div class="mb-8">
-                    <span class="inline-block px-3 py-1 bg-blue/20 border border-blue/30 rounded-full text-blue-100 text-xs font-semibold tracking-wider uppercase mb-4">Enterprise VMS</span>
-                    <h2 class="text-4xl font-sora font-bold leading-tight mb-4 text-white">Streamline your workforce management</h2>
-                    <p class="text-lg text-gray-300 font-manrope mb-8">Access real-time vacancy data, manage candidate proposals, and track self-billing all in one unified portal designed for top-tier agencies.</p>
-                </div>
-
-                <!-- Feature list -->
-                <ul class="space-y-4 font-manrope text-gray-200">
-                    <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center border border-success/30">
-                            <i class="fa-solid fa-check text-success text-[10px]"></i>
-                        </div>
-                        <span>Secure role-based access control</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center border border-success/30">
-                            <i class="fa-solid fa-check text-success text-[10px]"></i>
-                        </div>
-                        <span>Real-time vacancy distribution</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-success/20 flex items-center justify-center border border-success/30">
-                            <i class="fa-solid fa-check text-success text-[10px]"></i>
-                        </div>
-                        <span>Automated compliance tracking</span>
-                    </li>
-                </ul>
-
-                <!-- Decorative UI Element (Abstract representation of dashboard) -->
-                <div class="mt-12 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-sm shadow-2xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="h-4 w-24 bg-white/20 rounded"></div>
-                        <div class="h-4 w-12 bg-white/20 rounded"></div>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="h-2 w-full bg-white/10 rounded"></div>
-                        <div class="h-2 w-5/6 bg-white/10 rounded"></div>
-                        <div class="h-2 w-4/6 bg-white/10 rounded"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Bottom Legal -->
-            <div class="absolute bottom-8 left-12 right-12 flex justify-between text-xs text-gray-400 font-manrope">
-                <span>&copy; 2024 Abstractvms 2. All rights reserved.</span>
-                <div class="space-x-4">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
-            </div>
-        </div>
-
+        <!-- Footer -->
+        <p class="text-center text-xs text-white/40 mt-6">© 2026 Abstract Recruitment</p>
     </div>
+</main>
 
-    <script>
-        function togglePasswordVisibility(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            }
+<script>
+    function togglePasswordVisibility(inputId, buttonId) {
+        const input = document.getElementById(inputId);
+        const btn = document.getElementById(buttonId);
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        btn.innerHTML = show
+            ? '<i class="fa-regular fa-eye-slash text-sm"></i>'
+            : '<i class="fa-regular fa-eye text-sm"></i>';
+    }
+
+    let isStrong = false;
+    let isMatch = false;
+
+    function checkPasswordStrength(password) {
+        const reqLength = password.length >= 10;
+        const reqUpper = /[A-Z]/.test(password);
+        const reqLower = /[a-z]/.test(password);
+        const reqNumber = /[0-9]/.test(password);
+        const reqSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        updateRequirementUI('req-length', reqLength);
+        updateRequirementUI('req-upper', reqUpper);
+        updateRequirementUI('req-lower', reqLower);
+        updateRequirementUI('req-number', reqNumber);
+        updateRequirementUI('req-special', reqSpecial);
+
+        isStrong = reqLength && reqUpper && reqLower && reqNumber && reqSpecial;
+
+        checkPasswordMatch();
+    }
+
+    function updateRequirementUI(elementId, isValid) {
+        const el = document.getElementById(elementId);
+        const icon = el.querySelector('i');
+
+        if (isValid) {
+            el.classList.remove('text-gray-500');
+            el.classList.add('text-success');
+            icon.classList.remove('fa-circle-xmark', 'text-gray-300');
+            icon.classList.add('fa-circle-check', 'text-success');
+        } else {
+            el.classList.remove('text-success');
+            el.classList.add('text-gray-500');
+            icon.classList.remove('fa-circle-check', 'text-success');
+            icon.classList.add('fa-circle-xmark', 'text-gray-300');
         }
+    }
 
-        let isStrong = false;
-        let isMatch = false;
+    function checkPasswordMatch() {
+        const newPass = document.getElementById('new-password').value;
+        const confirmPass = document.getElementById('confirm-password').value;
+        const errorMsg = document.getElementById('match-error');
 
-        function checkPasswordStrength(password) {
-            const reqLength = password.length >= 10;
-            const reqUpper = /[A-Z]/.test(password);
-            const reqLower = /[a-z]/.test(password);
-            const reqNumber = /[0-9]/.test(password);
-            const reqSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-            updateRequirementUI('req-length', reqLength);
-            updateRequirementUI('req-upper', reqUpper);
-            updateRequirementUI('req-lower', reqLower);
-            updateRequirementUI('req-number', reqNumber);
-            updateRequirementUI('req-special', reqSpecial);
-
-            isStrong = reqLength && reqUpper && reqLower && reqNumber && reqSpecial;
-            
-            checkPasswordMatch();
-        }
-
-        function updateRequirementUI(elementId, isValid) {
-            const el = document.getElementById(elementId);
-            const icon = el.querySelector('i');
-            
-            if (isValid) {
-                el.classList.remove('text-gray-500');
-                el.classList.add('text-success');
-                icon.classList.remove('fa-circle-xmark', 'text-gray-300');
-                icon.classList.add('fa-circle-check', 'text-success');
-            } else {
-                el.classList.remove('text-success');
-                el.classList.add('text-gray-500');
-                icon.classList.remove('fa-circle-check', 'text-success');
-                icon.classList.add('fa-circle-xmark', 'text-gray-300');
-            }
-        }
-
-        function checkPasswordMatch() {
-            const newPass = document.getElementById('new-password').value;
-            const confirmPass = document.getElementById('confirm-password').value;
-            const errorMsg = document.getElementById('match-error');
-            
-            if (confirmPass.length > 0) {
-                if (newPass !== confirmPass) {
-                    errorMsg.classList.remove('hidden');
-                    isMatch = false;
-                } else {
-                    errorMsg.classList.add('hidden');
-                    isMatch = true;
-                }
+        if (confirmPass.length > 0) {
+            if (newPass !== confirmPass) {
+                errorMsg.classList.remove('hidden');
+                isMatch = false;
             } else {
                 errorMsg.classList.add('hidden');
-                isMatch = false;
+                isMatch = true;
             }
-
-            validateForm();
+        } else {
+            errorMsg.classList.add('hidden');
+            isMatch = false;
         }
 
-        function validateForm() {
-            const submitBtn = document.getElementById('submit-btn');
-            if (isStrong && isMatch) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
+        validateForm();
+    }
 
-        function handlePasswordSubmit(e) {
-            e.preventDefault();
-            
-            if (isStrong && isMatch) {
-                const btn = document.getElementById('submit-btn');
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Resetting...';
-                btn.disabled = true;
-                
-                // Simulate network request then return to sign-in with a success banner
-                setTimeout(() => {
-                    window.location.href = '21-Abstractvms 2 - Agency Portal.html?reset=1';
-                }, 1000);
-            }
+    function validateForm() {
+        document.getElementById('submit-btn').disabled = !(isStrong && isMatch);
+    }
+
+    function handlePasswordSubmit(e) {
+        e.preventDefault();
+
+        if (isStrong && isMatch) {
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Resetting…';
+            btn.disabled = true;
+
+            // Simulate network request then return to sign-in with a success banner
+            setTimeout(() => {
+                window.location.href = '21-Abstractvms 2 - Agency Portal.html?reset=1';
+            }, 1000);
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>

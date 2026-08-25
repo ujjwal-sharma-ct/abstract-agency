@@ -141,3 +141,48 @@ the candidate is booked belongs to the agency, with client approval on future un
 
 **Consequences:** The button matches the permission. The note means a reviewer who expected
 extend/cancel learns why it is absent instead of assuming it was missed.
+
+## 2026-08-26 — An internal login is a door, not a landing page
+
+**Context:** `21-…Agency Portal.html` was a 50/50 split: a form on the left, and on the right a
+marketing column — "Enterprise VMS" badge, headline, three-item feature list, a decorative fake
+dashboard, a legal strip — plus an SSO block offering Office 365 and Google. The Admin portal had
+already been through this and stripped it back.
+
+**Decision:** Replace it with a centred card on the brand gradient. Removed: the marketing column
+(whoever is signing in already knows what the product is), the **SSO buttons** (not in scope —
+email + password only; in the prototype both merely resolved to the dashboard anyway), and the
+`A2`-chip wordmark in favour of `logo.png`. Kept: email, password with show/hide, keep-me-signed-in,
+forgot-password, one primary action. The **two sibling auth screens** (`1-` Forgot Password,
+`2-` Set New Password) were rebuilt on the same shell — they shared the split layout, and redesigning
+only the sign-in screen would have split the auth journey across two visual languages.
+
+**Consequences:** Auth is one coherent set of three screens. The portal has no SSO affordance; if
+SSO returns to scope it comes back as a deliberate addition, not as decoration. Screen behaviour is
+untouched — the reset journey, `?reset=1` banner, strength checker and enumeration-safe confirmation
+all survive the reskin.
+
+---
+
+## 2026-08-26 — The sidebar brand block trades its fixed 64px header for a stacked logo
+
+**Context:** All 25 in-app screens opened the sidebar with `h-16 flex items-center px-6` holding a
+blue `A2` chip and the text "Abstractvms 2". A stacked `h-12` logo plus a portal label needs ~112px
+and would overflow that fixed height.
+
+**Decision:** Option A from `LOGIN-LOGO-HANDOFF.md` — drop `h-16 flex items-center`, use `px-6 py-5`,
+and stack the `h-12` logo above an "Agency Portal" label, matching the Admin portal. Applied by a
+**div-matching script**, not regex or hand-editing, because the old block had nested divs; the script
+asserted tag balance on every file before writing.
+
+**Consequences:** Nav starts ~48px lower; the sidebar already had `overflow-y-auto` and a bottom-pinned
+account block, so nothing was cut off. The portal now reads as the same product as the Admin portal.
+
+**Two traps inherited from the Admin pass, both avoided.** (1) The PNG has **5.57% transparent padding
+on its left edge** — left-aligned placements need a negative left margin (`-ml-[5px]` at `h-12`) or the
+artwork visibly floats inward from the label beneath it; centred placements need none, since left and
+right padding differ by only 0.6%. (2) **No `mix-blend-mode`.** An earlier asset had a baked black
+ground and needed `mix-blend-mode:screen`; this one is genuinely transparent (verified: 0 opaque dark
+pixels), and that hack breaks the moment any ancestor creates a stacking context.
+
+---
