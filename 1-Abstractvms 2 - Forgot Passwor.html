@@ -62,7 +62,10 @@
                 <!-- Success Message (Hidden by default, shown via JS) -->
                 <div id="success-message" class="hidden mb-6 bg-success/10 border border-success/20 rounded-md p-4 flex items-start gap-3">
                     <i class="fa-solid fa-circle-check text-success mt-0.5"></i>
-                    <p class="text-sm text-gray-700 font-manrope">If an account exists for that email, we have sent a password reset link. Please check your inbox and spam folder.</p>
+                    <div class="font-manrope">
+                        <p class="text-sm text-gray-700">If an account exists for that email, we have sent a password reset link. Please check your inbox and spam folder.</p>
+                        <p class="text-xs text-gray-500 mt-1.5">Prototype: this stands in for the emailed link — you'll be taken to the set-password screen.</p>
+                    </div>
                 </div>
 
                 <form id="reset-form" class="space-y-6" onsubmit="handleResetSubmit(event)">
@@ -166,13 +169,12 @@
             btn.disabled = true;
             btn.classList.add('opacity-75', 'cursor-not-allowed');
             
-            // Simulate network request
+            // Simulate network request, then follow the link the user would receive by email.
+            // In the real product this hop happens in the user's inbox; the prototype walks it
+            // so the reset journey can be demonstrated end to end.
             setTimeout(() => {
-                btn.innerHTML = 'Send Reset Link';
-                btn.disabled = false;
-                btn.classList.remove('opacity-75', 'cursor-not-allowed');
-                e.target.reset(); // Clear form
-            }, 1000);
+                window.location.href = '2-Abstractvms 2 - Set New Passwo.html';
+            }, 1200);
         }
     </script>
 </body>

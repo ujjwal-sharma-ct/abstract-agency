@@ -97,18 +97,51 @@
                     <i class="fa-solid fa-bell w-5 text-center"></i>
                     Notifications
                 </a>
-                <a href="20-Abstractvms 2 - User Managemen.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                <a href="23-Abstractvms 2 - Agency Profile.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
                     <i class="fa-solid fa-gear w-5 text-center"></i>
                     Settings
                 </a>
             </nav>
             
-            <div class="mt-4 px-3 flex items-center gap-3">
-                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Admin User" class="w-8 h-8 rounded-full border border-white/20">
-                <div class="overflow-hidden">
-                    <p class="text-sm font-medium text-white truncate">Agency Admin</p>
-                    <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+            <div class="mt-4 px-1 relative">
+                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                    </div>
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
+                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
+                            <option value="admin">Agency Admin</option>
+                            <option value="recruiter">Agency Recruiter</option>
+                            <option value="finance">Agency Finance</option>
+                        </select>
+                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
+                    </div>
+                    <a href="26-Abstractvms 2 - My Account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
+                    </a>
+                    <a href="25-Abstractvms 2 - Notification P.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
+                    </a>
+                    <a href="23-Abstractvms 2 - Agency Profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
+                    </a>
+                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
+                        <a href="21-Abstractvms 2 - Agency Portal.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
+                        </a>
+                    </div>
                 </div>
+                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
+                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
+                    <div class="overflow-hidden flex-1">
+                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
+                </button>
             </div>
         </div>
     </aside>
@@ -134,15 +167,23 @@
             
             <div class="flex items-center gap-4">
                 <div class="relative hidden sm:block">
-                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                    <input type="text" placeholder="Search..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                    <a id="search-open" href="28-Abstractvms 2 - Search Results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
+                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='28-Abstractvms 2 - Search Results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
-                <button class="relative text-gray-500 hover:text-gray-700">
+                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
                     <i class="fa-regular fa-bell text-xl"></i>
-                    <span class="absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
                 <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <span class="text-sm font-medium text-gray-700 hidden sm:block">Global Branch View</span>
+                <div class="relative hidden sm:block">
+                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
+                        <option>All branches</option>
+                        <option>London HQ</option>
+                        <option>Manchester Hub</option>
+                        <option>Birmingham Depot</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                </div>
             </div>
         </header>
 
@@ -162,12 +203,12 @@
                         <p class="text-xs text-purple font-medium mt-1.5 flex items-center gap-1"><i class="fa-solid fa-share-nodes"></i> Released to you on 12 Jun 2026</p>
                     </div>
                     <div class="flex gap-3">
-                        <button class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                        <button onclick="toast('Link to this vacancy copied to your clipboard.','fa-link')" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
                             <i class="fa-regular fa-share-from-square"></i> Share
                         </button>
-                        <button class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2">
+                        <a href="10-Abstractvms 2 - Create Proposa.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2">
                             <i class="fa-solid fa-user-plus"></i> Propose Candidate
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -256,7 +297,7 @@
                                                 </span>
                                             </td>
                                             <td class="py-3 px-5 text-right">
-                                                <button class="text-blue hover:text-blue/80 text-sm font-medium">View</button>
+                                                <a href="11-Abstractvms 2 - Proposal Detai.html" class="text-blue hover:text-blue/80 text-sm font-medium">View</a>
                                             </td>
                                         </tr>
                                         <tr class="hover:bg-gray-50 transition-colors">
@@ -268,7 +309,7 @@
                                                 </span>
                                             </td>
                                             <td class="py-3 px-5 text-right">
-                                                <button class="text-blue hover:text-blue/80 text-sm font-medium">View</button>
+                                                <a href="11-Abstractvms 2 - Proposal Detai.html" class="text-blue hover:text-blue/80 text-sm font-medium">View</a>
                                             </td>
                                         </tr>
                                         <tr class="hover:bg-gray-50 transition-colors">
@@ -280,7 +321,7 @@
                                                 </span>
                                             </td>
                                             <td class="py-3 px-5 text-right">
-                                                <button class="text-blue hover:text-blue/80 text-sm font-medium">View</button>
+                                                <a href="11-Abstractvms 2 - Proposal Detai.html" class="text-blue hover:text-blue/80 text-sm font-medium">View</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -353,6 +394,291 @@
 
         </div>
     </main>
+
+
+    <!-- ============ Notification drawer (shared shell component) ============ -->
+    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
+           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
+                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
+                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div id="notif-list" class="flex-1 overflow-y-auto">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-right-left text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="22-Abstractvms 2 - Timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="22-Abstractvms 2 - Timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="13-Abstractvms 2 - Booking Detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="5-Abstractvms 2 - Vacancy Detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-signature text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="11-Abstractvms 2 - Proposal Detai.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="7-Abstractvms 2 - Candidate Deta.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="12-Abstractvms 2 - Bookings List.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="15-Abstractvms 2 - Self-bill Deta.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="notif-empty" class="hidden px-6 py-16 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
+                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
+            </div>
+        </div>
+        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
+            <a href="18-Abstractvms 2 - Notifications.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
+            <a href="25-Abstractvms 2 - Notification P.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
+        </div>
+    </aside>
+
+    <script>
+        function openNotifDrawer() {
+            document.getElementById('notif-drawer').classList.remove('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        function closeNotifDrawer() {
+            document.getElementById('notif-drawer').classList.add('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function refreshNotifCount() {
+            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var pill = document.getElementById('notif-unread-pill');
+            pill.textContent = n + ' unread';
+            pill.classList.toggle('hidden', n === 0);
+            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
+        }
+        function markNotifRead(btn) {
+            var item = btn.closest('.notif-item');
+            item.dataset.unread = '0';
+            item.classList.remove('is-unread');
+            item.querySelector('.notif-dot').classList.add('hidden');
+            btn.classList.add('hidden');
+            refreshNotifCount();
+        }
+        function markAllNotifRead() {
+            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
+                i.dataset.unread = '0';
+                i.classList.remove('is-unread');
+                i.querySelector('.notif-dot').classList.add('hidden');
+                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
+            });
+            refreshNotifCount();
+        }
+        // Account menu
+        function toggleAccountMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('account-menu').classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var m = document.getElementById('account-menu');
+            var t = document.getElementById('account-trigger');
+            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeNotifDrawer();
+                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <script>
+        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
+        var ROLE_HIDES = {
+            admin:     [],
+            recruiter: ['14-Abstractvms 2 - Self-bills Ove.html', '16-Abstractvms 2 - Reports Overvi.html', '23-Abstractvms 2 - Agency Profile.html'],
+            finance:   ['6-Abstractvms 2 - Candidates Ove.html', '9-Abstractvms 2 - Proposal Manag.html', '4-Abstractvms 2 - Job Vacancies.html', '23-Abstractvms 2 - Agency Profile.html']
+        };
+        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        function applyRole(role) {
+            var hide = ROLE_HIDES[role] || [];
+            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
+                var href = a.getAttribute('href');
+                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
+            });
+            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
+            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
+        }
+        (function () {
+            var r = 'admin';
+            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
+            var sel = document.getElementById('role-switch');
+            if (sel) sel.value = r;
+            applyRole(r);
+        })();
+    </script>
+
+    <!-- ============ Toast (shared) ============ -->
+    <div id="toast" role="status" aria-live="polite"
+         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
+        <div class="flex items-center gap-3 bg-navy text-white rounded-lg shadow-2xl px-4 py-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-success"></i>
+            <p id="toast-msg" class="text-sm font-medium"></p>
+        </div>
+    </div>
+
+    <script>
+        var _toastTimer;
+        function toast(msg, icon) {
+            var t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').className = 'fa-solid ' + (icon || 'fa-circle-check') + ' text-success';
+            t.classList.remove('opacity-0', 'translate-y-2');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(function () { t.classList.add('opacity-0', 'translate-y-2'); }, 2600);
+        }
+    </script>
 
 </body>
 </html>

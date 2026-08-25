@@ -271,14 +271,9 @@
                 btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Resetting...';
                 btn.disabled = true;
                 
-                // Simulate network request then redirect to login
+                // Simulate network request then return to sign-in with a success banner
                 setTimeout(() => {
-                    alert('Password successfully reset. Redirecting to login...');
-                    // In real app: window.location.href = '/login';
-                    btn.innerHTML = 'Reset Password';
-                    btn.disabled = false;
-                    e.target.reset();
-                    checkPasswordStrength(''); // Reset UI
+                    window.location.href = '21-Abstractvms 2 - Agency Portal.html?reset=1';
                 }, 1000);
             }
         }
