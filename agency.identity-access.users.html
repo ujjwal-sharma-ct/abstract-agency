@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s1-page data-s1-states="default loading empty error validation denied large">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex-shrink-0 flex justify-between items-center">
+            <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
+            <p class="text-white/40 text-xs mt-2 font-manrope">Agency Portal</p>
+        </div>
+
+        <div class="p-4 flex-1 overflow-y-auto hide-scrollbar">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-clock w-5 text-center"></i>
+                    Timesheets
+                </a>
+                <a href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="p-4 border-t border-white/10 flex-shrink-0">
+            <nav class="space-y-1">
+                <a href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="agency.organisations.agency-profile.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-1 relative">
+                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                    </div>
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
+                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
+                            <option value="admin">Agency Admin</option>
+                            <option value="recruiter">Agency Recruiter</option>
+                            <option value="finance">Agency Finance</option>
+                        </select>
+                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
+                    </div>
+                    <a href="agency.identity-access.my-account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
+                    </a>
+                    <a href="agency.notifications.notification-preferences.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
+                    </a>
+                    <a href="agency.organisations.agency-profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
+                    </a>
+                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
+                        <a href="agency.identity-access.sign-in.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
+                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
+                    <div class="overflow-hidden flex-1">
+                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full relative bg-lightbg">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex flex-col">
+                    <div class="flex items-center text-sm text-gray-500 mb-0.5">
+                        <a href="agency.organisations.agency-profile.html" class="hover:text-blue">Settings</a>
+                        <i class="fa-solid fa-chevron-right text-[10px] mx-2"></i>
+                        <span class="text-gray-900 font-medium">Users & Roles</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block" data-s1-later>
+                    <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
+                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s1-later></div>
+                <div class="relative hidden sm:block" data-s1-later>
+                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
+                        <option>All branches</option>
+                        <option>London HQ</option>
+                        <option>Manchester Hub</option>
+                        <option>Birmingham Depot</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Workspace Details -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Page Header Area -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-sora font-bold text-navy">Users and roles</h1>
+                        <p class="text-sm text-gray-600 mt-1">Invite people, set their roles and manage their access<span data-s1-later>, including branch access</span>.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2" data-s1-hide="loading error denied">
+                        <a href="agency.identity-access.permission-matrix.html" class="px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 flex items-center gap-2 whitespace-nowrap min-h-[40px]"><i class="fa-solid fa-table-cells text-xs"></i> Permission matrix</a>
+                        <button id="btn-add-user" onclick="umInvite()" class="text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-95 flex items-center gap-2 whitespace-nowrap min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">
+                            <i class="fa-solid fa-user-plus text-xs"></i>
+                            Invite user
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Settings Tab Navigation -->
+                <div class="border-b border-gray-200 overflow-x-auto">
+                    <nav class="flex gap-6 min-w-max">
+                        <a data-s1-later href="agency.organisations.agency-profile.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">General Profile</a>
+                        <a data-s1-later href="agency.organisations.compliance-documents.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Compliance</a>
+                        <a data-s1-later href="agency.organisations.branches.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Branches</a>
+                        <a href="agency.identity-access.users.html" class="pb-3 text-sm font-medium text-blue border-b-2 border-blue transition-colors whitespace-nowrap">Users & Roles</a>
+                        <a data-s1-later href="agency.notifications.notification-preferences.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Notifications</a>
+                        <a data-s1-later href="agency.configuration.integrations.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Integrations</a>
+                    </nav>
+                </div>
+
+                <!-- Users | Roles (Tabs) -->
+                <div data-s1-hide="loading error denied" role="tablist" aria-label="Users and roles" class="inline-flex bg-white border border-slate-200 rounded-lg p-1 gap-1">
+                    <button role="tab" id="um-tab-users" aria-controls="um-users" aria-selected="true" onclick="umTab('users')" class="px-4 py-2 rounded-md text-sm font-semibold min-h-[36px]">Users</button>
+                    <button role="tab" id="um-tab-roles" aria-controls="um-roles" aria-selected="false" onclick="umTab('roles')" class="px-4 py-2 rounded-md text-sm font-semibold min-h-[36px]">Roles</button>
+                </div>
+
+                <!-- Permission denied (403) -->
+                <div data-s1-show="denied" class="bg-white border border-slate-200 rounded-2xl shadow-sm p-8 text-center max-w-xl mx-auto">
+                    <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-lock text-xl" aria-hidden="true"></i></div>
+                    <h2 class="text-xl font-bold text-slate-900">You don't have access to this page</h2>
+                    <p class="text-sm text-slate-600 mt-2">You don't have access to this page. Ask your administrator if you need it.</p>
+                    <a href="agency.shell.dashboard.html" data-s1-home class="mt-6 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50"><i class="fa-solid fa-house text-xs"></i> Go to dashboard</a>
+                </div>
+
+                <!-- ErrorState -->
+                <div data-s1-show="error" class="bg-white border border-slate-200 rounded-2xl shadow-sm p-8 text-center max-w-xl mx-auto" role="alert">
+                    <div class="w-14 h-14 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-triangle-exclamation text-xl" aria-hidden="true"></i></div>
+                    <h2 class="text-xl font-bold text-slate-900">We couldn't load your users</h2>
+                    <p class="text-sm text-slate-600 mt-2">Try again. If it keeps happening, quote reference <span class="font-mono font-semibold text-slate-800">ERR-U3K8-6WQA</span> to Abstract.</p>
+                    <button onclick="S1.setState('loading');setTimeout(function(){S1.setState('default')},900)" class="mt-6 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50"><i class="fa-solid fa-rotate-right text-xs"></i> Retry</button>
+                </div>
+
+                <!-- Loading -->
+                <div data-s1-show="loading" aria-busy="true" aria-label="Loading users" class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 space-y-4">
+                    <div class="h-9 w-72 max-w-full bg-slate-200 rounded-lg animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded animate-pulse"></div><div class="h-4 bg-slate-200 rounded animate-pulse"></div>
+                    <div class="h-4 bg-slate-200 rounded animate-pulse"></div><div class="h-4 w-4/5 bg-slate-200 rounded animate-pulse"></div>
+                    <div class="h-4 w-3/5 bg-slate-200 rounded animate-pulse"></div>
+                </div>
+
+                <!-- USERS panel -->
+                <section id="um-users" role="tabpanel" aria-labelledby="um-tab-users" data-s1-hide="loading error denied" class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                    <!-- Filter bar -->
+                    <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center gap-3">
+                        <div class="relative flex-1 sm:max-w-xs">
+                            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" aria-hidden="true"></i>
+                            <input id="um-search" type="search" oninput="umRender()" aria-label="Search users by name or email" placeholder="Search name or email" class="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[#1D4ED8] focus:ring-2 focus:ring-[#1D4ED8]/20">
+                        </div>
+                        <select id="um-status" onchange="umRender()" aria-label="Filter by status" class="border border-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/20 min-h-[38px]">
+                            <option value="">All statuses</option><option>Invited</option><option>Active</option><option>Inactive</option>
+                        </select>
+                        <button id="um-clear" onclick="umClear()" class="hidden text-sm font-semibold text-[#1D4ED8] hover:underline sm:ml-auto min-h-[36px]">Clear filters</button>
+                    </div>
+
+                    <!-- Desktop table -->
+                    <div class="hidden md:block overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Name</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Email</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Roles</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500" data-s1-later>Branch</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">Last sign-in</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="um-tbody" class="divide-y divide-slate-100 text-slate-700"></tbody>
+                        </table>
+                    </div>
+                    <!-- Mobile cards (MobileCard) -->
+                    <ul id="um-cards" class="md:hidden divide-y divide-slate-100"></ul>
+
+                    <!-- EmptyState (no match) -->
+                    <div id="um-empty" class="hidden px-6 py-14 text-center">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-3"><i class="fa-solid fa-user-magnifying-glass" aria-hidden="true"></i></div>
+                        <p class="text-sm font-bold text-slate-900">No users match your filters</p>
+                        <p class="text-sm text-slate-600 mt-1">Check the spelling, or clear the filters to see everyone in your organisation.</p>
+                        <button onclick="umClear()" class="mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50">Clear filters</button>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="p-4 border-t border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-500">
+                        <div id="um-count" aria-live="polite"></div>
+                        <div id="um-pages" class="flex gap-1"></div>
+                    </div>
+                </section>
+
+                <!-- ROLES panel -->
+                <section id="um-roles" role="tabpanel" aria-labelledby="um-tab-roles" data-s1-hide="loading error denied" class="hidden bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center gap-3">
+                        <p class="text-sm text-slate-600 flex-1">A role is a named set of permissions. Open a role's permissions to choose exactly what it can see and do.</p>
+                        <div class="flex gap-2">
+                            <a href="agency.identity-access.permission-matrix.html" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 flex items-center gap-2 whitespace-nowrap min-h-[38px]"><i class="fa-solid fa-table-cells text-xs"></i> Open permission matrix</a>
+                            <button onclick="umRoleName()" class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 flex items-center gap-2 whitespace-nowrap min-h-[38px]"><i class="fa-solid fa-plus text-xs"></i> Create role</button>
+                        </div>
+                    </div>
+                    <div class="hidden md:block overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Name</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Permissions</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="um-roles-tbody" class="divide-y divide-slate-100 text-slate-700"></tbody>
+                        </table>
+                    </div>
+                    <ul id="um-roles-cards" class="md:hidden divide-y divide-slate-100"></ul>
+                    <div class="p-4 border-t border-slate-100 text-sm text-slate-500" id="um-roles-count"></div>
+                </section>
+
+    
+                
+
+                    </div>
+</div>
+</main>
+
+    <!-- Invite user (Modal) — name and email only; roles are set afterwards -->
+    <div id="add-user-modal" data-s1-modal role="dialog" aria-modal="true" aria-labelledby="inv-title" class="fixed inset-0 z-50 flex hidden items-end sm:items-center justify-center p-0 sm:p-4" style="background: rgba(15,26,62,.55); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 id="inv-title" class="text-base font-bold text-slate-900">Invite user</h3>
+                <button onclick="S1.closeModal('add-user-modal')" aria-label="Close" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div id="inv-summary" class="hidden flex items-start gap-2.5 bg-red-50 border border-red-200 text-red-800 rounded-lg px-3.5 py-3 text-sm" role="alert"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span>The invitation wasn't sent. Fix the highlighted fields.</span></div>
+                <div>
+                    <label for="inv-name" class="block text-sm font-semibold text-slate-700 mb-1">Name</label>
+                    <input id="inv-name" type="text" autocomplete="off" placeholder="e.g. Jordan Blake" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/30 focus:border-[#1D4ED8] text-sm">
+                    <p id="inv-name-err" class="hidden text-xs text-red-600 mt-1.5"></p>
+                </div>
+                <div>
+                    <label for="inv-email" class="block text-sm font-semibold text-slate-700 mb-1">Email address</label>
+                    <input id="inv-email" type="email" autocomplete="off" placeholder="name@techforce-recruitment.co.uk" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/30 focus:border-[#1D4ED8] text-sm">
+                    <p id="inv-email-err" class="hidden text-xs text-red-600 mt-1.5"></p>
+                </div>
+                <div data-s1-later>
+                    <label for="inv-branch" class="block text-sm font-semibold text-slate-700 mb-1">Branch assignment</label>
+                    <select id="inv-branch" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/30 focus:border-[#1D4ED8] text-sm text-slate-700">
+                        <option value="all">All Branches</option>
+                        <option value="london">London HQ</option>
+                        <option value="manchester">Manchester Hub</option>
+                        <option value="birmingham">Birmingham Depot</option>
+                    </select>
+                    <p class="text-xs text-slate-500 mt-1.5">Limits user's visibility to candidates and vacancies for this branch only.</p>
+                </div>
+                <div class="flex items-start gap-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg px-3.5 py-3 text-sm">
+                    <i class="fa-solid fa-circle-info text-slate-500 mt-0.5" aria-hidden="true"></i>
+                    <span>We'll email them an activation link that works for 72 hours. They set their own password. Give them roles afterwards with <strong class="font-semibold">Set roles</strong>.</span>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+                <button onclick="S1.closeModal('add-user-modal')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 min-h-[40px]">Cancel</button>
+                <button onclick="umSendInvite()" class="px-4 py-2.5 text-sm font-semibold text-white rounded-lg hover:opacity-95 min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Send invitation</button>
+            </div>
+        </div>
+    </div>
+    <!-- Set roles (Modal) -->
+    <div id="set-roles-modal" data-s1-modal role="dialog" aria-modal="true" aria-labelledby="sr-title" class="fixed inset-0 z-50 flex hidden items-end sm:items-center justify-center p-0 sm:p-4" style="background: rgba(15,26,62,.55); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 id="sr-title" class="text-base font-bold text-slate-900">Set roles</h3>
+                <button onclick="S1.closeModal('set-roles-modal')" aria-label="Close" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <p class="text-sm text-slate-600">Choose the roles for <strong id="sr-name" class="font-semibold text-slate-900"></strong>. Changes apply from their next click.</p>
+                <div id="sr-refused" class="hidden flex items-start gap-2.5 bg-red-50 border border-red-200 text-red-800 rounded-lg px-3.5 py-3 text-sm" role="alert"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span></span></div>
+                <fieldset><legend class="sr-only">Roles</legend><div id="sr-list" class="space-y-2"></div></fieldset>
+                <a href="agency.identity-access.permission-matrix.html" class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1D4ED8] hover:underline"><i class="fa-solid fa-table-cells text-xs"></i> See what each role can do</a>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+                <button onclick="S1.closeModal('set-roles-modal')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 min-h-[40px]">Cancel</button>
+                <button onclick="umSaveRoles()" class="px-4 py-2.5 text-sm font-semibold text-white rounded-lg hover:opacity-95 min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Save roles</button>
+            </div>
+        </div>
+    </div>
+    <!-- Edit name (Modal) -->
+    <div id="edit-name-modal" data-s1-modal role="dialog" aria-modal="true" aria-labelledby="en-title" class="fixed inset-0 z-50 flex hidden items-end sm:items-center justify-center p-0 sm:p-4" style="background: rgba(15,26,62,.55); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 id="en-title" class="text-base font-bold text-slate-900">Edit name</h3>
+                <button onclick="S1.closeModal('edit-name-modal')" aria-label="Close" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label for="en-name" class="block text-sm font-semibold text-slate-700 mb-1">Name</label>
+                    <input id="en-name" type="text" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/30 focus:border-[#1D4ED8] text-sm">
+                    <p id="en-err" class="hidden text-xs text-red-600 mt-1.5">Enter the person's name.</p>
+                </div>
+                <p class="text-xs text-slate-500">Their email address is their sign-in and stays the same.</p>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+                <button onclick="S1.closeModal('edit-name-modal')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 min-h-[40px]">Cancel</button>
+                <button onclick="umSaveName()" class="px-4 py-2.5 text-sm font-semibold text-white rounded-lg hover:opacity-95 min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Save name</button>
+            </div>
+        </div>
+    </div>
+    <!-- Create / rename role (Modal) -->
+    <div id="role-name-modal" data-s1-modal role="dialog" aria-modal="true" aria-labelledby="rn-title" class="fixed inset-0 z-50 flex hidden items-end sm:items-center justify-center p-0 sm:p-4" style="background: rgba(15,26,62,.55); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 id="rn-title" class="text-base font-bold text-slate-900"><span id="rn-title-text">Create role</span></h3>
+                <button onclick="S1.closeModal('role-name-modal')" aria-label="Close" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label for="rn-name" class="block text-sm font-semibold text-slate-700 mb-1">Role name</label>
+                    <input id="rn-name" type="text" placeholder="e.g. Team Lead" class="w-full px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/30 focus:border-[#1D4ED8] text-sm">
+                    <p id="rn-err" class="hidden text-xs text-red-600 mt-1.5">Enter a role name.</p>
+                </div>
+                <p id="rn-hint" class="text-xs text-slate-500">A new role starts with no permissions. You'll choose them in the permission matrix.</p>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+                <button onclick="S1.closeModal('role-name-modal')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 min-h-[40px]">Cancel</button>
+                <button onclick="umSaveRole()" class="px-4 py-2.5 text-sm font-semibold text-white rounded-lg hover:opacity-95 min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);"><span id="rn-cta">Create role</span></button>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile action sheet -->
+    <div id="action-sheet" data-s1-modal role="dialog" aria-modal="true" aria-labelledby="as-h" class="fixed inset-0 z-50 flex hidden items-end sm:items-center justify-center p-0 sm:p-4" style="background: rgba(15,26,62,.55); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 id="as-h" class="text-base font-bold text-slate-900"><span id="as-title">Actions</span></h3>
+                <button onclick="S1.closeModal('action-sheet')" aria-label="Close" class="w-9 h-9 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5">
+                <div id="as-list" class="flex flex-col gap-1 -mx-2"></div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2">
+                <button onclick="S1.closeModal('action-sheet')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 min-h-[40px]">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to handle modal display (for prototype demonstration) -->
+    <script>
+        // Modal is hidden by default. The inline onclick handlers manage the toggle state.
+        // A simple class list toggle achieves the requested functionality.
+        const modal = document.getElementById('add-user-modal');
+        
+        // Optional: Close modal on outside click
+        modal.addEventListener('click', function(e) {
+            if(e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- ============ Notification drawer (shared shell component) ============ -->
+    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
+           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
+                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
+                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div id="notif-list" class="flex-1 overflow-y-auto">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-right-left text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-signature text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.candidates.candidate-detail.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.bookings.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.money.self-bill-detail.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="notif-empty" class="hidden px-6 py-16 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
+                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
+            </div>
+        </div>
+        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
+            <a href="agency.notifications.notification-centre.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
+            <a href="agency.notifications.notification-preferences.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
+        </div>
+    </aside>
+
+    <script>
+        function openNotifDrawer() {
+            document.getElementById('notif-drawer').classList.remove('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        function closeNotifDrawer() {
+            document.getElementById('notif-drawer').classList.add('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function refreshNotifCount() {
+            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var pill = document.getElementById('notif-unread-pill');
+            pill.textContent = n + ' unread';
+            pill.classList.toggle('hidden', n === 0);
+            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
+        }
+        function markNotifRead(btn) {
+            var item = btn.closest('.notif-item');
+            item.dataset.unread = '0';
+            item.classList.remove('is-unread');
+            item.querySelector('.notif-dot').classList.add('hidden');
+            btn.classList.add('hidden');
+            refreshNotifCount();
+        }
+        function markAllNotifRead() {
+            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
+                i.dataset.unread = '0';
+                i.classList.remove('is-unread');
+                i.querySelector('.notif-dot').classList.add('hidden');
+                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
+            });
+            refreshNotifCount();
+        }
+        // Account menu
+        function toggleAccountMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('account-menu').classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var m = document.getElementById('account-menu');
+            var t = document.getElementById('account-trigger');
+            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeNotifDrawer();
+                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <!-- ============ Confirm dialog (shared) ============ -->
+    <div id="confirm-backdrop" onclick="closeConfirm()" class="fixed inset-0 bg-navy/40 z-40 hidden"></div>
+    <div id="confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"
+         class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md overflow-hidden">
+            <div class="p-6">
+                <div class="flex items-start gap-4">
+                    <div id="confirm-icon" class="w-10 h-10 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 id="confirm-title" class="text-base font-sora font-semibold text-navy">Are you sure?</h3>
+                        <p id="confirm-body" class="text-sm text-gray-600 mt-2 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-end gap-3">
+                <button onclick="closeConfirm()" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-white transition-colors">Cancel</button>
+                <button id="confirm-go" onclick="closeConfirm()" class="px-4 py-2 bg-danger text-white rounded-md text-sm font-medium hover:bg-danger/90 transition-colors">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Every consequential action states its consequence in plain English before it runs.
+        var CONFIRMS = {
+            deactivateUser: {
+                title: 'Deactivate this user?',
+                body: 'They will be signed out of every session immediately and will not be able to sign in again. Their proposals, bookings and history are kept. Someone who can manage users can reactivate them later.',
+                cta: 'Deactivate user', tone: 'danger'
+            },
+            deactivateBranch: {
+                title: 'Deactivate this branch?',
+                body: 'The branch stops appearing in branch pickers and no new users or candidates can be assigned to it. Existing bookings, self-bills and history are unaffected.',
+                cta: 'Deactivate branch', tone: 'danger'
+            },
+            withdrawProposal: {
+                title: 'Withdraw this proposal?',
+                body: 'The client and Abstract are notified and the proposal moves to Withdrawn. You cannot undo this \u2014 you would need to submit a new proposal against the vacancy.',
+                cta: 'Withdraw proposal', tone: 'danger'
+            },
+            acknowledgeSelfBill: {
+                title: 'Acknowledge this self-bill?',
+                body: 'You are confirming the figures match your records. The self-bill moves from Sent to Acknowledged and Abstract is notified. Raise a query with Abstract instead if anything looks wrong.',
+                cta: 'Acknowledge', tone: 'success'
+            },
+            unbookDay: {
+                title: 'Request to un-book this day?',
+                body: 'The client is asked to approve. The day stays Booked as Pending client approval until they respond \u2014 you can withdraw the request while it is still pending.',
+                cta: 'Send request', tone: 'blue'
+            }
+        };
+        function openConfirm(key) {
+            var c = CONFIRMS[key]; if (!c) return;
+            document.getElementById('confirm-title').textContent = c.title;
+            document.getElementById('confirm-body').textContent = c.body;
+            var go = document.getElementById('confirm-go');
+            go.textContent = c.cta;
+            go.className = 'px-4 py-2 text-white rounded-md text-sm font-medium transition-colors bg-' + c.tone + ' hover:bg-' + c.tone + '/90';
+            var icon = document.getElementById('confirm-icon');
+            icon.className = 'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-' + c.tone + '/10 text-' + c.tone;
+            icon.innerHTML = c.tone === 'danger'
+                ? '<i class="fa-solid fa-triangle-exclamation"></i>'
+                : '<i class="fa-solid fa-circle-question"></i>';
+            document.getElementById('confirm-backdrop').classList.remove('hidden');
+            var m = document.getElementById('confirm-modal');
+            m.classList.remove('hidden'); m.classList.add('flex');
+        }
+        function closeConfirm() {
+            document.getElementById('confirm-backdrop').classList.add('hidden');
+            var m = document.getElementById('confirm-modal');
+            m.classList.add('hidden'); m.classList.remove('flex');
+        }
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeConfirm(); });
+    </script>
+
+
+    <script>
+        // Empty states are real markup, not a mock-up of one. Append ?empty=1 to any list screen
+        // to see it — the populated table hides and the empty block takes its place.
+        (function () {
+            if (new URLSearchParams(window.location.search).get('empty') !== '1') return;
+            var e = document.getElementById('empty-users');
+            if (!e) return;
+            document.querySelectorAll('#main-content table').forEach(function (t) {
+                var card = t.closest('.bg-white') || t.parentElement;
+                card.classList.add('hidden');
+            });
+            document.querySelectorAll('#main-content .grid').forEach(function (g) {
+                if (g.querySelector('.notif-item')) return;
+                if (g.closest('#empty-users')) return;
+            });
+            e.classList.remove('hidden');
+        })();
+    </script>
+
+    <script>
+        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
+        var ROLE_HIDES = {
+            admin:     [],
+            recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
+            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
+        };
+        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        function applyRole(role) {
+            var hide = ROLE_HIDES[role] || [];
+            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
+                var href = a.getAttribute('href');
+                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
+            });
+            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
+            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
+        }
+        (function () {
+            var r = 'admin';
+            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
+            var sel = document.getElementById('role-switch');
+            if (sel) sel.value = r;
+            applyRole(r);
+        })();
+    </script>
+
+    <!-- ============ Toast (shared) ============ -->
+    <div id="toast" role="status" aria-live="polite"
+         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
+        <div class="flex items-center gap-3 bg-navy text-white rounded-lg shadow-2xl px-4 py-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-success"></i>
+            <p id="toast-msg" class="text-sm font-medium"></p>
+        </div>
+    </div>
+
+    <script>
+        var _toastTimer;
+        function toast(msg, icon) {
+            var t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').className = 'fa-solid ' + (icon || 'fa-circle-check') + ' text-success';
+            t.classList.remove('opacity-0', 'translate-y-2');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(function () { t.classList.add('opacity-0', 'translate-y-2'); }, 2600);
+        }
+    </script>
+
+    <style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+    <script>
+        // Slice 1 users and roles: same actions and states as the Abstract Users screen (brief B1).
+        var UM_ORG = 'TechForce Recruitment';
+        var UM_MATRIX = 'agency.identity-access.permission-matrix.html';
+        var UM_ROLES = [
+            { id: 'administrator', name: 'Administrator', def: true, perms: 11, status: 'Active', admin: true },
+            { id: 'recruiter', name: 'Recruiter', def: true, perms: 3, status: 'Active' },
+            { id: 'finance', name: 'Finance', def: true, perms: 1, status: 'Active' },
+            { id: 'teamlead', name: 'Team Lead', def: false, perms: 0, status: 'Active' }
+        ];
+        var UM_USERS = [
+            { name: 'Daniel Reeves', you: true, email: 'daniel.reeves@techforce-recruitment.co.uk', roles: ['Administrator'], branch: 'All branches', status: 'Active', last: 'Today, 09:14' },
+            { name: 'Sarah Jenkins', email: 'sarah.jenkins@techforce-recruitment.co.uk', roles: ['Recruiter'], branch: 'London HQ', status: 'Active', last: '25 Sep 2026, 16:40' },
+            { name: 'Mike Ross', email: 'mike.ross@techforce-recruitment.co.uk', roles: ['Recruiter', 'Finance'], branch: 'London HQ', status: 'Active', last: '24 Sep 2026, 11:02' },
+            { name: 'Tom Hale', email: 'tom.hale@techforce-recruitment.co.uk', roles: [], branch: '—', status: 'Invited', last: '' },
+            { name: 'Emma Wood', email: 'emma.wood@techforce-recruitment.co.uk', roles: ['Finance'], branch: 'Manchester Hub', status: 'Active', last: '22 Sep 2026, 14:18' },
+            { name: 'David Clark', email: 'david.clark@techforce-recruitment.co.uk', roles: ['Recruiter'], branch: 'Manchester Hub', status: 'Inactive', last: '14 Aug 2026, 09:05' }
+        ];
+        var UM_LARGE = null, umMode = 'default', umCurrent = null, umRoleEdit = null;
+        function umEsc(v) { return String(v).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+        var UM_BADGE = {
+            Invited: 'bg-amber-50 text-amber-700 border border-amber-200" ><i class="fa-solid fa-envelope text-[10px]" aria-hidden="true"></i',
+            Active: 'bg-emerald-50 text-emerald-700 border border-emerald-200" ><i class="fa-solid fa-circle-check text-[10px]" aria-hidden="true"></i',
+            Inactive: 'bg-slate-100 text-slate-500 border border-slate-200" ><i class="fa-solid fa-circle-minus text-[10px]" aria-hidden="true"></i'
+        };
+        function umBadge(st) { return '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap ' + UM_BADGE[st] + '>' + st + '</span>'; }
+        function umRoleChips(r) {
+            if (!r.length) return '<span class="text-xs text-slate-400 italic">No roles yet</span>';
+            return r.map(function (x) { return '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 whitespace-nowrap">' + umEsc(x) + '</span>'; }).join(' ');
+        }
+        function umInitials(n) { return n.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase(); }
+        function umActions(u) {
+            var a = [['edit', 'fa-pen', 'Edit name'], ['roles', 'fa-user-shield', 'Set roles']];
+            if (u.status === 'Invited') a.push(['resend', 'fa-paper-plane', 'Resend activation']);
+            if (u.status === 'Inactive') a.push(['reactivate', 'fa-rotate-left', 'Reactivate']);
+            else a.push(['deactivate', 'fa-power-off', 'Deactivate']);
+            return a;
+        }
+        function umList() { return umMode === 'large' ? UM_LARGE : UM_USERS; }
+        function umFiltered() {
+            var q = (document.getElementById('um-search').value || '').trim().toLowerCase(), st = document.getElementById('um-status').value;
+            return umList().map(function (u, i) { return { u: u, i: i }; }).filter(function (r) {
+                return (!q || (r.u.name + ' ' + r.u.email).toLowerCase().indexOf(q) >= 0) && (!st || r.u.status === st);
+            });
+        }
+        function umRender() {
+            var rows = umFiltered(), all = umList();
+            var shown = umMode === 'large' ? rows.slice(0, 25) : rows;
+            document.getElementById('um-tbody').innerHTML = shown.map(function (r) {
+                var u = r.u, dim = u.status === 'Inactive';
+                return '<tr class="hover:bg-slate-50/70 transition-colors">' +
+                    '<td class="px-6 py-4 max-w-[220px]"><div class="flex items-center gap-3 min-w-0"><span class="w-8 h-8 rounded-full ' + (dim ? 'bg-slate-100 text-slate-400' : 'bg-[#EFF6FF] text-[#1D4ED8]') + ' flex items-center justify-center font-semibold text-xs flex-shrink-0" aria-hidden="true">' + umInitials(u.name) + '</span><span class="font-medium truncate ' + (dim ? 'text-slate-500' : 'text-navy') + '" title="' + umEsc(u.name) + '">' + umEsc(u.name) + (u.you ? ' <span class="text-xs font-normal text-slate-400">(you)</span>' : '') + '</span></div></td>' +
+                    '<td class="px-6 py-4 text-slate-500 max-w-[240px] truncate" title="' + umEsc(u.email) + '">' + umEsc(u.email) + '</td>' +
+                    '<td class="px-6 py-4"><div class="flex flex-wrap gap-1">' + umRoleChips(u.roles) + '</div></td>' +
+                    '<td class="px-6 py-4 text-slate-500 whitespace-nowrap" data-s1-later>' + umEsc(u.branch) + '</td>' +
+                    '<td class="px-6 py-4">' + umBadge(u.status) + '</td>' +
+                    '<td class="px-6 py-4 text-slate-500 whitespace-nowrap">' + (u.last || '—') + '</td>' +
+                    '<td class="px-6 py-4"><div class="flex justify-end gap-1">' + umActions(u).map(function (a) {
+                        return '<button onclick="umAct(\'' + a[0] + '\',' + r.i + ')" aria-label="' + a[2] + ' — ' + umEsc(u.name) + '" title="' + a[2] + '" class="w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 ' + (a[0] === 'deactivate' ? 'hover:text-red-600' : 'hover:text-[#1D4ED8]') + '"><i class="fa-solid ' + a[1] + '"></i></button>';
+                    }).join('') + '</div></td></tr>';
+            }).join('');
+            document.getElementById('um-cards').innerHTML = shown.map(function (r) {
+                var u = r.u;
+                return '<li class="p-4"><div class="flex items-start gap-3"><span class="w-9 h-9 rounded-full bg-[#EFF6FF] text-[#1D4ED8] flex items-center justify-center font-semibold text-xs flex-shrink-0" aria-hidden="true">' + umInitials(u.name) + '</span>' +
+                    '<div class="flex-1 min-w-0"><div class="flex items-start justify-between gap-2"><p class="font-semibold text-navy truncate">' + umEsc(u.name) + (u.you ? ' <span class="text-xs font-normal text-slate-400">(you)</span>' : '') + '</p>' + umBadge(u.status) + '</div>' +
+                    '<p class="text-sm text-slate-500 truncate">' + umEsc(u.email) + '</p><div class="flex flex-wrap gap-1 mt-2">' + umRoleChips(u.roles) + '</div>' +
+                    '<p class="text-xs text-slate-400 mt-2">Last sign-in: ' + (u.last || '—') + '</p></div>' +
+                    '<button onclick="umSheet(' + r.i + ')" aria-label="Actions for ' + umEsc(u.name) + '" class="w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 flex-shrink-0"><i class="fa-solid fa-ellipsis"></i></button></div></li>';
+            }).join('');
+            document.getElementById('um-empty').classList.toggle('hidden', rows.length > 0);
+            var filtered = document.getElementById('um-search').value || document.getElementById('um-status').value;
+            document.getElementById('um-clear').classList.toggle('hidden', !filtered);
+            var total = umMode === 'large' ? 1240 : rows.length;
+            document.getElementById('um-count').textContent = rows.length ? ('Showing 1–' + shown.length + ' of ' + total.toLocaleString('en-GB') + (umMode === 'large' ? ' users' : (filtered ? ' matching users' : ' users'))) : 'No users to show';
+            document.getElementById('um-pages').innerHTML = umMode === 'large'
+                ? '<button class="px-3 py-1.5 border border-slate-200 rounded-lg opacity-50" disabled aria-label="Previous page"><i class="fa-solid fa-chevron-left text-xs"></i></button><span class="px-3 py-1.5 text-slate-700 font-semibold">Page 1 of 50</span><button onclick="S1.toast(\'Page 2 of 50 — prototype shows page 1 only.\',\'info\')" class="px-3 py-1.5 border border-slate-200 rounded-lg hover:bg-slate-50" aria-label="Next page"><i class="fa-solid fa-chevron-right text-xs"></i></button>'
+                : '';
+            // Roles
+            document.getElementById('um-roles-tbody').innerHTML = UM_ROLES.map(function (r, i) {
+                return '<tr class="hover:bg-slate-50/70"><td class="px-6 py-4"><span class="font-medium text-navy">' + umEsc(r.name) + '</span>' + (r.def ? ' <span class="ml-1.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200" title="Created when this organisation was set up. You can rename it, change its permissions or deactivate it.">Default</span>' : '') + '</td>' +
+                    '<td class="px-6 py-4"><a href="' + UM_MATRIX + '?role=' + r.id + '" class="font-semibold text-[#1D4ED8] hover:underline">' + r.perms + '<span class="sr-only"> permissions — open the permission matrix for ' + umEsc(r.name) + '</span></a></td>' +
+                    '<td class="px-6 py-4">' + umBadge(r.status) + '</td>' +
+                    '<td class="px-6 py-4"><div class="flex justify-end gap-1">' +
+                    '<a href="' + UM_MATRIX + '?role=' + r.id + '" class="px-3 h-9 inline-flex items-center gap-1.5 rounded-lg text-sm font-semibold text-[#1D4ED8] hover:bg-[#EFF6FF]"><i class="fa-solid fa-table-cells text-xs"></i> Permissions</a>' +
+                    '<button onclick="umRoleName(' + i + ')" aria-label="Rename ' + umEsc(r.name) + '" title="Rename" class="w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-[#1D4ED8]"><i class="fa-solid fa-pen"></i></button>' +
+                    (r.status === 'Active'
+                        ? '<button onclick="umRoleDeactivate(' + i + ')" aria-label="Deactivate ' + umEsc(r.name) + '" title="Deactivate" class="w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-red-600"><i class="fa-solid fa-power-off"></i></button>'
+                        : '<button onclick="umRoleReactivate(' + i + ')" aria-label="Reactivate ' + umEsc(r.name) + '" title="Reactivate" class="w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-emerald-700"><i class="fa-solid fa-rotate-left"></i></button>') +
+                    '</div></td></tr>';
+            }).join('');
+            document.getElementById('um-roles-cards').innerHTML = UM_ROLES.map(function (r, i) {
+                return '<li class="p-4"><div class="flex items-start justify-between gap-2"><p class="font-semibold text-navy">' + umEsc(r.name) + (r.def ? ' <span class="ml-1 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">Default</span>' : '') + '</p>' + umBadge(r.status) + '</div>' +
+                    '<div class="flex items-center gap-2 mt-3"><a href="' + UM_MATRIX + '?role=' + r.id + '" class="flex-1 text-center px-3 py-2 rounded-lg text-sm font-semibold text-[#1D4ED8] border border-slate-200">' + r.perms + ' permissions</a>' +
+                    '<button onclick="umRoleName(' + i + ')" aria-label="Rename ' + umEsc(r.name) + '" class="w-10 h-10 rounded-lg border border-slate-200 text-slate-500"><i class="fa-solid fa-pen"></i></button>' +
+                    '<button onclick="' + (r.status === 'Active' ? 'umRoleDeactivate(' : 'umRoleReactivate(') + i + ')" aria-label="' + (r.status === 'Active' ? 'Deactivate ' : 'Reactivate ') + umEsc(r.name) + '" class="w-10 h-10 rounded-lg border border-slate-200 text-slate-500"><i class="fa-solid ' + (r.status === 'Active' ? 'fa-power-off' : 'fa-rotate-left') + '"></i></button></div></li>';
+            }).join('');
+            document.getElementById('um-roles-count').textContent = UM_ROLES.length + ' roles';
+            if (window.S1 && S1.isSlice1Mode && S1.isSlice1Mode()) document.querySelectorAll('#um-tbody [data-s1-later]').forEach(function (e) { e.style.setProperty('display', 'none', 'important'); });
+        }
+        function umClear() { document.getElementById('um-search').value = ''; document.getElementById('um-status').value = ''; umRender(); }
+        function umTab(t) {
+            ['users', 'roles'].forEach(function (x) {
+                var on = x === t, b = document.getElementById('um-tab-' + x);
+                b.setAttribute('aria-selected', String(on));
+                b.className = 'px-4 py-2 rounded-md text-sm font-semibold min-h-[36px] ' + (on ? 'bg-navy text-white' : 'text-slate-600 hover:bg-slate-100');
+                document.getElementById('um-' + x).classList.toggle('hidden', !on);
+            });
+            try { history.replaceState(null, '', t === 'roles' ? '#roles' : location.pathname + location.search); } catch (e) {}
+        }
+        // ---- the one organisation that must keep someone who can manage users (RBAC-016)
+        function umAdmins(exceptIdx) {
+            return UM_USERS.filter(function (u, i) { return i !== exceptIdx && u.status === 'Active' && u.roles.indexOf('Administrator') >= 0; }).length;
+        }
+        function umRefuse(title, body) {
+            S1.confirm({ title: title, body: body, tone: 'danger', icon: 'fa-ban', cancel: 'OK' });
+        }
+        function umAct(kind, i) {
+            var u = umList()[i]; umCurrent = i;
+            if (kind === 'edit') {
+                document.getElementById('en-name').value = u.name; document.getElementById('en-err').classList.add('hidden');
+                S1.openModal('edit-name-modal');
+            } else if (kind === 'roles') {
+                document.getElementById('sr-name').textContent = u.name;
+                document.getElementById('sr-refused').classList.add('hidden');
+                document.getElementById('sr-list').innerHTML = UM_ROLES.filter(function (r) { return r.status === 'Active'; }).map(function (r) {
+                    return '<label class="flex items-center gap-3 px-3 py-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer"><input type="checkbox" value="' + umEsc(r.name) + '"' + (u.roles.indexOf(r.name) >= 0 ? ' checked' : '') + ' style="width:18px;height:18px;accent-color:#1D4ED8"><span class="text-sm font-medium text-slate-800 flex-1">' + umEsc(r.name) + '</span><span class="text-xs text-slate-500">' + r.perms + ' permissions</span></label>';
+                }).join('');
+                S1.openModal('set-roles-modal');
+            } else if (kind === 'resend') {
+                S1.confirm({ title: 'Resend the activation link?', body: 'We\'ll email a new activation link to ' + u.email + '. It works for 72 hours, and the previous link stops working.', cta: 'Resend link', icon: 'fa-paper-plane',
+                    onConfirm: function () { S1.toast('Activation link sent to ' + umEsc(u.email) + '. It works for 72 hours.'); } });
+            } else if (kind === 'deactivate') {
+                if (umMode !== 'large' && u.roles.indexOf('Administrator') >= 0 && umAdmins(i) === 0) {
+                    umRefuse('You can\'t deactivate ' + u.name, 'You can\'t deactivate ' + u.name + ' — it would leave ' + UM_ORG + ' with no one who can manage users. Give another active user a role that can manage users first.');
+                    return;
+                }
+                S1.confirm({ title: 'Deactivate ' + u.name + '?', tone: 'danger', cta: 'Deactivate user', reason: true, reasonPlaceholder: 'e.g. Left the agency on 26 Sep 2026',
+                    body: u.status === 'Invited'
+                        ? 'Their activation link stops working and they won\'t be able to sign in. Someone who can manage users can reactivate them later.'
+                        : u.name + ' will be signed out of every device straight away and won\'t be able to sign in. Their history is kept, and someone who can manage users can reactivate them later.',
+                    onConfirm: function () { u.status = 'Inactive'; umRender(); S1.toast(umEsc(u.name) + ' has been deactivated.'); } });
+            } else if (kind === 'reactivate') {
+                S1.confirm({ title: 'Reactivate ' + u.name + '?', cta: 'Reactivate user', icon: 'fa-rotate-left',
+                    body: u.last ? u.name + ' will be able to sign in again with their existing password and roles.' : u.name + ' never activated their account. Reactivating returns them to Invited — resend the activation link afterwards.',
+                    onConfirm: function () { u.status = u.last ? 'Active' : 'Invited'; umRender(); S1.toast(umEsc(u.name) + ' has been reactivated.'); } });
+            }
+        }
+        function umSheet(i) {
+            var u = umList()[i];
+            document.getElementById('as-title').textContent = u.name;
+            document.getElementById('as-list').innerHTML = umActions(u).map(function (a) {
+                return '<button onclick="S1.closeModal(\'action-sheet\');umAct(\'' + a[0] + '\',' + i + ')" class="flex items-center gap-3 px-3 py-3 rounded-lg text-left text-sm font-medium hover:bg-slate-50 ' + (a[0] === 'deactivate' ? 'text-red-700' : 'text-slate-800') + '"><i class="fa-solid ' + a[1] + ' w-4 text-center"></i>' + a[2] + '</button>';
+            }).join('');
+            S1.openModal('action-sheet');
+        }
+        function umSaveRoles() {
+            var u = umList()[umCurrent];
+            var picked = Array.prototype.map.call(document.querySelectorAll('#sr-list input:checked'), function (c) { return c.value; });
+            if (umMode !== 'large' && u.roles.indexOf('Administrator') >= 0 && picked.indexOf('Administrator') < 0 && u.status === 'Active' && umAdmins(umCurrent) === 0) {
+                var b = document.getElementById('sr-refused');
+                b.querySelector('span').textContent = 'You can\'t remove the Administrator role from ' + u.name + ' — it would leave ' + UM_ORG + ' with no one who can manage users.';
+                b.classList.remove('hidden'); return;
+            }
+            u.roles = picked; S1.closeModal('set-roles-modal'); umRender();
+            S1.toast('Roles updated for ' + umEsc(u.name) + '. They apply from their next click.');
+        }
+        function umSaveName() {
+            var v = document.getElementById('en-name').value.trim();
+            if (!v) { document.getElementById('en-err').classList.remove('hidden'); return; }
+            umList()[umCurrent].name = v; S1.closeModal('edit-name-modal'); umRender(); S1.toast('Name updated.');
+        }
+        function umInvite(prefill) {
+            ['inv-name', 'inv-email'].forEach(function (id) { document.getElementById(id).value = ''; });
+            umInvErrors({});
+            S1.openModal('add-user-modal');
+        }
+        function umInvErrors(errs) {
+            [['inv-name', 'name'], ['inv-email', 'email']].forEach(function (p) {
+                var input = document.getElementById(p[0]), e = document.getElementById(p[0] + '-err'), msg = errs[p[1]];
+                e.textContent = msg || ''; e.classList.toggle('hidden', !msg);
+                input.classList.toggle('border-red-600', !!msg); input.classList.toggle('border-slate-300', !msg);
+                input.setAttribute('aria-invalid', String(!!msg));
+            });
+            document.getElementById('inv-summary').classList.toggle('hidden', !(errs.name || errs.email));
+        }
+        function umSendInvite() {
+            var n = document.getElementById('inv-name').value.trim(), em = document.getElementById('inv-email').value.trim(), errs = {};
+            if (!n) errs.name = 'Enter the person\'s name.';
+            if (!em) errs.email = 'Enter their email address.';
+            else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) errs.email = 'Enter an email address in the right format, like name@techforce-recruitment.co.uk.';
+            else if (UM_USERS.some(function (u) { return u.email.toLowerCase() === em.toLowerCase(); }) || /nexus/i.test(em)) errs.email = 'This email address already belongs to an account. One email address can only be used for one account in Abstract VMS.';
+            umInvErrors(errs);
+            if (errs.name || errs.email) return;
+            UM_USERS.push({ name: n, email: em, roles: [], branch: '—', status: 'Invited', last: '' });
+            S1.closeModal('add-user-modal'); umRender();
+            S1.toast('Invitation sent to ' + umEsc(em) + '. The link works for 72 hours.');
+        }
+        function umRoleName(i) {
+            umRoleEdit = (i == null) ? null : i;
+            var r = umRoleEdit == null ? null : UM_ROLES[umRoleEdit];
+            document.getElementById('rn-title-text').textContent = r ? 'Rename role' : 'Create role';
+            document.getElementById('rn-cta').textContent = r ? 'Save name' : 'Create role';
+            document.getElementById('rn-hint').classList.toggle('hidden', !!r);
+            document.getElementById('rn-name').value = r ? r.name : '';
+            document.getElementById('rn-err').classList.add('hidden');
+            S1.openModal('role-name-modal');
+        }
+        function umSaveRole() {
+            var v = document.getElementById('rn-name').value.trim();
+            if (!v) { document.getElementById('rn-err').classList.remove('hidden'); return; }
+            S1.closeModal('role-name-modal');
+            if (umRoleEdit == null) {
+                UM_ROLES.push({ id: 'teamlead', name: v, def: false, perms: 0, status: 'Active' }); umRender();
+                S1.toast('Role "' + umEsc(v) + '" created. <a href="' + UM_MATRIX + '?role=teamlead">Choose its permissions</a>', 'success', { ms: 6000 });
+            } else {
+                var old = UM_ROLES[umRoleEdit].name; UM_ROLES[umRoleEdit].name = v;
+                UM_USERS.forEach(function (u) { u.roles = u.roles.map(function (x) { return x === old ? v : x; }); });
+                umRender(); S1.toast('Role renamed to "' + umEsc(v) + '".');
+            }
+        }
+        function umRoleDeactivate(i) {
+            var r = UM_ROLES[i];
+            if (r.admin) {
+                umRefuse('You can\'t deactivate this role', 'You can\'t deactivate this role — it would leave ' + UM_ORG + ' with no one who can manage users.');
+                return;
+            }
+            var n = UM_USERS.filter(function (u) { return u.roles.indexOf(r.name) >= 0; }).length;
+            S1.confirm({ title: 'Deactivate the ' + r.name + ' role?', tone: 'danger', cta: 'Deactivate role',
+                body: (n ? n + (n === 1 ? ' person has' : ' people have') + ' this role. They lose its permissions from their next click. ' : '') + 'Roles are never deleted — you can reactivate it later.',
+                onConfirm: function () { r.status = 'Inactive'; umRender(); S1.toast('The ' + umEsc(r.name) + ' role has been deactivated.'); } });
+        }
+        function umRoleReactivate(i) {
+            var r = UM_ROLES[i]; r.status = 'Active'; umRender(); S1.toast('The ' + umEsc(r.name) + ' role has been reactivated.');
+        }
+        (function () {
+            var first = ['Alexandra', 'Benedict', 'Charlotte', 'Oluwaseun', 'Maximilian', 'Priya', 'Jonathan', 'Siobhan', 'Wojciech', 'Hannah'];
+            var last = ['Fairweather-Montgomery', 'Okonkwo', 'Richardson', 'Adeyemi-Thompson', 'Kowalczyk', 'Shah', 'MacDonald', 'Nwachukwu', 'Van der Berg', 'Hughes'];
+            var st = ['Active', 'Active', 'Active', 'Invited', 'Active', 'Inactive'];
+            UM_LARGE = [];
+            for (var k = 0; k < 25; k++) {
+                var fn = first[k % 10], ln = last[(k * 3) % 10];
+                UM_LARGE.push({ name: fn + ' ' + ln, email: (fn + '.' + ln).toLowerCase().replace(/[^a-z.]/g, '') + '@techforce-recruitment.co.uk', roles: k % 4 === 0 ? ['Recruiter', 'Finance'] : [['Recruiter'], ['Finance'], ['Administrator'], ['Team Lead']][k % 4], branch: 'London HQ', status: st[k % 6], last: st[k % 6] === 'Invited' ? '' : (k % 28 + 1) + ' Sep 2026, 10:' + (10 + k) });
+            }
+        })();
+        document.addEventListener('s1:state', function (e) {
+            var s = e.detail.state;
+            umMode = s === 'large' ? 'large' : 'default';
+            if (s === 'empty') { document.getElementById('um-search').value = 'Jordan Blake'; document.getElementById('um-status').value = ''; umTab('users'); }
+            else if (s === 'default' || s === 'large') { document.getElementById('um-search').value = ''; }
+            umRender();
+            if (s === 'validation') {
+                umTab('users'); umInvite();
+                document.getElementById('inv-name').value = 'Sarah Jenkins';
+                document.getElementById('inv-email').value = 'sarah.jenkins@techforce-recruitment.co.uk';
+                umSendInvite();
+            } else { S1.closeModal('add-user-modal'); }
+        });
+        document.addEventListener('s1:ready', function () {
+            umTab(location.hash === '#roles' ? 'roles' : 'users'); umRender();
+        });
+
+    </script>
+    <script src="slice1-kit.js"></script>
+</body>
+</html>

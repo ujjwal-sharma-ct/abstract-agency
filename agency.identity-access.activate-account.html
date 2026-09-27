@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account · Abstract VMS Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { display: none;} * { scrollbar-width: none; }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid #1D4ED8; outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { .animate-pulse, .fa-spin { animation: none !important; } }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'], },
+                    colors: {
+                        navy: { DEFAULT: '#172554', 50: '#EEF1FB', 100: '#D4DCF5', 200: '#A9B9EB', 300: '#7E96E1', 400: '#5373D7', 500: '#2850CD', 600: '#1D3FA4', 700: '#162F7B', 800: '#0F1F52', 900: '#172554', },
+                        brand: { blue: '#1D4ED8', purple: '#5B2E91', navy: '#172554', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter text-slate-900" data-s1-page data-s1-states="default loading validation expired used deactivated success" style="background: linear-gradient(160deg, #0f1a3e 0%, #172554 35%, #1e1a4a 65%, #2d1a5e 100%);">
+<style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+
+<main class="min-h-screen flex items-center justify-center px-4 py-10 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-20" style="background: radial-gradient(circle, #1D4ED8 0%, transparent 70%);"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full opacity-15" style="background: radial-gradient(circle, #5B2E91 0%, transparent 70%);"></div>
+    </div>
+
+    <div class="w-full max-w-[420px] relative z-10">
+        <div class="flex justify-center mb-6">
+            <img src="logo.png" alt="Abstract VMS" class="h-20 sm:h-24 w-auto" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='block';"/>
+            <div id="logo-fallback" style="display:none;" class="text-center"><span class="text-white font-bold text-3xl tracking-tight">Abstract</span><span class="block text-white/60 text-sm font-bold uppercase tracking-[0.3em] mt-1">VMS</span></div>
+        </div>
+        <div class="flex justify-center mb-8"><span class="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">Agency Portal</span></div>
+
+        <div class="bg-white border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+            <div class="px-6 sm:px-8 py-8">
+
+            <!-- Loading: checking the activation link -->
+            <div data-s1-show="loading" aria-busy="true" aria-label="Checking your activation link">
+                <div class="h-6 w-56 bg-slate-200 rounded animate-pulse mb-3"></div>
+                <div class="h-4 w-full bg-slate-200 rounded animate-pulse mb-6"></div>
+                <div class="h-16 bg-slate-200 rounded-lg animate-pulse mb-5"></div>
+                <div class="h-11 bg-slate-200 rounded-lg animate-pulse mb-4"></div>
+                <div class="h-24 bg-slate-200 rounded-lg animate-pulse mb-4"></div>
+                <div class="h-11 bg-slate-200 rounded-lg animate-pulse"></div>
+                <p class="text-xs text-slate-500 text-center mt-4"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Checking your activation link…</p>
+            </div>
+
+            <!-- Default + validation: set your password -->
+            <div data-s1-hide="loading expired used deactivated success">
+                <p class="text-xs font-semibold uppercase tracking-wider text-blue-700">Welcome to Abstract VMS</p>
+                <h1 class="text-xl font-bold text-slate-900 mt-1">TechForce Recruitment has invited you</h1>
+                <p class="text-sm text-slate-600 mt-1.5 leading-relaxed">Set a password to activate your account. Only you will know it.</p>
+
+                <div id="val-summary" data-s1-show="validation" data-s1-display="flex" class="mt-5 flex items-start gap-2.5 bg-red-50 border border-red-200 text-red-800 rounded-lg px-3.5 py-3 text-sm" role="alert">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i><span>Your account isn't activated yet. Fix the highlighted fields and try again.</span>
+                </div>
+
+                <form id="activate-form" class="flex flex-col gap-5 mt-6" novalidate>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-700">Email address</p>
+                        <div class="mt-1.5 flex items-center gap-2.5 px-3.5 py-3 bg-slate-50 border border-slate-200 rounded-lg">
+                            <i class="fa-regular fa-envelope text-slate-400 text-sm" aria-hidden="true"></i>
+                            <span class="text-sm text-slate-900 break-all">daniel.reeves@techforce-recruitment.co.uk</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1.5">This is your sign-in. It can only be changed by an administrator.</p>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700" for="new-password">New password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock text-slate-400 text-sm absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true"></i>
+                            <input type="password" id="new-password" autocomplete="new-password" placeholder="Create a password"
+                                class="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"/>
+                            <button type="button" data-toggle="new-password" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-md text-slate-400 hover:text-slate-600"><i class="fa-regular fa-eye text-sm"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Live policy checklist (rules come from the security policy) -->
+                    <div id="policy" class="bg-slate-50 border border-slate-200 rounded-lg p-4 -mt-1">
+                        <p class="text-xs font-semibold text-slate-700 mb-2">Your password must contain:</p>
+                        <ul class="text-sm space-y-1.5" aria-live="polite">
+                            <li id="req-length" class="flex items-center gap-2 text-slate-500"><i class="fa-solid fa-circle text-slate-300 text-[8px] w-3 text-center" aria-hidden="true"></i><span>a minimum of 10 characters</span><span class="sr-only req-state">not met</span></li>
+                            <li id="req-upper" class="flex items-center gap-2 text-slate-500"><i class="fa-solid fa-circle text-slate-300 text-[8px] w-3 text-center" aria-hidden="true"></i><span>an uppercase character</span><span class="sr-only req-state">not met</span></li>
+                            <li id="req-lower" class="flex items-center gap-2 text-slate-500"><i class="fa-solid fa-circle text-slate-300 text-[8px] w-3 text-center" aria-hidden="true"></i><span>a lowercase character</span><span class="sr-only req-state">not met</span></li>
+                            <li id="req-number" class="flex items-center gap-2 text-slate-500"><i class="fa-solid fa-circle text-slate-300 text-[8px] w-3 text-center" aria-hidden="true"></i><span>a number</span><span class="sr-only req-state">not met</span></li>
+                            <li id="req-special" class="flex items-center gap-2 text-slate-500"><i class="fa-solid fa-circle text-slate-300 text-[8px] w-3 text-center" aria-hidden="true"></i><span>a special character</span><span class="sr-only req-state">not met</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700" for="confirm-password">Confirm password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock text-slate-400 text-sm absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true"></i>
+                            <input type="password" id="confirm-password" autocomplete="new-password" placeholder="Enter the same password again"
+                                class="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"/>
+                            <button type="button" data-toggle="confirm-password" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-md text-slate-400 hover:text-slate-600"><i class="fa-regular fa-eye text-sm"></i></button>
+                        </div>
+                        <p id="match-error" class="hidden text-xs text-red-600"><i class="fa-solid fa-circle-exclamation mr-1"></i>Passwords don't match.</p>
+                    </div>
+
+                    <button id="activate-btn" type="submit" class="w-full py-3.5 rounded-lg text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-60 min-h-[44px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">
+                        <i class="fa-solid fa-user-check text-xs"></i> Activate account
+                    </button>
+                    <p class="text-xs text-slate-500 text-center -mt-2">Your activation link works once, for 72 hours.</p>
+                </form>
+            </div>
+
+            <div data-s1-show="expired" class="text-center">
+                <div class="w-14 h-14 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-hourglass-end text-xl" aria-hidden="true"></i></div>
+                <h1 class="text-xl font-bold text-slate-900">This activation link has expired</h1>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">This activation link has expired. Ask your administrator to send a new one.<span class="block mt-2 text-xs text-slate-500">Activation links work for 72 hours. For your security, only an administrator can send a new link.</span></p>
+                <div class="mt-6 flex flex-col gap-2">
+                </div>
+            </div>
+
+            <div data-s1-show="used" class="text-center">
+                <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-circle-check text-xl" aria-hidden="true"></i></div>
+                <h1 class="text-xl font-bold text-slate-900">This activation link has already been used</h1>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">Your account is already active. Sign in with your email address and password, or reset your password if you've forgotten it.</p>
+                <div class="mt-6 flex flex-col gap-2">
+                    <a href="agency.identity-access.sign-in.html" class="w-full py-3 rounded-lg text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-95" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);"><i class="fa-solid fa-arrow-right-to-bracket text-xs"></i> Go to sign in</a>
+                    <a href="agency.identity-access.forgot-password.html" class="w-full py-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 text-slate-700 bg-white border border-slate-200 hover:bg-slate-50">Forgot password?</a>
+                </div>
+            </div>
+
+            <div data-s1-show="deactivated" class="text-center">
+                <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-user-slash text-xl" aria-hidden="true"></i></div>
+                <h1 class="text-xl font-bold text-slate-900">This account has been deactivated</h1>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">An administrator at TechForce Recruitment deactivated this account before it was activated, so the link no longer works. Contact your administrator if you think this is wrong.</p>
+                <div class="mt-6 flex flex-col gap-2">
+                </div>
+            </div>
+
+            <div data-s1-show="success" class="text-center" role="status">
+                <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check text-xl" aria-hidden="true"></i></div>
+                <h1 class="text-xl font-bold text-slate-900">Your account is active</h1>
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed">Welcome to Abstract VMS. Taking you to your dashboard…</p>
+                <div class="mt-6 flex flex-col gap-2">
+                    <a href="agency.shell.dashboard.html" id="go-home" data-s1-home class="w-full py-3 rounded-lg text-white font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-95" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Go to dashboard <i class="fa-solid fa-arrow-right text-xs"></i></a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <p class="text-center text-xs text-white/40 mt-6">© 2026 Abstract Recruitment</p>
+    </div>
+</main>
+
+<script>
+(function () {
+  var pw = document.getElementById('new-password'), cf = document.getElementById('confirm-password');
+  var RULES = [
+    ['req-length', function (v) { return v.length >= 10; }],
+    ['req-upper', function (v) { return /[A-Z]/.test(v); }],
+    ['req-lower', function (v) { return /[a-z]/.test(v); }],
+    ['req-number', function (v) { return /[0-9]/.test(v); }],
+    ['req-special', function (v) { return /[^A-Za-z0-9]/.test(v); }]
+  ];
+  var attempted = false;
+  function paintRule(id, ok, strict) {
+    var li = document.getElementById(id), i = li.querySelector('i'), s = li.querySelector('.req-state');
+    var bad = !ok && strict;
+    li.className = 'flex items-center gap-2 ' + (ok ? 'text-emerald-700' : bad ? 'text-red-600 font-medium' : 'text-slate-500');
+    i.className = 'fa-solid ' + (ok ? 'fa-circle-check text-emerald-600' : bad ? 'fa-circle-xmark text-red-600' : 'fa-circle text-slate-300 text-[8px]') + ' w-3 text-center';
+    s.textContent = ok ? 'met' : 'not met';
+  }
+  function setBad(input, bad) {
+    input.classList.toggle('border-red-600', bad); input.classList.toggle('border-slate-200', !bad);
+    input.setAttribute('aria-invalid', String(bad));
+  }
+  function check() {
+    var v = pw.value, strong = true;
+    RULES.forEach(function (r) { var ok = r[1](v); if (!ok) strong = false; paintRule(r[0], ok, attempted); });
+    var mismatch = cf.value.length > 0 && cf.value !== v || (attempted && !cf.value);
+    document.getElementById('match-error').classList.toggle('hidden', !mismatch);
+    setBad(pw, attempted && !strong); setBad(cf, mismatch);
+    return strong && !mismatch && cf.value === v;
+  }
+  pw.addEventListener('input', check); cf.addEventListener('input', check);
+  document.querySelectorAll('[data-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = document.getElementById(b.dataset.toggle), show = i.type === 'password';
+      i.type = show ? 'text' : 'password';
+      b.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      b.innerHTML = '<i class="fa-regular ' + (show ? 'fa-eye-slash' : 'fa-eye') + ' text-sm"></i>';
+    });
+  });
+  var goingHome = false;
+  document.getElementById('activate-form').addEventListener('submit', function (e) {
+    e.preventDefault(); attempted = true;
+    if (!check()) { S1.setState('validation'); pw.focus(); return; }
+    var btn = document.getElementById('activate-btn');
+    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Activating…';
+    setTimeout(function () { goingHome = true; S1.setState('success'); }, 1000);
+  });
+  document.addEventListener('s1:state', function (e) {
+    var s = e.detail.state, btn = document.getElementById('activate-btn');
+    btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-user-check text-xs"></i> Activate account';
+    if (s === 'validation' && !attempted) { attempted = true; pw.value = 'tforce1'; cf.value = 'tforce12'; }
+    if (s === 'default') { attempted = false; }
+    check();
+    // success after a real activation goes straight into the portal
+    if (s === 'success' && goingHome) setTimeout(function () { location.href = document.getElementById('go-home').getAttribute('href'); }, 2500);
+  });
+})();
+</script>
+<script src="slice1-kit.js"></script>
+</body>
+</html>

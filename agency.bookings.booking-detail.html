@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Detail - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex-shrink-0 flex justify-between items-center">
+            <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
+            <p class="text-white/40 text-xs mt-2 font-manrope">Agency Portal</p>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-clock w-5 text-center"></i>
+                    Timesheets
+                </a>
+                <a href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="agency.organisations.agency-profile.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-1 relative">
+                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                    </div>
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
+                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
+                            <option value="admin">Agency Admin</option>
+                            <option value="recruiter">Agency Recruiter</option>
+                            <option value="finance">Agency Finance</option>
+                        </select>
+                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
+                    </div>
+                    <a href="agency.identity-access.my-account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
+                    </a>
+                    <a href="agency.notifications.notification-preferences.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
+                    </a>
+                    <a href="agency.organisations.agency-profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
+                    </a>
+                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
+                        <a href="agency.identity-access.sign-in.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
+                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
+                    <div class="overflow-hidden flex-1">
+                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <a href="agency.bookings.bookings.html" class="text-gray-500 hover:text-navy text-sm font-medium"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Bookings</a>
+                    <span class="text-gray-300 mx-2">/</span>
+                    <h2 class="text-lg font-sora font-semibold text-gray-900 hidden sm:block">Booking Detail</h2>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
+                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <div class="relative hidden sm:block">
+                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
+                        <option>All branches</option>
+                        <option>London HQ</option>
+                        <option>Manchester Hub</option>
+                        <option>Birmingham Depot</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-6 bg-lightbg">
+            <div class="max-w-7xl mx-auto space-y-6">
+
+                <!-- Page Header Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-1">
+                            <h1 class="text-2xl font-sora font-bold text-navy">BKG-9942</h1>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue/10 text-blue border border-blue/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue"></span> Active
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-500">Booking for <span class="font-medium text-gray-900">John Doe</span> at Logistics Pro UK</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="window.print()" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">
+                            <i class="fa-solid fa-print mr-1.5"></i> Print Summary
+                        </button>
+                        <a href="agency.timesheets.timesheets.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors">
+                            Manage days on timesheet</a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left Column: Info & AWR -->
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <!-- Booking Info Card -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-briefcase text-gray-400 mr-2"></i>Booking Information</h3>
+                            </div>
+                            <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Client</label>
+                                    <p class="text-sm font-medium text-gray-900">Logistics Pro UK</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Business Unit</label>
+                                    <p class="text-sm font-medium text-gray-900">Midlands Hub</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Job Role</label>
+                                    <p class="text-sm font-medium text-gray-900">FLT Driver (Reach)</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Shift Pattern</label>
+                                    <p class="text-sm font-medium text-gray-900">Monday - Friday (08:00 - 16:00)</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Dates</label>
+                                    <p class="text-sm font-medium text-gray-900">12 Oct 2023 - 12 Jan 2024</p>
+                                </div>
+                                <div class="bg-blue/5 p-3 rounded-lg border border-blue/10">
+                                    <label class="block text-xs font-bold text-blue uppercase tracking-wider mb-1">Pay Rate</label>
+                                    <p class="text-lg font-mono font-bold text-navy">£15.50 <span class="text-sm text-gray-500 font-manrope font-normal">/hr</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timesheets Section -->
+                        <div class="flex items-start gap-3 bg-blue/5 border border-blue/20 rounded-lg p-4">
+                    <i class="fa-solid fa-circle-info text-blue mt-0.5"></i>
+                    <p class="text-sm text-gray-600">Booking dates, shift pattern and cancellation are managed by Abstract. What you control is <span class="font-medium text-gray-900">which days</span> your candidate is booked within this range &mdash; un-booking a future day raises a request the client approves (BK-018, TS-044).</p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-clock text-gray-400 mr-2"></i>Timesheets</h3>
+                                <span class="text-xs text-gray-500 italic">Visible after invoice cycle</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">Week Commencing</th>
+                                            <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-right">Hours</th>
+                                            <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-right">Agency Cost</th>
+                                            <th class="py-3 px-5 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="py-3 px-5 text-sm text-gray-900 font-medium">16 Oct 2023</td>
+                                            <td class="py-3 px-5 text-sm text-gray-700 text-right">40.00</td>
+                                            <td class="py-3 px-5 text-sm font-mono text-gray-900 text-right">£620.00</td>
+                                            <td class="py-3 px-5 text-center">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success border border-success/20">Approved</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="py-3 px-5 text-sm text-gray-900 font-medium">23 Oct 2023</td>
+                                            <td class="py-3 px-5 text-sm text-gray-700 text-right">37.50</td>
+                                            <td class="py-3 px-5 text-sm font-mono text-gray-900 text-right">£581.25</td>
+                                            <td class="py-3 px-5 text-center">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-success/10 text-success border border-success/20">Approved</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="py-3 px-5 text-sm text-gray-900 font-medium">30 Oct 2023</td>
+                                            <td class="py-3 px-5 text-sm text-gray-700 text-right">-</td>
+                                            <td class="py-3 px-5 text-sm font-mono text-gray-900 text-right">-</td>
+                                            <td class="py-3 px-5 text-center">
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-500 border border-gray-200">Awaiting Invoice Cycle</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="px-5 py-3 border-t border-gray-100 bg-gray-50/50 text-xs text-gray-500 flex items-start gap-2">
+                                <i class="fa-solid fa-lock text-gray-400 mt-0.5"></i>
+                                <span>Read-only. Hours are entered by the client; agency-facing timesheet figures become visible only after the invoice cycle.</span>
+                            </div>
+                        </div>
+
+                        <!-- Absence Justification Section -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-notes-medical text-gray-400 mr-2"></i>Absence Confirmation</h3>
+                                <span id="section-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                    <i class="fa-solid fa-hourglass-half text-[10px]"></i> Requested
+                                </span>
+                            </div>
+                            <div class="p-5 space-y-4">
+                                <!-- Requested absence card -->
+                                <div id="absence-card" class="border border-amber-200 bg-amber-50/40 rounded-lg p-4">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0">
+                                                <i class="fa-solid fa-notes-medical"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-semibold text-gray-900">John Doe — Wed 25 Oct 2023</p>
+                                                <p class="text-xs text-gray-600 mt-0.5">Client-stated day status:
+                                                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 ml-1">
+                                                        <i class="fa-solid fa-notes-medical text-[10px]"></i> Sick Leave
+                                                    </span>
+                                                </p>
+                                                <p class="text-xs text-gray-500 mt-1">Logistics Pro UK asked you to confirm this absence.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <button onclick="openJustifyPanel()" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90 transition-colors whitespace-nowrap">
+                                                <i class="fa-solid fa-clipboard-check mr-1.5"></i> Justify absence
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="absence-state-note" class="mt-3 pt-3 border-t border-amber-200/70 text-xs text-amber-800 flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                        <span>Awaiting your justification.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Justify panel (hidden until opened) -->
+                                <div id="justify-panel" class="hidden border border-gray-200 rounded-lg p-4 bg-gray-50/60">
+                                    <h4 class="text-sm font-sora font-semibold text-gray-900 mb-3">Justify absence</h4>
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Candidate</label>
+                                            <p class="text-sm font-medium text-gray-900">John Doe</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Day</label>
+                                            <p class="text-sm font-medium text-gray-900">Wed 25 Oct 2023</p>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Client reason</label>
+                                            <p class="text-sm font-medium text-gray-900">Sick Leave</p>
+                                        </div>
+                                    </div>
+                                    <label for="justify-reason" class="block text-xs font-bold text-gray-600 mb-1">Your justification reason</label>
+                                    <textarea id="justify-reason" rows="3" placeholder="e.g. Candidate phoned in at 06:40 reporting a stomach illness; self-certified sick note to follow." class="w-full text-sm border border-gray-300 rounded-md p-3 focus:border-blue focus:ring-1 focus:ring-blue outline-none transition-all"></textarea>
+                                    <div class="flex items-center justify-end gap-3 mt-4">
+                                        <button onclick="closeJustifyPanel()" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">Cancel</button>
+                                        <button onclick="submitJustification()" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90 transition-colors">Submit justification</button>
+                                    </div>
+                                </div>
+
+                                <div class="text-xs text-gray-500 flex items-start gap-2">
+                                    <i class="fa-solid fa-shield-halved text-gray-400 mt-0.5"></i>
+                                    <span>Your justification is shared with the client and Abstract. It does not delay the client's timesheet or invoicing (XR-015).</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Candidate & AWR Status -->
+                    <div class="space-y-6">
+                        
+                        <!-- Candidate Card -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-user text-gray-400 mr-2"></i>Candidate Profile</h3>
+                                <a href="#" class="text-sm text-blue hover:underline">Full Profile</a>
+                            </div>
+                            <div class="p-5 space-y-4">
+                                <div class="flex items-center gap-4 border-b border-gray-100 pb-4">
+                                    <div class="w-12 h-12 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-lg font-sora">JD</div>
+                                    <div>
+                                        <h4 class="text-base font-semibold text-gray-900">John Doe</h4>
+                                        <p class="text-xs text-gray-500">CAN-10293</p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Contact Details</label>
+                                    <p class="text-sm text-gray-900">john.doe@email.com</p>
+                                    <p class="text-sm text-gray-900">07700 900 123</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Address</label>
+                                    <p class="text-sm text-gray-900">12 High Street<br>Birmingham, B1 1AA</p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4 pt-2">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">DOB</label>
+                                        <p class="text-sm text-gray-900">15/04/1985</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">NI Number</label>
+                                        <p class="text-sm text-gray-900 font-mono">QQ123456C</p>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-gray-100">
+                                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">Compliance Status</label>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-center text-sm">
+                                            <span class="text-gray-700"><i class="fa-solid fa-id-card text-gray-400 mr-2"></i>Right to Work</span>
+                                            <i class="fa-solid fa-circle-check text-success"></i>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm">
+                                            <span class="text-gray-700"><i class="fa-solid fa-truck-ramp-box text-gray-400 mr-2"></i>FLT Licence</span>
+                                            <i class="fa-solid fa-circle-check text-success"></i>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm">
+                                            <span class="text-gray-700"><i class="fa-solid fa-hard-hat text-gray-400 mr-2"></i>Safety Induction</span>
+                                            <i class="fa-solid fa-circle-check text-success"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AWR Status Card -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="p-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-scale-balanced text-gray-400 mr-2"></i>AWR Tracker</h3>
+                            </div>
+                            <div class="p-5 flex flex-col items-center text-center">
+                                <div class="w-24 h-24 rounded-full border-4 border-gray-100 flex items-center justify-center mb-3 relative">
+                                    <svg class="absolute inset-0 w-full h-full text-blue" viewBox="0 0 36 36">
+                                        <path class="text-gray-200" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path class="text-blue" stroke-width="3" stroke-dasharray="25, 100" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                    <div class="flex flex-col">
+                                        <span class="text-2xl font-sora font-bold text-navy">3</span>
+                                        <span class="text-[10px] text-gray-500 uppercase tracking-wider">Weeks</span>
+                                    </div>
+                                </div>
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
+                                    Qualifying Period
+                                </span>
+                                <p class="text-xs text-gray-500 mt-3">Target week 12: 12 Jan 2024</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openJustifyPanel() {
+            document.getElementById('justify-panel').classList.remove('hidden');
+        }
+        function closeJustifyPanel() {
+            document.getElementById('justify-panel').classList.add('hidden');
+        }
+        function submitJustification() {
+            var reason = document.getElementById('justify-reason').value.trim() || 'Candidate reported sick; self-certification to follow.';
+            // Conceptually: Absence Confirmation state Requested -> Justified
+            document.getElementById('justify-panel').classList.add('hidden');
+            // Flip the section badge to Justified (green terminal)
+            var badge = document.getElementById('section-badge');
+            if (badge) {
+                badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
+                badge.innerHTML = '<i class="fa-solid fa-circle-check text-[10px]"></i> Justified';
+            }
+            var card = document.getElementById('absence-card');
+            if (card) card.className = 'border border-emerald-200 bg-emerald-50/40 rounded-lg p-4';
+            var note = document.getElementById('absence-state-note');
+            if (note) {
+                note.className = 'mt-3 pt-3 border-t border-emerald-200/70 text-xs text-emerald-800 flex items-start gap-2';
+                note.innerHTML = '<i class="fa-solid fa-circle-check mt-0.5"></i><span>Justified — reason: ' + reason + '</span>';
+            }
+        }
+    </script>
+
+
+    <!-- ============ Notification drawer (shared shell component) ============ -->
+    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
+           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
+                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
+                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div id="notif-list" class="flex-1 overflow-y-auto">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-right-left text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-signature text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.candidates.candidate-detail.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.bookings.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.money.self-bill-detail.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="notif-empty" class="hidden px-6 py-16 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
+                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
+            </div>
+        </div>
+        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
+            <a href="agency.notifications.notification-centre.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
+            <a href="agency.notifications.notification-preferences.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
+        </div>
+    </aside>
+
+    <script>
+        function openNotifDrawer() {
+            document.getElementById('notif-drawer').classList.remove('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        function closeNotifDrawer() {
+            document.getElementById('notif-drawer').classList.add('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function refreshNotifCount() {
+            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var pill = document.getElementById('notif-unread-pill');
+            pill.textContent = n + ' unread';
+            pill.classList.toggle('hidden', n === 0);
+            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
+        }
+        function markNotifRead(btn) {
+            var item = btn.closest('.notif-item');
+            item.dataset.unread = '0';
+            item.classList.remove('is-unread');
+            item.querySelector('.notif-dot').classList.add('hidden');
+            btn.classList.add('hidden');
+            refreshNotifCount();
+        }
+        function markAllNotifRead() {
+            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
+                i.dataset.unread = '0';
+                i.classList.remove('is-unread');
+                i.querySelector('.notif-dot').classList.add('hidden');
+                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
+            });
+            refreshNotifCount();
+        }
+        // Account menu
+        function toggleAccountMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('account-menu').classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var m = document.getElementById('account-menu');
+            var t = document.getElementById('account-trigger');
+            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeNotifDrawer();
+                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <script>
+        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
+        var ROLE_HIDES = {
+            admin:     [],
+            recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
+            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
+        };
+        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        function applyRole(role) {
+            var hide = ROLE_HIDES[role] || [];
+            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
+                var href = a.getAttribute('href');
+                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
+            });
+            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
+            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
+        }
+        (function () {
+            var r = 'admin';
+            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
+            var sel = document.getElementById('role-switch');
+            if (sel) sel.value = r;
+            applyRole(r);
+        })();
+    </script>
+
+    <!-- ============ Toast (shared) ============ -->
+    <div id="toast" role="status" aria-live="polite"
+         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
+        <div class="flex items-center gap-3 bg-navy text-white rounded-lg shadow-2xl px-4 py-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-success"></i>
+            <p id="toast-msg" class="text-sm font-medium"></p>
+        </div>
+    </div>
+
+    <script>
+        var _toastTimer;
+        function toast(msg, icon) {
+            var t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').className = 'fa-solid ' + (icon || 'fa-circle-check') + ' text-success';
+            t.classList.remove('opacity-0', 'translate-y-2');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(function () { t.classList.add('opacity-0', 'translate-y-2'); }, 2600);
+        }
+    </script>
+
+<script src="slice1-kit.js"></script>
+</body>
+</html>

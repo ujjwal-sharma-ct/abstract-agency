@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission Matrix · Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { display: none;} * { scrollbar-width: none; }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid #1D4ED8; outline-offset: 2px; }
+        @media (prefers-reduced-motion: reduce) { .animate-pulse, .fa-spin { animation: none !important; } }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'], },
+                    colors: {
+                        navy: { DEFAULT: '#172554', 50: '#EEF1FB', 100: '#D4DCF5', 200: '#A9B9EB', 300: '#7E96E1', 400: '#5373D7', 500: '#2850CD', 600: '#1D3FA4', 700: '#162F7B', 800: '#0F1F52', 900: '#172554', },
+                        brand: { blue: '#1D4ED8', purple: '#5B2E91', navy: '#172554', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-slate-100 overflow-hidden text-slate-900" data-s1-page data-s1-states="default loading empty error denied readonly saving saved refused conflict">
+
+<div id="app-root" class="flex w-full" style="height: 100vh;">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 overflow-y-auto" style="background: linear-gradient(180deg, #0f1a3e 0%, #172554 42%, #1e1a4a 100%);">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex justify-between items-center">
+            <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
+            <p class="text-white/40 text-sm mt-2">Agency Portal</p>
+        </div>
+
+        <nav id="sidebar-nav" aria-label="Agency portal" class="flex-1 px-3 py-4 flex flex-col gap-1">
+            <p class="text-white/30 text-xs font-semibold uppercase tracking-widest px-3 mb-2">MENU</p>
+            <a id="nav-dashboard" href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-gauge-high text-white/40 w-4 text-center"></i>
+                <span>Dashboard</span>
+            </a>
+            <a id="nav-vacancies" href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-briefcase text-white/40 w-4 text-center"></i>
+                <span>Vacancies</span>
+            </a>
+            <a id="nav-candidates" href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-users text-white/40 w-4 text-center"></i>
+                <span>Candidates</span>
+            </a>
+            <a id="nav-proposals" href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-file-signature text-white/40 w-4 text-center"></i>
+                <span>Proposals</span>
+            </a>
+            <a id="nav-bookings" href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-calendar-check text-white/40 w-4 text-center"></i>
+                <span>Bookings</span>
+            </a>
+            <a id="nav-timesheets" href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-clock text-white/40 w-4 text-center"></i>
+                <span>Timesheets</span>
+            </a>
+            <a id="nav-selfbills" href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-file-invoice-dollar text-white/40 w-4 text-center"></i>
+                <span>Self-Bills</span>
+            </a>
+            <a id="nav-reports" href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-chart-bar text-white/40 w-4 text-center"></i>
+                <span>Reports</span>
+            </a>
+            <p class="text-white/30 text-xs font-semibold uppercase tracking-widest px-3 mb-2 mt-4">GENERAL</p>
+            <a id="nav-notifications" href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/10 text-sm transition-all duration-150">
+                <i class="fa-solid fa-bell text-white/40 w-4 text-center"></i>
+                <span>Notifications</span>
+            </a>
+            <a id="nav-settings" href="agency.organisations.agency-profile.html" aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white font-semibold text-sm transition-all duration-150" style="background: linear-gradient(135deg, rgba(29,78,216,0.5), rgba(91,46,145,0.4)); border: 1px solid rgba(255,255,255,0.15);">
+                <i class="fa-solid fa-gear text-blue-400 w-4 text-center"></i>
+                <span>Settings</span>
+                <div class="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+            </a>
+
+        </nav>
+
+        <div id="sidebar-footer" class="px-4 py-4 border-t border-white/10">
+            <div class="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-white/5 transition-all">
+                <div class="w-8 h-8 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold flex items-center justify-center flex-shrink-0" aria-hidden="true">DR</div>
+                <div class="flex-1 min-w-0">
+                    <a href="agency.identity-access.profile.html" class="block text-white text-xs font-semibold truncate hover:underline" title="Your profile" data-user-name>Daniel Reeves</a>
+                    <p class="text-white/40 text-xs truncate">TechForce Recruitment</p>
+                </div>
+                <a href="agency.identity-access.sign-in.html?reason=signed-out" aria-label="Sign out" title="Sign out" class="w-9 h-9 flex items-center justify-center rounded-lg"><i class="fa-solid fa-arrow-right-from-bracket text-white/40 text-xs hover:text-white"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+        <header id="header" class="flex items-center justify-between gap-3 px-4 sm:px-6 xl:px-8 py-4 bg-white border-b border-slate-200 flex-shrink-0">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="mobile-menu-btn" class="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors flex-shrink-0"><i class="fa-solid fa-bars text-slate-600 text-sm"></i></button>
+                <div class="min-w-0">
+                    <h1 id="page-title" class="text-lg font-bold text-slate-900 truncate">Permission matrix</h1>
+                    <p id="page-subtitle" class="text-xs text-slate-500 hidden sm:block truncate">What each role in TechForce Recruitment can see and do</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                <button data-s1-bell aria-label="Notifications" class="relative w-9 h-9 flex items-center justify-center rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors"><i class="fa-regular fa-bell text-slate-600 text-sm"></i></button>
+                <div class="relative pl-2 sm:pl-3 border-l border-slate-200">
+                    <button id="account-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="account-menu" aria-label="Account menu for Daniel Reeves" class="flex items-center gap-2 rounded-lg px-1 py-1 hover:bg-slate-50 min-h-[36px]">
+                        <span class="w-8 h-8 rounded-full text-white text-xs font-bold flex items-center justify-center" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);" aria-hidden="true">DR</span>
+                        <span class="hidden xl:block text-left"><span class="block text-xs font-semibold text-slate-700" data-user-name>Daniel Reeves</span><span class="block text-xs text-slate-400">TechForce Recruitment</span></span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 hidden sm:inline"></i>
+                    </button>
+                    <div id="account-menu" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-xl border border-slate-200 shadow-2xl py-1.5 z-40" role="menu">
+                        <div class="px-4 py-2.5 border-b border-slate-100">
+                            <p class="text-sm font-semibold text-slate-900 truncate" data-user-name>Daniel Reeves</p>
+                            <p class="text-xs text-slate-500 truncate">daniel.reeves@techforce-recruitment.co.uk</p>
+                        </div>
+                        <a role="menuitem" href="agency.identity-access.profile.html" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"><i class="fa-regular fa-user w-4 text-center text-slate-400"></i> Profile</a>
+                        <a role="menuitem" href="agency.identity-access.sign-in.html?reason=signed-out" class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-700 hover:bg-red-50"><i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main id="main" class="flex-1 overflow-y-auto bg-slate-100">
+
+            <div class="px-4 sm:px-6 xl:px-8 pt-6 pb-4 max-w-5xl mx-auto">
+                <!-- Breadcrumbs -->
+                <nav aria-label="Breadcrumb" class="text-xs text-slate-500 mb-3 flex items-center gap-1.5 flex-wrap">
+                    <a href="agency.identity-access.users.html" class="hover:text-blue-700 hover:underline">Users and roles</a>
+                    <i class="fa-solid fa-chevron-right text-[9px]" aria-hidden="true"></i>
+                    <a href="agency.identity-access.users.html#roles" class="hover:text-blue-700 hover:underline">Roles</a>
+                    <i class="fa-solid fa-chevron-right text-[9px]" aria-hidden="true"></i>
+                    <span class="text-slate-700 font-semibold" data-role-name>Recruiter</span>
+                </nav>
+
+            <!-- Permission denied (403) — inside the portal frame -->
+            <div data-s1-show="denied" class="max-w-xl mx-auto mt-10">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center">
+                    <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-lock text-xl" aria-hidden="true"></i></div>
+                    <h2 class="text-xl font-bold text-slate-900">You don't have access to this page</h2>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">You don't have access to this page. Ask your administrator if you need it.</p>
+                    <div class="mt-6 flex flex-col sm:flex-row gap-2 justify-center">
+                        <a href="agency.shell.dashboard.html" data-s1-home class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50"><i class="fa-solid fa-house text-xs"></i> Go to dashboard</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ErrorState -->
+            <div data-s1-show="error" class="max-w-xl mx-auto mt-10">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 text-center" role="alert">
+                    <div class="w-14 h-14 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-triangle-exclamation text-xl" aria-hidden="true"></i></div>
+                    <h2 class="text-xl font-bold text-slate-900">Something went wrong</h2>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed">We couldn't load this page. Try again — if it keeps happening, quote the reference below to Abstract.</p>
+                    <p class="text-xs text-slate-500 mt-3">Reference: <span class="font-mono font-semibold text-slate-700">ERR-M9R4-1TXB</span></p>
+                    <button onclick="S1.setState('loading');setTimeout(function(){S1.setState('default')},900)" class="mt-6 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50"><i class="fa-solid fa-rotate-right text-xs"></i> Retry</button>
+                </div>
+            </div>
+
+                <!-- Loading -->
+                <div data-s1-show="loading" aria-busy="true" aria-label="Loading permissions" class="space-y-4">
+                    <div class="h-20 bg-slate-200 rounded-2xl animate-pulse"></div>
+                    <div class="h-56 bg-slate-200 rounded-2xl animate-pulse"></div>
+                    <div class="h-56 bg-slate-200 rounded-2xl animate-pulse"></div>
+                </div>
+
+                <div data-s1-hide="loading error denied">
+                    <!-- PageHeader: one role at a time -->
+                    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 flex flex-col md:flex-row md:items-end gap-4">
+                        <div class="flex-1 min-w-0">
+                            <label for="role-select" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Role</label>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <div class="relative w-full sm:w-72">
+                                    <select id="role-select" class="w-full appearance-none pl-3 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold text-slate-900 focus:outline-none focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"></select>
+                                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none" aria-hidden="true"></i>
+                                </div>
+                                <span id="role-default" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200" title="Created when this organisation was set up. You can rename it, change its permissions or deactivate it.">Default</span>
+                                <span id="role-status" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-circle-check text-[10px]" aria-hidden="true"></i>Active</span>
+                            </div>
+                            <p class="text-sm text-slate-600 mt-2">Permissions for the <strong class="font-semibold text-slate-900" data-role-name>Recruiter</strong> role. <span id="granted-summary" class="text-slate-500"></span></p>
+                        </div>
+                        <a href="agency.identity-access.users.html#roles" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 min-h-[40px]"><i class="fa-solid fa-users-gear text-xs"></i> Manage roles</a>
+                    </section>
+
+                    <!-- Boundary note (RBAC-008/009/017) -->
+                    <div class="mt-4 flex items-start gap-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg px-4 py-3 text-sm">
+                        <i class="fa-solid fa-shield-halved text-slate-500 mt-0.5" aria-hidden="true"></i>
+                        <span>Rate and personal-data boundaries are fixed by Abstract and can't be granted.</span>
+                    </div>
+
+                    <!-- Read-only line -->
+                    <div data-s1-show="readonly" data-s1-display="flex" class="mt-4 flex items-start gap-2.5 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg px-4 py-3 text-sm">
+                        <i class="fa-solid fa-eye text-slate-500 mt-0.5" aria-hidden="true"></i>
+                        <span>You can see this role's permissions but not change them.</span>
+                    </div>
+
+                    <!-- No permissions prompt (shown whenever the role has none) -->
+                    <div id="empty-prompt" class="hidden mt-4 flex items-start gap-2.5 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg px-4 py-3 text-sm" role="status">
+                        <i class="fa-solid fa-circle-info mt-0.5" aria-hidden="true"></i>
+                        <span>This role has no permissions yet. Tick what it should be able to do, then save.</span>
+                    </div>
+
+                    <!-- Last administrator refusal (RBAC-016) -->
+                    <div id="refused-banner" data-s1-show="refused" class="mt-4 bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm" role="alert">
+                        <div class="flex items-start gap-2.5"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i>
+                            <div><p class="font-semibold">These permissions weren't saved.</p>
+                            <p class="mt-0.5">You can't remove them from the Administrator role — it would leave TechForce Recruitment with no one who can manage users. Give another active role the <em>Invite users and edit their names</em>, <em>Assign roles to users</em> and <em>Configure role permissions</em> permissions first.</p></div>
+                        </div>
+                    </div>
+
+                    <!-- Conflict -->
+                    <div data-s1-show="conflict" class="mt-4 bg-amber-50 border border-amber-200 text-amber-900 rounded-lg px-4 py-3 text-sm" role="alert">
+                        <div class="flex items-start gap-2.5"><i class="fa-solid fa-code-compare mt-0.5" aria-hidden="true"></i>
+                            <div><p class="font-semibold">This role changed while you were editing. Review and save again.</p>
+                            <p class="mt-0.5">Someone else saved permissions for this role a moment ago. Load their version, then reapply your changes.</p>
+                            <button id="conflict-reload" class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 min-h-[36px]"><i class="fa-solid fa-rotate-right text-xs"></i> Load the latest version</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Grant kind legend -->
+                    <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500" aria-label="Kinds of permission">
+                        <span class="font-semibold uppercase tracking-wider">Kinds</span>
+                        <span class="inline-flex items-center gap-1.5"><i class="fa-regular fa-eye text-slate-400" aria-hidden="true"></i>View</span>
+                        <span class="inline-flex items-center gap-1.5"><i class="fa-solid fa-pen text-slate-400" aria-hidden="true"></i>Create &amp; edit</span>
+                        <span class="inline-flex items-center gap-1.5"><i class="fa-solid fa-ban text-slate-400" aria-hidden="true"></i>Deactivate (delete kind)</span>
+                        <span class="inline-flex items-center gap-1.5"><i class="fa-solid fa-bolt text-slate-400" aria-hidden="true"></i>Named action</span>
+                        <span class="inline-flex items-center gap-1.5"><span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">Field</span>Field visibility</span>
+                    </div>
+
+                    <!-- Matrix: one card per feature group -->
+                    <div id="matrix" class="mt-3 space-y-4"></div>
+                </div>
+            </div>
+
+            <!-- Sticky save bar: appears only when something changed -->
+            <div id="save-bar" class="hidden sticky bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur" data-s1-hide="loading error denied readonly">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 xl:px-8 py-3 flex items-center gap-3">
+                    <p class="flex-1 text-sm font-semibold text-slate-900" aria-live="polite"><span id="change-count">0 changes</span><span class="hidden sm:inline text-slate-500 font-normal"> — not saved yet</span></p>
+                    <button id="discard-btn" class="px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 min-h-[40px]">Discard</button>
+                    <button id="save-btn" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white disabled:opacity-60 min-h-[40px]" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Save changes</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+/* Mobile navigation (sidebar is hidden below lg — this is the only way to reveal it) */
+(function () {
+  var btn = document.getElementById('mobile-menu-btn'),
+      sb  = document.getElementById('sidebar');
+  if (!btn || !sb) return;
+  btn.setAttribute('aria-controls', 'sidebar');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Open navigation');
+  var bd = document.createElement('div');
+  bd.setAttribute('aria-hidden', 'true');
+  bd.style.cssText = 'position:fixed;inset:0;background:rgba(15,26,62,.55);z-index:40;display:none';
+  document.body.appendChild(bd);
+  function open() {
+    sb.style.display = 'flex'; sb.style.position = 'fixed'; sb.style.top = '0';
+    sb.style.bottom = '0'; sb.style.left = '0'; sb.style.zIndex = '50';
+    bd.style.display = 'block'; btn.setAttribute('aria-expanded', 'true');
+  }
+  function close() {
+    ['display','position','top','bottom','left','zIndex'].forEach(function (p) { sb.style[p] = ''; });
+    bd.style.display = 'none'; btn.setAttribute('aria-expanded', 'false');
+  }
+  btn.addEventListener('click', function () { bd.style.display === 'block' ? close() : open(); });
+  bd.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bd.style.display === 'block') close(); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 1024) close(); });
+})();
+
+/* Account menu (UserMenu): Profile and Sign out */
+(function () {
+  var t = document.getElementById('account-trigger'), m = document.getElementById('account-menu');
+  if (!t || !m) return;
+  function set(open) { m.classList.toggle('hidden', !open); t.setAttribute('aria-expanded', String(open)); }
+  t.addEventListener('click', function (e) { e.stopPropagation(); set(m.classList.contains('hidden')); });
+  document.addEventListener('click', function (e) { if (!m.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+})();
+</script>
+
+<style>
+  @media (max-width: 767px) { .grp[data-open="false"] .grp-body { display: none; } }
+  .pm-check { width: 20px; height: 20px; accent-color: #1D4ED8; cursor: pointer; }
+  .pm-check:disabled { cursor: not-allowed; opacity: .6; }
+</style>
+<script>
+(function () {
+  // Agency catalogue — the role's own party catalogue. It has no client charge-rate
+  // item, no pay or margin item and no GDPR-tagged item at all (RBAC-009/017).
+  var CAT = [
+    { id: 'users', name: 'Users', icon: 'fa-users', items: [
+      { k: 'user:view', label: 'View users', kind: 'view' },
+      { k: 'user:create_edit', label: 'Invite users and edit their names', kind: 'edit', admin: true },
+      { k: 'user:resend_activation', label: 'Resend activation links', kind: 'action' },
+      { k: 'user:delete', label: 'Deactivate and reactivate users', kind: 'delete' },
+      { k: 'user.email:view', label: 'Users\' email addresses', kind: 'field' },
+      { k: 'user.last_sign_in:view', label: 'Users\' last sign-in times', kind: 'field' }
+    ]},
+    { id: 'roles', name: 'Roles', icon: 'fa-user-shield', items: [
+      { k: 'role:view', label: 'View roles', kind: 'view' },
+      { k: 'role:create_edit', label: 'Create and rename roles', kind: 'edit' },
+      { k: 'role:assign', label: 'Assign roles to users', kind: 'action', admin: true },
+      { k: 'role:configure_permissions', label: 'Configure role permissions', kind: 'action', admin: true },
+      { k: 'role:delete', label: 'Deactivate and reactivate roles', kind: 'delete' }
+    ]}
+  ];
+  var ALL = []; CAT.forEach(function (g) { g.items.forEach(function (i) { ALL.push(i.k); }); });
+  var ROLES = {
+    administrator: { name: 'Administrator', def: true, status: 'Active', grants: ALL.slice() },
+    recruiter: { name: 'Recruiter', def: true, status: 'Active', grants: ['user:view', 'user.email:view', 'role:view'] },
+    finance: { name: 'Finance', def: true, status: 'Active', grants: ['user:view'] },
+    teamlead: { name: 'Team Lead', def: false, status: 'Active', grants: [] }
+  };
+  var KIND = {
+    view: '<span class="inline-flex items-center gap-1.5 text-xs text-slate-500" title="View"><i class="fa-regular fa-eye text-slate-400" aria-hidden="true"></i><span class="sr-only sm:not-sr-only">View</span></span>',
+    edit: '<span class="inline-flex items-center gap-1.5 text-xs text-slate-500" title="Create and edit"><i class="fa-solid fa-pen text-slate-400" aria-hidden="true"></i><span class="sr-only sm:not-sr-only">Create &amp; edit</span></span>',
+    'delete': '<span class="inline-flex items-center gap-1.5 text-xs text-slate-500" title="Delete kind: records are deactivated, never deleted"><i class="fa-solid fa-ban text-slate-400" aria-hidden="true"></i><span class="sr-only sm:not-sr-only">Deactivate</span></span>',
+    action: '<span class="inline-flex items-center gap-1.5 text-xs text-slate-500" title="Named action"><i class="fa-solid fa-bolt text-slate-400" aria-hidden="true"></i><span class="sr-only sm:not-sr-only">Action</span></span>',
+    field: '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Controls whether this role can see the values in this field, not whether it can open the page.">Field</span>'
+  };
+  var q = new URLSearchParams(location.search);
+  var roleId = ROLES[q.get('role')] ? q.get('role') : 'recruiter';
+  var realRefusal = false, saved = {}, work = {}, readOnly = false, saving = false, open = { users: true, roles: false };
+  function load(id) { roleId = id; saved = {}; ROLES[id].grants.forEach(function (k) { saved[k] = true; }); work = Object.assign({}, saved); }
+  function changes() { return ALL.filter(function (k) { return !!saved[k] !== !!work[k]; }).length; }
+  function onCount() { return ALL.filter(function (k) { return work[k]; }).length; }
+
+  var sel = document.getElementById('role-select');
+  sel.innerHTML = Object.keys(ROLES).map(function (id) { return '<option value="' + id + '">' + ROLES[id].name + '</option>'; }).join('');
+
+  function render() {
+    var r = ROLES[roleId];
+    sel.value = roleId;
+    document.querySelectorAll('[data-role-name]').forEach(function (e) { e.textContent = r.name; });
+    document.getElementById('role-default').style.display = r.def ? '' : 'none';
+    document.getElementById('granted-summary').textContent = onCount() + ' of ' + ALL.length + ' permissions on.';
+    document.getElementById('empty-prompt').classList.toggle('hidden', onCount() !== 0 || readOnly);
+    var html = CAT.map(function (g) {
+      var on = g.items.filter(function (i) { return work[i.k]; }).length, isOpen = open[g.id] !== false;
+      return '<section class="grp bg-white rounded-2xl border border-slate-200 shadow-sm" data-open="' + isOpen + '" aria-labelledby="g-' + g.id + '">' +
+        '<div class="sticky top-0 z-10 bg-white rounded-t-2xl border-b border-slate-200 px-4 sm:px-5 py-3 flex items-center gap-3">' +
+          '<button type="button" class="grp-toggle flex-1 min-w-0 flex items-center gap-3 text-left md:cursor-default min-h-[36px]" aria-expanded="' + isOpen + '" data-g="' + g.id + '">' +
+            '<span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center flex-shrink-0"><i class="fa-solid ' + g.icon + ' text-xs" aria-hidden="true"></i></span>' +
+            '<span id="g-' + g.id + '" class="text-xs font-bold uppercase tracking-wider text-slate-900">' + g.name + '</span>' +
+            '<i class="fa-solid fa-chevron-' + (isOpen ? 'up' : 'down') + ' text-[10px] text-slate-400 md:hidden" aria-hidden="true"></i>' +
+          '</button>' +
+          '<span class="text-xs font-semibold text-slate-500 whitespace-nowrap">' + on + ' of ' + g.items.length + ' on</span>' +
+          '<input type="checkbox" class="pm-check grp-all" data-g="' + g.id + '" aria-label="Turn all ' + g.name + ' permissions on or off"' + (readOnly || saving ? ' disabled' : '') + (on === g.items.length ? ' checked' : '') + '>' +
+        '</div>' +
+        '<ul class="grp-body divide-y divide-slate-100">' + g.items.map(function (i) {
+          var changed = !!saved[i.k] !== !!work[i.k];
+          return '<li class="flex items-center gap-3 px-4 sm:px-5 py-3 ' + (changed ? 'bg-blue-50/60' : '') + '">' +
+            '<label for="p-' + i.k.replace(/[^a-z]/g, '-') + '" class="flex-1 min-w-0 text-sm text-slate-800 cursor-pointer">' + i.label +
+              (changed ? ' <span class="ml-1 text-xs font-semibold text-blue-700">· changed</span>' : '') + '</label>' +
+            '<span class="w-24 sm:w-28 flex justify-end sm:justify-start">' + KIND[i.kind] + '</span>' +
+            '<input type="checkbox" class="pm-check one" id="p-' + i.k.replace(/[^a-z]/g, '-') + '" data-k="' + i.k + '"' + (work[i.k] ? ' checked' : '') + (readOnly || saving ? ' disabled' : '') + '>' +
+          '</li>';
+        }).join('') + '</ul></section>';
+    }).join('');
+    var m = document.getElementById('matrix'); m.innerHTML = html;
+    m.querySelectorAll('.grp-all').forEach(function (b) {
+      var g = CAT.filter(function (x) { return x.id === b.dataset.g; })[0];
+      var on = g.items.filter(function (i) { return work[i.k]; }).length;
+      b.indeterminate = on > 0 && on < g.items.length;
+      b.addEventListener('change', function () { g.items.forEach(function (i) { work[i.k] = b.checked; }); render(); });
+    });
+    m.querySelectorAll('.one').forEach(function (b) { b.addEventListener('change', function () { work[b.dataset.k] = b.checked; render(); }); });
+    m.querySelectorAll('.grp-toggle').forEach(function (b) {
+      b.addEventListener('click', function () { if (window.innerWidth >= 768) return; open[b.dataset.g] = !(open[b.dataset.g] !== false); render(); });
+    });
+    var n = changes(), bar = document.getElementById('save-bar');
+    bar.classList.toggle('hidden', (!n && !saving) || readOnly);
+    document.getElementById('change-count').textContent = n + (n === 1 ? ' change' : ' changes');
+    var sb = document.getElementById('save-btn');
+    sb.disabled = saving; document.getElementById('discard-btn').disabled = saving;
+    sb.innerHTML = saving ? '<i class="fa-solid fa-spinner fa-spin text-xs"></i> Saving…' : 'Save changes';
+  }
+
+  function leaveGuard(go) {
+    if (!changes()) { go(); return; }
+    S1.confirm({ title: 'Discard your changes?', body: 'You have ' + changes() + ' unsaved ' + (changes() === 1 ? 'change' : 'changes') + ' to the ' + ROLES[roleId].name + ' role. They will be lost.', cta: 'Discard changes', tone: 'danger', delay: 0, onConfirm: go });
+  }
+  sel.addEventListener('change', function () {
+    var next = sel.value; sel.value = roleId;
+    leaveGuard(function () { load(next); if (document.body.getAttribute('data-s1-state') !== 'default') S1.setState('default'); render(); });
+  });
+  // navigation guard: links and page unload
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || !changes() || a.getAttribute('href').charAt(0) === '#' || a.classList.contains('s1-ni')) return;
+    e.preventDefault(); var href = a.href;
+    leaveGuard(function () { work = Object.assign({}, saved); location.href = href; });
+  }, true);
+  window.addEventListener('beforeunload', function (e) { if (changes()) { e.preventDefault(); e.returnValue = ''; } });
+
+  document.getElementById('discard-btn').onclick = function () { work = Object.assign({}, saved); render(); S1.toast('Changes discarded.', 'info'); };
+  document.getElementById('save-btn').onclick = function () {
+    if (roleId === 'administrator' && CAT.some(function (g) { return g.items.some(function (i) { return i.admin && !work[i.k]; }); })) {
+      realRefusal = true; S1.setState('refused'); realRefusal = false; return;
+    }
+    saving = true; render();
+    setTimeout(function () {
+      saving = false; ROLES[roleId].grants = ALL.filter(function (k) { return work[k]; }); load(roleId);
+      if (document.body.getAttribute('data-s1-state') !== 'default') S1.setState('default'); else render();
+      S1.toast('Permissions saved. They apply from each user\'s next click.');
+    }, 1100);
+  };
+  document.getElementById('conflict-reload').onclick = function () {
+    ROLES[roleId].grants = ROLES[roleId].grants.concat(['user:resend_activation']).filter(function (v, i, a) { return a.indexOf(v) === i; });
+    load(roleId); S1.setState('default'); S1.toast('Latest version loaded. Reapply your changes, then save.', 'info');
+  };
+
+  document.addEventListener('s1:state', function (e) {
+    var s = e.detail.state;
+    readOnly = s === 'readonly'; saving = false;
+    if (s === 'empty') load('teamlead');
+    else if (s === 'refused' && !realRefusal) { if (roleId !== 'administrator') load('administrator'); work['role:assign'] = false; work['user:create_edit'] = false; }
+    else if (s === 'saving') { load('recruiter'); work['user:create_edit'] = true; work['role:assign'] = true; saving = true; }
+    else if (s === 'saved') { load(roleId); S1.toast('Permissions saved. They apply from each user\'s next click.'); }
+    else if (s === 'conflict') { load('recruiter'); work['user:resend_activation'] = true; work['user:delete'] = true; work['role:view'] = false; }
+    else if (s === 'readonly' || s === 'default') { if (!changes()) load(roleId); }
+    render();
+  });
+  load(roleId); render();
+})();
+</script>
+<script src="slice1-kit.js"></script>
+</body>
+</html>

@@ -71,7 +71,7 @@ login logo gets no negative margin; sidebar logos do.
 
 ## 3. Reference implementation — login
 
-Admin: `../abstract admin/1-Vendor Management - Abstract L.html`. Structure to mirror:
+Admin: `../abstract admin/abstract.identity-access.sign-in.html`. Structure to mirror:
 
 ```html
 <body class="font-inter" style="background: linear-gradient(160deg, #0f1a3e 0%, #172554 35%, #1e1a4a 65%, #2d1a5e 100%);">
@@ -184,7 +184,7 @@ Pick one:
   ```
 
 ### 5.3 The login is a split layout, not a card
-`21-Abstractvms 2 - Agency Portal.html` is a 50/50 split (`.bg-login-split`, white left / navy
+`agency.identity-access.sign-in.html` is a 50/50 split (`.bg-login-split`, white left / navy
 right) with a marketing headline and an SSO block. The redesign **replaces** that with the
 centred card — delete the `.bg-login-split` CSS, the right-hand marketing column, and the SSO
 section.
@@ -192,8 +192,8 @@ section.
 ### 5.4 Different targets and counts
 | | Admin | Agency |
 | --- | --- | --- |
-| Login file | `1-Vendor Management - Abstract L.html` | `21-Abstractvms 2 - Agency Portal.html` |
-| Sign-in redirects to | `2-…Admin Dash.html` | `3-Abstractvms 2 - Dashboard Over.html` |
+| Login file | `abstract.identity-access.sign-in.html` | `agency.identity-access.sign-in.html` |
+| Sign-in redirects to | `2-…Admin Dash.html` | `agency.shell.dashboard.html` |
 | Files with a sidebar | 22 | **25** |
 | Portal label | "Admin Portal" | "Agency Portal" |
 | Brand glyph to replace | gradient layer-group + "Abstract VMS" | blue `A2` chip + "Abstractvms 2" |
@@ -202,7 +202,7 @@ section.
 
 ## 6. Execution plan
 
-1. **Login** — rewrite `21-Abstractvms 2 - Agency Portal.html` per §3, translated per §5.1.
+1. **Login** — rewrite `agency.identity-access.sign-in.html` per §3, translated per §5.1.
    Keep the redirect to `3-…Dashboard Over.html`. Label reads **Agency Portal**.
 2. **Sidebars** — script the replacement across all 25 files; don't hand-edit.
    The admin used a div-matching script (safer than regex, since the block has nested divs):

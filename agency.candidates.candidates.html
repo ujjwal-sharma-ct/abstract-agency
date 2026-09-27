@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidates - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex-shrink-0 flex justify-between items-center">
+            <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
+            <p class="text-white/40 text-xs mt-2 font-manrope">Agency Portal</p>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-clock w-5 text-center"></i>
+                    Timesheets
+                </a>
+                <a href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="agency.organisations.agency-profile.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-1 relative">
+                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                    </div>
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
+                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
+                            <option value="admin">Agency Admin</option>
+                            <option value="recruiter">Agency Recruiter</option>
+                            <option value="finance">Agency Finance</option>
+                        </select>
+                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
+                    </div>
+                    <a href="agency.identity-access.my-account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
+                    </a>
+                    <a href="agency.notifications.notification-preferences.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
+                    </a>
+                    <a href="agency.organisations.agency-profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
+                    </a>
+                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
+                        <a href="agency.identity-access.sign-in.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
+                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
+                    <div class="overflow-hidden flex-1">
+                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex flex-col">
+                    <h1 class="text-xl font-sora font-semibold text-gray-900 leading-none">Candidates</h1>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
+                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <div class="relative hidden sm:block">
+                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
+                        <option>All branches</option>
+                        <option>London HQ</option>
+                        <option>Manchester Hub</option>
+                        <option>Birmingham Depot</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div id="candidates-scroll" class="flex-1 overflow-y-auto p-6">
+            
+            <div class="max-w-7xl mx-auto space-y-6">
+                <!-- Action Bar -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                        <!-- Search -->
+                        <div class="relative flex-grow sm:flex-grow-0 min-w-[200px]">
+                            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            <input type="text" placeholder="Search by name..." class="w-full pl-9 pr-4 py-2 bg-lightbg border border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm transition-all outline-none">
+                        </div>
+                        
+                        <!-- Filters -->
+                        <div class="relative">
+                            <select class="appearance-none pl-4 pr-8 py-2 bg-white border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue cursor-pointer">
+                                <option>All Branches</option>
+                                <option>Birmingham Hub</option>
+                                <option>London Central</option>
+                                <option>Manchester North</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                        </div>
+
+                        <div class="relative">
+                            <select class="appearance-none pl-4 pr-8 py-2 bg-white border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue cursor-pointer">
+                                <option>Compliance Status</option>
+                                <option>Compliant</option>
+                                <option>Pending</option>
+                                <option>Expired</option>
+                                <option>Not Applicable</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
+                        </div>
+
+                        <div class="flex items-center gap-2 ml-2">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" value="" class="sr-only peer" checked>
+                                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue"></div>
+                                <span class="ml-2 text-sm font-medium text-gray-700">Active Booking</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <a href="agency.candidates.create-candidate.html" class="w-full sm:w-auto px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-plus"></i> Add Candidate
+                    </a>
+                </div>
+
+                <!-- Data Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50/50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Name <i class="fa-solid fa-arrow-up-z-a ml-1 text-gray-400"></i></th>
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Contact Info</th>
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Branch <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Compliance <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Active Bookings <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
+                                    <th class="py-4 px-6 font-medium">AWR Status</th>
+                                    <th class="py-4 px-6 font-medium text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-gray-700 divide-y divide-gray-50">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-gray-50/80 transition-colors cursor-pointer group" onclick="window.location.href='agency.candidates.candidate-detail.html'">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <span class="block font-medium text-gray-900 group-hover:text-blue transition-colors">James Smith</span>
+                                                <span class="block text-xs text-gray-500">CAN-0012</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-regular fa-envelope w-4"></i> j.smith@email.com</div>
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-phone w-4"></i> 07700 900123</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">Birmingham Hub</td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success bg-success/10 border border-success/20">
+                                            <i class="fa-solid fa-shield-check text-[10px]"></i> Compliant
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue/10 text-blue text-xs font-bold">1</span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-gray-600 bg-gray-100 border border-gray-200">
+                                            Week 2
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="agency.candidates.candidate-detail.html" class="inline-block px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-gray-50/80 transition-colors cursor-pointer group" onclick="window.location.href='agency.candidates.candidate-detail.html'">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center font-bold text-xs">SJ</div>
+                                            <div>
+                                                <span class="block font-medium text-gray-900 group-hover:text-blue transition-colors">Sarah Jenkins</span>
+                                                <span class="block text-xs text-gray-500">CAN-0084</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-regular fa-envelope w-4"></i> s.jenkins@email.com</div>
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-phone w-4"></i> 07700 900456</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">London Central</td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-warning bg-warning/10 border border-warning/20">
+                                            <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Pending
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold">0</span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="text-xs text-gray-400 italic">N/A</span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="agency.candidates.candidate-detail.html" class="inline-block px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-gray-50/80 transition-colors cursor-pointer group" onclick="window.location.href='agency.candidates.candidate-detail.html'">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <span class="block font-medium text-gray-900 group-hover:text-blue transition-colors">Michael O'Connor</span>
+                                                <span class="block text-xs text-gray-500">CAN-0102</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-regular fa-envelope w-4"></i> m.oconnor@email.com</div>
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-phone w-4"></i> 07700 900789</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">Manchester North</td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-danger bg-danger/10 border border-danger/20">
+                                            <i class="fa-solid fa-circle-xmark text-[10px]"></i> Expired
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold">0</span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="text-xs text-gray-400 italic">N/A</span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="agency.candidates.candidate-detail.html" class="inline-block px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 4 -->
+                                <tr class="hover:bg-gray-50/80 transition-colors cursor-pointer group" onclick="window.location.href='agency.candidates.candidate-detail.html'">
+                                    <td class="py-4 px-6">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="" class="w-8 h-8 rounded-full object-cover">
+                                            <div>
+                                                <span class="block font-medium text-gray-900 group-hover:text-blue transition-colors">Emma Davis</span>
+                                                <span class="block text-xs text-gray-500">CAN-0215</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-regular fa-envelope w-4"></i> e.davis@email.com</div>
+                                            <div class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-phone w-4"></i> 07700 900222</div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">Birmingham Hub</td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success bg-success/10 border border-success/20">
+                                            <i class="fa-solid fa-shield-check text-[10px]"></i> Compliant
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue/10 text-blue text-xs font-bold">2</span>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-warning bg-warning/10 border border-warning/20">
+                                            Week 11 (Alert)
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right">
+                                        <a href="agency.candidates.candidate-detail.html" class="inline-block px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-white">
+                        <div class="flex items-center gap-2 text-sm text-gray-500">
+                            <span>Show</span>
+                            <select class="border border-gray-200 rounded p-1 text-gray-700 outline-none focus:border-blue">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                            </select>
+                            <span>per page</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm">
+                            <span class="text-gray-500">Showing 1 to 4 of 128 entries</span>
+                            <div class="flex items-center gap-1">
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-400 cursor-not-allowed hover:bg-gray-50" disabled>
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-blue bg-blue text-white font-medium">1</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-700 hover:bg-gray-50 font-medium">2</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-700 hover:bg-gray-50 font-medium">3</button>
+                                <span class="px-2 text-gray-400">...</span>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-700 hover:bg-gray-50 font-medium">13</button>
+                                <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-600 hover:bg-gray-50">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                
+
+                    </div>
+</div>
+</main>
+
+
+    <!-- ============ Notification drawer (shared shell component) ============ -->
+    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
+           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
+                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
+                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div id="notif-list" class="flex-1 overflow-y-auto">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-right-left text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-signature text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.candidates.candidate-detail.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.bookings.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.money.self-bill-detail.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="notif-empty" class="hidden px-6 py-16 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
+                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
+            </div>
+        </div>
+        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
+            <a href="agency.notifications.notification-centre.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
+            <a href="agency.notifications.notification-preferences.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
+        </div>
+    </aside>
+
+    <script>
+        function openNotifDrawer() {
+            document.getElementById('notif-drawer').classList.remove('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        function closeNotifDrawer() {
+            document.getElementById('notif-drawer').classList.add('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function refreshNotifCount() {
+            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var pill = document.getElementById('notif-unread-pill');
+            pill.textContent = n + ' unread';
+            pill.classList.toggle('hidden', n === 0);
+            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
+        }
+        function markNotifRead(btn) {
+            var item = btn.closest('.notif-item');
+            item.dataset.unread = '0';
+            item.classList.remove('is-unread');
+            item.querySelector('.notif-dot').classList.add('hidden');
+            btn.classList.add('hidden');
+            refreshNotifCount();
+        }
+        function markAllNotifRead() {
+            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
+                i.dataset.unread = '0';
+                i.classList.remove('is-unread');
+                i.querySelector('.notif-dot').classList.add('hidden');
+                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
+            });
+            refreshNotifCount();
+        }
+        // Account menu
+        function toggleAccountMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('account-menu').classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var m = document.getElementById('account-menu');
+            var t = document.getElementById('account-trigger');
+            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeNotifDrawer();
+                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <script>
+        // Empty states are real markup, not a mock-up of one. Append ?empty=1 to any list screen
+        // to see it — the populated table hides and the empty block takes its place.
+        (function () {
+            if (new URLSearchParams(window.location.search).get('empty') !== '1') return;
+            var e = document.getElementById('empty-candidates');
+            if (!e) return;
+            document.querySelectorAll('#main-content table').forEach(function (t) {
+                var card = t.closest('.bg-white') || t.parentElement;
+                card.classList.add('hidden');
+            });
+            document.querySelectorAll('#main-content .grid').forEach(function (g) {
+                if (g.querySelector('.notif-item')) return;
+                if (g.closest('#empty-candidates')) return;
+            });
+            e.classList.remove('hidden');
+        })();
+    </script>
+
+    <script>
+        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
+        var ROLE_HIDES = {
+            admin:     [],
+            recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
+            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
+        };
+        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        function applyRole(role) {
+            var hide = ROLE_HIDES[role] || [];
+            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
+                var href = a.getAttribute('href');
+                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
+            });
+            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
+            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
+        }
+        (function () {
+            var r = 'admin';
+            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
+            var sel = document.getElementById('role-switch');
+            if (sel) sel.value = r;
+            applyRole(r);
+        })();
+    </script>
+<script src="slice1-kit.js"></script>
+</body>
+</html>

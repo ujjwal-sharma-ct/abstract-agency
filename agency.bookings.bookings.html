@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        window.FontAwesomeConfig = {
+          autoReplaceSvg: 'nest'
+        };
+      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings List - Abstractvms 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#172554',
+                        blue: '#1D4ED8',
+                        purple: '#5B2E91',
+                        lightbg: '#F3F4F6',
+                        success: '#16A34A',
+                        warning: '#F59E0B',
+                        danger: '#DC2626'
+                    },
+                    fontFamily: {
+                        sora: ['Sora', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
+        ::-webkit-scrollbar { display: none; }
+        
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 1.15em;
+            height: 1.15em;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.25em;
+            display: grid;
+            place-content: center;
+        }
+
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: white;
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .custom-checkbox:checked {
+            background-color: #1D4ED8;
+            border-color: #1D4ED8;
+        }
+
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex-shrink-0 flex justify-between items-center">
+            <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
+            <p class="text-white/40 text-xs mt-2 font-manrope">Agency Portal</p>
+        </div>
+
+        <div class="p-4">
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
+            <nav class="space-y-1">
+                <a href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
+                    Vacancies
+                </a>
+                <a href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    Candidates
+                </a>
+                <a href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    Proposals
+                </a>
+                <a href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
+                    Bookings
+                </a>
+                <a href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-clock w-5 text-center"></i>
+                    Timesheets
+                </a>
+                <a href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                    Self-Bills
+                </a>
+                <a href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
+                    Reports
+                </a>
+            </nav>
+        </div>
+        
+        <div class="mt-auto p-4 border-t border-white/10">
+            <nav class="space-y-1">
+                <a href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-bell w-5 text-center"></i>
+                    Notifications
+                </a>
+                <a href="agency.organisations.agency-profile.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="mt-4 px-1 relative">
+                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                    </div>
+                    <div class="px-3 py-2 border-b border-gray-100">
+                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
+                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
+                            <option value="admin">Agency Admin</option>
+                            <option value="recruiter">Agency Recruiter</option>
+                            <option value="finance">Agency Finance</option>
+                        </select>
+                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
+                    </div>
+                    <a href="agency.identity-access.my-account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
+                    </a>
+                    <a href="agency.notifications.notification-preferences.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
+                    </a>
+                    <a href="agency.organisations.agency-profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
+                    </a>
+                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
+                        <a href="agency.identity-access.sign-in.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
+                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
+                    <div class="overflow-hidden flex-1">
+                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
+                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                    </div>
+                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full">
+        
+        <!-- Header -->
+        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-gray-500 hover:text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="flex flex-col">
+                    <h2 class="text-lg font-sora font-semibold text-gray-900 hidden sm:block">Bookings List</h2>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="relative hidden sm:block">
+                    <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
+                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
+                </div>
+                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
+                </button>
+                <div class="h-6 w-px bg-gray-200 mx-2"></div>
+                <div class="relative hidden sm:block">
+                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
+                        <option>All branches</option>
+                        <option>London HQ</option>
+                        <option>Manchester Hub</option>
+                        <option>Birmingham Depot</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 flex overflow-hidden">
+            
+            <!-- Filters Sidebar -->
+            <div class="w-72 bg-white border-r border-gray-200 h-full overflow-y-auto flex flex-col flex-shrink-0 hidden lg:flex">
+                <div class="p-4 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="font-sora font-semibold text-gray-900">Filters</h3>
+                    <button class="text-sm text-blue hover:text-navy font-medium">Clear All</button>
+                </div>
+                
+                <div class="p-4 space-y-6 flex-1">
+                    
+                    <!-- Branch -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Branch</label>
+                        <div class="relative">
+                            <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
+                                <option>All Branches</option>
+                                <option>London Hub</option>
+                                <option>Midlands Depot</option>
+                                <option>Northern Branch</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Client</label>
+                        <div class="relative">
+                            <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
+                                <option>All Clients</option>
+                                <option>Logistics Pro UK</option>
+                                <option>FastTrack Deliveries</option>
+                                <option>Global Warehousing</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Multi-select -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Status</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox" checked>
+                                <span class="text-sm text-gray-700">Active</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox" checked>
+                                <span class="text-sm text-gray-700">Pending Start</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span class="text-sm text-gray-700">Extended</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span class="text-sm text-gray-700">Completed</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="custom-checkbox">
+                                <span class="text-sm text-gray-700">Cancelled</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Job Role -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Job Role</label>
+                        <div class="relative">
+                            <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
+                                <option>All Roles</option>
+                                <option>Warehouse Operative</option>
+                                <option>FLT Driver (Reach)</option>
+                                <option>Picker/Packer</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Range -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="relative">
+                                <input type="date" class="w-full bg-white border border-gray-300 text-gray-700 py-2 px-2 rounded-md text-xs focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
+                            </div>
+                            <div class="relative">
+                                <input type="date" class="w-full bg-white border border-gray-300 text-gray-700 py-2 px-2 rounded-md text-xs focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="p-4 border-t border-gray-200">
+                    <button class="w-full bg-blue text-white py-2 rounded-md text-sm font-medium hover:bg-blue/90 transition-colors">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Area -->
+            <div class="flex-1 flex flex-col overflow-hidden w-full">
+                
+                <!-- Toolbar -->
+                <div class="p-4 sm:p-6 pb-0 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 class="text-2xl font-sora font-semibold text-gray-900">Manage Bookings</h1>
+                        <p class="text-sm text-gray-500 mt-1">Track and manage all active and upcoming assignments.</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <button class="lg:hidden px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-filter"></i> Filters
+                        </button>
+                        <button onclick="toast('Download started — the file will appear in your downloads.','fa-file-arrow-down')" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Table Container -->
+                <div class="p-4 sm:p-6 flex-1 overflow-hidden flex flex-col">
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
+                        <div id="bulk-bar" class="hidden items-center justify-between gap-4 px-5 py-3 bg-navy text-white rounded-t-lg">
+                            <p class="text-sm font-medium"><span id="bulk-count">0</span> selected</p>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded text-xs font-medium transition-colors"><i class="fa-solid fa-file-arrow-down mr-1.5"></i>Export selected</button>
+                                <button onclick="clearBulk()" class="px-3 py-1.5 hover:bg-white/10 rounded text-xs font-medium transition-colors">Clear</button>
+                            </div>
+                        </div>
+
+                        
+                        <!-- Table Header Actions -->
+                        <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm font-medium text-gray-700">12 Bookings Found</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="relative">
+                                    <input type="text" placeholder="Search ref or candidate..." class="pl-8 pr-4 py-1.5 bg-white border border-gray-300 focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-48 sm:w-64 transition-all outline-none">
+                                    <i class="fa-solid fa-search absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Scroll Area -->
+                        <div class="flex-1 overflow-auto">
+                            <table class="w-full text-left border-collapse min-w-[1000px]">
+                                <thead class="bg-white sticky top-0 z-10 shadow-sm">
+                                    <tr>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 w-10">
+                                            <input type="checkbox" class="custom-checkbox">
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 cursor-pointer hover:text-navy">
+                                            Booking Ref <i class="fa-solid fa-sort ml-1 text-gray-400"></i>
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 cursor-pointer hover:text-navy">
+                                            Candidate <i class="fa-solid fa-sort ml-1 text-gray-400"></i>
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                                            Client / Business Unit
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                                            Job Role
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200">
+                                            Dates
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-right">
+                                            Pay Rate
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">
+                                            Status
+                                        </th>
+                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-right w-16">
+                                            Actions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    
+                                    <!-- Row 1 -->
+                                    <tr class="hover:bg-gray-50 transition-colors group">
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <input type="checkbox" class="custom-checkbox">
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <a href="agency.bookings.booking-detail.html" class="text-blue hover:underline font-mono text-sm font-medium">BKG-9942</a>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-[10px] font-sora">JD</div>
+                                                <span class="text-sm font-medium text-gray-900">John Doe</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col">
+                                                <span class="text-sm font-medium text-gray-900">Logistics Pro UK</span>
+                                                <span class="text-xs text-gray-500">Midlands Hub</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-700">FLT Driver (Reach)</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col text-sm text-gray-700">
+                                                <span>12 Oct 2023</span>
+                                                <span class="text-xs text-gray-500">to 12 Jan 2024</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <span class="text-sm font-mono font-medium text-gray-900">£15.50</span>
+                                            <span class="text-xs text-gray-500">/hr</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-center">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue/10 text-blue border border-blue/20">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-blue"></span> Active
+                                            </span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <div class="relative inline-block text-left">
+                                                <button onclick="toggleRowMenu(event, this)" aria-haspopup="true" aria-label="Row actions" class="text-gray-400 hover:text-navy transition-colors p-1">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <div class="row-menu hidden absolute right-0 mt-1 w-52 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 z-20 text-left">
+                                                    <a href="agency.bookings.booking-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-eye w-4 text-center text-gray-400"></i>View booking</a>
+                                                    <a href="agency.candidates.candidate-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-user w-4 text-center text-gray-400"></i>View candidate</a>
+                                                    <a href="agency.timesheets.timesheets.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-clock w-4 text-center text-gray-400"></i>View timesheet</a>
+                                                    <a href="agency.money.self-bill-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-file-lines w-4 text-center text-gray-400"></i>View self-bill</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Row 2 -->
+                                    <tr class="hover:bg-gray-50 transition-colors group bg-gray-50/50">
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <input type="checkbox" class="custom-checkbox">
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <a href="agency.bookings.booking-detail.html" class="text-blue hover:underline font-mono text-sm font-medium">BKG-9941</a>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-[10px] font-sora">AS</div>
+                                                <span class="text-sm font-medium text-gray-900">Alice Smith</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col">
+                                                <span class="text-sm font-medium text-gray-900">FastTrack Deliveries</span>
+                                                <span class="text-xs text-gray-500">London South</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-700">Warehouse Operative</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col text-sm text-gray-700">
+                                                <span>15 Oct 2023</span>
+                                                <span class="text-xs text-gray-500">to 15 Dec 2023</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <span class="text-sm font-mono font-medium text-gray-900">£11.50</span>
+                                            <span class="text-xs text-gray-500">/hr</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-center">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Pending Start
+                                            </span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <div class="relative inline-block text-left">
+                                                <button onclick="toggleRowMenu(event, this)" aria-haspopup="true" aria-label="Row actions" class="text-gray-400 hover:text-navy transition-colors p-1">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <div class="row-menu hidden absolute right-0 mt-1 w-52 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 z-20 text-left">
+                                                    <a href="agency.bookings.booking-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-eye w-4 text-center text-gray-400"></i>View booking</a>
+                                                    <a href="agency.candidates.candidate-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-user w-4 text-center text-gray-400"></i>View candidate</a>
+                                                    <a href="agency.timesheets.timesheets.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-clock w-4 text-center text-gray-400"></i>View timesheet</a>
+                                                    <a href="agency.money.self-bill-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-file-lines w-4 text-center text-gray-400"></i>View self-bill</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Row 3 -->
+                                    <tr class="hover:bg-gray-50 transition-colors group">
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <input type="checkbox" class="custom-checkbox">
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <a href="agency.bookings.booking-detail.html" class="text-blue hover:underline font-mono text-sm font-medium">BKG-9938</a>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-[10px] font-sora">MB</div>
+                                                <span class="text-sm font-medium text-gray-900">Michael Brown</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col">
+                                                <span class="text-sm font-medium text-gray-900">Global Warehousing</span>
+                                                <span class="text-xs text-gray-500">Northern Branch</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-700">Picker/Packer</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col text-sm text-gray-700">
+                                                <span>01 Sep 2023</span>
+                                                <span class="text-xs text-gray-500">to 30 Sep 2023</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <span class="text-sm font-mono font-medium text-gray-900">£12.00</span>
+                                            <span class="text-xs text-gray-500">/hr</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-center">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-success/10 text-success border border-success/20">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-success"></span> Completed
+                                            </span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <div class="relative inline-block text-left">
+                                                <button onclick="toggleRowMenu(event, this)" aria-haspopup="true" aria-label="Row actions" class="text-gray-400 hover:text-navy transition-colors p-1">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <div class="row-menu hidden absolute right-0 mt-1 w-52 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 z-20 text-left">
+                                                    <a href="agency.bookings.booking-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-eye w-4 text-center text-gray-400"></i>View booking</a>
+                                                    <a href="agency.candidates.candidate-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-user w-4 text-center text-gray-400"></i>View candidate</a>
+                                                    <a href="agency.timesheets.timesheets.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-clock w-4 text-center text-gray-400"></i>View timesheet</a>
+                                                    <a href="agency.money.self-bill-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-file-lines w-4 text-center text-gray-400"></i>View self-bill</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Row 4 -->
+                                    <tr class="hover:bg-gray-50 transition-colors group bg-gray-50/50">
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <input type="checkbox" class="custom-checkbox">
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <a href="agency.bookings.booking-detail.html" class="text-blue hover:underline font-mono text-sm font-medium">BKG-9935</a>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-6 h-6 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-[10px] font-sora">SJ</div>
+                                                <span class="text-sm font-medium text-gray-900">Sarah Jones</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col">
+                                                <span class="text-sm font-medium text-gray-900">Logistics Pro UK</span>
+                                                <span class="text-xs text-gray-500">Midlands Hub</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-700">FLT Driver (CB)</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap">
+                                            <div class="flex flex-col text-sm text-gray-700">
+                                                <span>10 Oct 2023</span>
+                                                <span class="text-xs text-gray-500">to 10 Nov 2023</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <span class="text-sm font-mono font-medium text-gray-900">£14.50</span>
+                                            <span class="text-xs text-gray-500">/hr</span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-center">
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-danger/10 text-danger border border-danger/20">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-danger"></span> Cancelled
+                                            </span>
+                                        </td>
+                                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                                            <div class="relative inline-block text-left">
+                                                <button onclick="toggleRowMenu(event, this)" aria-haspopup="true" aria-label="Row actions" class="text-gray-400 hover:text-navy transition-colors p-1">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <div class="row-menu hidden absolute right-0 mt-1 w-52 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 z-20 text-left">
+                                                    <a href="agency.bookings.booking-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-eye w-4 text-center text-gray-400"></i>View booking</a>
+                                                    <a href="agency.candidates.candidate-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-user w-4 text-center text-gray-400"></i>View candidate</a>
+                                                    <a href="agency.timesheets.timesheets.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-clock w-4 text-center text-gray-400"></i>View timesheet</a>
+                                                    <a href="agency.money.self-bill-detail.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"><i class="fa-regular fa-file-lines w-4 text-center text-gray-400"></i>View self-bill</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination Footer -->
+                        <div class="p-4 border-t border-gray-200 bg-white flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm text-gray-500">Showing 1 to 10 of 12 entries</span>
+                                <select class="bg-lightbg border border-gray-300 text-gray-700 py-1 px-2 rounded text-xs focus:outline-none focus:border-blue">
+                                    <option>10 per page</option>
+                                    <option>25 per page</option>
+                                    <option>50 per page</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button class="px-3 py-1 border border-gray-300 rounded bg-gray-50 text-gray-400 text-sm cursor-not-allowed">Previous</button>
+                                <button class="px-3 py-1 border border-blue bg-blue text-white rounded text-sm font-medium">1</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded bg-white text-gray-700 hover:bg-gray-50 text-sm">2</button>
+                                <button class="px-3 py-1 border border-gray-300 rounded bg-white text-gray-700 hover:bg-gray-50 text-sm">Next</button>
+                            </div>
+                        </div>
+
+                    </div>
+    
+                
+
+                    </div>
+</div>
+</div>
+</main>
+
+
+    <!-- ============ Notification drawer (shared shell component) ============ -->
+    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
+    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
+           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
+            <div class="flex items-center gap-2.5">
+                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
+                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
+                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+        <div id="notif-list" class="flex-1 overflow-y-auto">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-right-left text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-briefcase text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-signature text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.candidates.candidate-detail.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.bookings.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.money.self-bill-detail.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="notif-empty" class="hidden px-6 py-16 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
+                </div>
+                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
+                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
+            </div>
+        </div>
+        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
+            <a href="agency.notifications.notification-centre.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
+            <a href="agency.notifications.notification-preferences.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
+        </div>
+    </aside>
+
+    <script>
+        function openNotifDrawer() {
+            document.getElementById('notif-drawer').classList.remove('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.remove('opacity-0', 'pointer-events-none');
+        }
+        function closeNotifDrawer() {
+            document.getElementById('notif-drawer').classList.add('translate-x-full');
+            var b = document.getElementById('notif-backdrop');
+            b.classList.add('opacity-0', 'pointer-events-none');
+        }
+        function refreshNotifCount() {
+            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var pill = document.getElementById('notif-unread-pill');
+            pill.textContent = n + ' unread';
+            pill.classList.toggle('hidden', n === 0);
+            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
+        }
+        function markNotifRead(btn) {
+            var item = btn.closest('.notif-item');
+            item.dataset.unread = '0';
+            item.classList.remove('is-unread');
+            item.querySelector('.notif-dot').classList.add('hidden');
+            btn.classList.add('hidden');
+            refreshNotifCount();
+        }
+        function markAllNotifRead() {
+            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
+                i.dataset.unread = '0';
+                i.classList.remove('is-unread');
+                i.querySelector('.notif-dot').classList.add('hidden');
+                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
+            });
+            refreshNotifCount();
+        }
+        // Account menu
+        function toggleAccountMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('account-menu').classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (e) {
+            var m = document.getElementById('account-menu');
+            var t = document.getElementById('account-trigger');
+            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeNotifDrawer();
+                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
+            }
+        });
+    </script>
+
+
+    <script>
+        // Empty states are real markup, not a mock-up of one. Append ?empty=1 to any list screen
+        // to see it — the populated table hides and the empty block takes its place.
+        (function () {
+            if (new URLSearchParams(window.location.search).get('empty') !== '1') return;
+            var e = document.getElementById('empty-bookings');
+            if (!e) return;
+            document.querySelectorAll('#main-content table').forEach(function (t) {
+                var card = t.closest('.bg-white') || t.parentElement;
+                card.classList.add('hidden');
+            });
+            document.querySelectorAll('#main-content .grid').forEach(function (g) {
+                if (g.querySelector('.notif-item')) return;
+                if (g.closest('#empty-bookings')) return;
+            });
+            e.classList.remove('hidden');
+        })();
+    </script>
+
+    <script>
+        function toggleRowMenu(e, btn) {
+            e.stopPropagation();
+            var m = btn.nextElementSibling;
+            document.querySelectorAll('.row-menu').forEach(function (x) { if (x !== m) x.classList.add('hidden'); });
+            m.classList.toggle('hidden');
+        }
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.row-menu').forEach(function (x) { x.classList.add('hidden'); });
+        });
+        // Selecting rows surfaces what you can do with the selection.
+        function refreshBulk() {
+            var boxes = document.querySelectorAll('tbody input[type="checkbox"]');
+            var n = 0; boxes.forEach(function (b) { if (b.checked) n++; });
+            var bar = document.getElementById('bulk-bar');
+            document.getElementById('bulk-count').textContent = n;
+            bar.classList.toggle('hidden', n === 0);
+            bar.classList.toggle('flex', n > 0);
+        }
+        function clearBulk() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(function (b) { b.checked = false; });
+            refreshBulk();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('tbody input[type="checkbox"]').forEach(function (b) {
+                b.addEventListener('change', refreshBulk);
+                b.addEventListener('click', function (e) { e.stopPropagation(); });
+            });
+            var all = document.querySelector('thead input[type="checkbox"]');
+            if (all) all.addEventListener('change', function () {
+                document.querySelectorAll('tbody input[type="checkbox"]').forEach(function (b) { b.checked = all.checked; });
+                refreshBulk();
+            });
+        });
+    </script>
+
+    <script>
+        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
+        var ROLE_HIDES = {
+            admin:     [],
+            recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
+            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
+        };
+        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        function applyRole(role) {
+            var hide = ROLE_HIDES[role] || [];
+            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
+                var href = a.getAttribute('href');
+                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
+            });
+            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
+            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
+        }
+        (function () {
+            var r = 'admin';
+            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
+            var sel = document.getElementById('role-switch');
+            if (sel) sel.value = r;
+            applyRole(r);
+        })();
+    </script>
+
+    <!-- ============ Toast (shared) ============ -->
+    <div id="toast" role="status" aria-live="polite"
+         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
+        <div class="flex items-center gap-3 bg-navy text-white rounded-lg shadow-2xl px-4 py-3">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-success"></i>
+            <p id="toast-msg" class="text-sm font-medium"></p>
+        </div>
+    </div>
+
+    <script>
+        var _toastTimer;
+        function toast(msg, icon) {
+            var t = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').className = 'fa-solid ' + (icon || 'fa-circle-check') + ' text-success';
+            t.classList.remove('opacity-0', 'translate-y-2');
+            clearTimeout(_toastTimer);
+            _toastTimer = setTimeout(function () { t.classList.add('opacity-0', 'translate-y-2'); }, 2600);
+        }
+    </script>
+
+<script src="slice1-kit.js"></script>
+</body>
+</html>
