@@ -1,772 +1,559 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-    <script>
-        window.FontAwesomeConfig = {
-          autoReplaceSvg: 'nest'
-        };
-      </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Branches - Abstractvms 2</title>
+    <title>Branches · Abstract VMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;} * { scrollbar-width: none; }
+    .tnum { font-variant-numeric: tabular-nums; }
+    .row-actions { opacity: 0; } tr:hover .row-actions, tr:focus-within .row-actions, li:hover .row-actions, li:focus-within .row-actions, .tree-row:hover .row-actions, .tree-row:focus-within .row-actions { opacity: 1; }
+    @media (hover: none) { .row-actions { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+    
+    </style>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'], },
                     colors: {
-                        navy: '#172554',
-                        blue: '#1D4ED8',
-                        purple: '#5B2E91',
-                        lightbg: '#F3F4F6',
-                        success: '#16A34A',
-                        warning: '#F59E0B',
-                        danger: '#DC2626'
-                    },
-                    fontFamily: {
-                        sora: ['Sora', 'sans-serif'],
-                        manrope: ['Manrope', 'sans-serif'],
+                        navy: { DEFAULT: '#172554', 50: '#EEF1FB', 100: '#D4DCF5', 200: '#A9B9EB', 300: '#7E96E1', 400: '#5373D7', 500: '#2850CD', 600: '#1D3FA4', 700: '#162F7B', 800: '#0F1F52', 900: '#172554', },
+                        brand: { blue: '#1D4ED8', purple: '#5B2E91', navy: '#172554', }
                     }
                 }
             }
         }
     </script>
-    <style>
-        body { font-family: 'Manrope', sans-serif; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; }
-        ::-webkit-scrollbar { display: none; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
-
-    <!-- Sidebar -->
-    <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
-        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex-shrink-0 flex justify-between items-center">
+<body class="font-inter bg-slate-100 overflow-hidden text-slate-600" data-s2-page data-s1-states="default loading empty error validation readonly denied large pending">
+<div id="app-root" class="flex w-full" style="height: 100vh;">
+    <aside id="sidebar" class="hidden lg:flex flex-col w-64 xl:w-72 flex-shrink-0 overflow-y-auto" style="background: linear-gradient(180deg, #0f1a3e 0%, #172554 42%, #1e1a4a 100%);">
+        <div id="sidebar-logo" class="px-6 py-5 border-b border-white/10 flex justify-between items-center">
             <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto block -ml-[5px]"/>
-            <p class="text-white/40 text-xs mt-2 font-manrope">Agency Portal</p>
+            <p class="text-white/40 text-sm mt-2">Agency Portal</p>
         </div>
-
-        <div class="p-4 flex-1 overflow-y-auto hide-scrollbar">
-            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-2">Menu</div>
-            <nav class="space-y-1">
-                <a href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-gauge-high w-5 text-center"></i>
-                    Dashboard
-                </a>
-                <a href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-briefcase w-5 text-center"></i>
-                    Vacancies
-                </a>
-                <a href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-users w-5 text-center"></i>
-                    Candidates
-                </a>
-                <a href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
-                    Proposals
-                </a>
-                <a href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-calendar-check w-5 text-center"></i>
-                    Bookings
-                </a>
-                <a href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-clock w-5 text-center"></i>
-                    Timesheets
-                </a>
-                <a href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
-                    Self-Bills
-                </a>
-                <a href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-chart-bar w-5 text-center"></i>
-                    Reports
-                </a>
-            </nav>
-        </div>
-        
-        <div class="p-4 border-t border-white/10 flex-shrink-0">
-            <nav class="space-y-1">
-                <a href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 text-gray-300 hover:bg-white/5 hover:text-white rounded-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-bell w-5 text-center"></i>
-                    Notifications
-                </a>
-                <a href="agency.organisations.agency-profile.html" class="flex items-center gap-3 px-3 py-2.5 bg-blue border-l-4 border-white text-white rounded-r-md transition-colors text-sm font-medium">
-                    <i class="fa-solid fa-gear w-5 text-center"></i>
-                    Settings
-                </a>
-            </nav>
-            
-            <div class="mt-4 px-1 relative">
-                <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
-                    <div class="px-3 py-2 border-b border-gray-100">
-                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
-                    </div>
-                    <div class="px-3 py-2 border-b border-gray-100">
-                        <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
-                        <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
-                            <option value="admin">Agency Admin</option>
-                            <option value="recruiter">Agency Recruiter</option>
-                            <option value="finance">Agency Finance</option>
-                        </select>
-                        <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
-                    </div>
-                    <a href="agency.identity-access.my-account.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <i class="fa-regular fa-user w-4 text-center text-gray-400"></i> My account
-                    </a>
-                    <a href="agency.notifications.notification-preferences.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <i class="fa-regular fa-bell w-4 text-center text-gray-400"></i> Notification preferences
-                    </a>
-                    <a href="agency.organisations.agency-profile.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <i class="fa-solid fa-gear w-4 text-center text-gray-400"></i> Settings
-                    </a>
-                    <div class="border-t border-gray-100 mt-1.5 pt-1.5">
-                        <a href="agency.identity-access.sign-in.html" class="flex items-center gap-2.5 px-3 py-2 text-sm text-danger hover:bg-danger/5 transition-colors">
-                            <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i> Sign out
-                        </a>
-                    </div>
+        <nav id="sidebar-nav" class="flex-1 px-3 py-4 flex flex-col gap-1" aria-label="Agency portal">
+            <p class="text-white/30 text-xs font-semibold uppercase tracking-widest px-3 mb-2">MENU</p><a id="nav-dashboard" href="agency.shell.dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-gauge-high text-white/40 w-4 text-center" aria-hidden="true"></i><span>Dashboard</span></a><a id="nav-vacancies" href="agency.demand.vacancies.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-briefcase text-white/40 w-4 text-center" aria-hidden="true"></i><span>Vacancies</span></a><a id="nav-candidates" href="agency.candidates.candidates.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-users text-white/40 w-4 text-center" aria-hidden="true"></i><span>Candidates</span></a><a id="nav-proposals" href="agency.demand.proposals.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-paper-plane text-white/40 w-4 text-center" aria-hidden="true"></i><span>Proposals</span></a><a id="nav-bookings" href="agency.bookings.bookings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-calendar-check text-white/40 w-4 text-center" aria-hidden="true"></i><span>Bookings</span></a><a id="nav-timesheets" href="agency.timesheets.timesheets.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-clock text-white/40 w-4 text-center" aria-hidden="true"></i><span>Timesheets</span></a><a id="nav-selfbills" href="agency.money.self-bills.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-file-invoice text-white/40 w-4 text-center" aria-hidden="true"></i><span>Self-Bills</span></a><a id="nav-reports" href="agency.reporting.reports.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-chart-line text-white/40 w-4 text-center" aria-hidden="true"></i><span>Reports</span></a><p class="text-white/30 text-xs font-semibold uppercase tracking-widest px-3 mb-2 mt-4">GENERAL</p><a id="nav-notifications" href="agency.notifications.notification-centre.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/60 hover:text-white hover:bg-white/8 text-sm transition-all duration-150"><i class="fa-solid fa-bell text-white/40 w-4 text-center" aria-hidden="true"></i><span>Notifications</span></a><a id="nav-settings" href="agency.identity-access.users.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-white font-semibold text-sm transition-all duration-150" style="background: linear-gradient(135deg, rgba(29,78,216,0.5), rgba(91,46,145,0.4)); border: 1px solid rgba(255,255,255,0.15);" aria-current="page"><i class="fa-solid fa-gear text-blue-400 w-4 text-center" aria-hidden="true"></i><span>Settings</span><div class="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400"></div></a>
+        </nav>
+        <div id="sidebar-footer" class="px-4 py-4 border-t border-white/10">
+            <div class="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-white/5 transition-all">
+                <span class="w-8 h-8 rounded-full text-white text-xs font-bold flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);" aria-hidden="true">DW</span>
+                <div class="flex-1 min-w-0">
+                    <a href="agency.identity-access.profile.html" class="block text-white text-xs font-semibold truncate hover:underline" title="Your profile" data-user-name>Daniel Wright</a>
+                    <p class="text-white/40 text-xs truncate">TechForce Recruitment</p>
                 </div>
-                <button id="account-trigger" onclick="toggleAccountMenu(event)" aria-haspopup="true"
-                        class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
-                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
-                    <div class="overflow-hidden flex-1">
-                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
-                    </div>
-                    <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
-                </button>
+                <a href="agency.identity-access.sign-in.html?reason=signed-out" aria-label="Sign out" title="Sign out"><i class="fa-solid fa-arrow-right-from-bracket text-white/30 text-xs hover:text-white" aria-hidden="true"></i></a>
             </div>
         </div>
     </aside>
-
-    <!-- Main Content -->
-    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden w-full relative bg-lightbg">
-        
-        <!-- Header -->
-        <header id="top-header" class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0 z-10">
-            <div class="flex items-center gap-4">
-                <button class="md:hidden text-gray-500 hover:text-gray-700">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                <div class="flex flex-col">
-                    <div class="flex items-center text-sm text-gray-500 mb-0.5">
-                        <a href="agency.organisations.agency-profile.html" class="hover:text-blue">Settings</a>
-                        <i class="fa-solid fa-chevron-right text-[10px] mx-2"></i>
-                        <span class="text-gray-900 font-medium">Branches</span>
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <header id="header" class="flex items-center justify-between gap-3 px-4 sm:px-6 xl:px-8 py-4 bg-white border-b border-slate-200 flex-shrink-0">
+            <div class="flex items-center gap-3 min-w-0">
+                <button id="mobile-menu-btn" class="lg:hidden w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-bars text-slate-600 text-sm" aria-hidden="true"></i></button>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h1 class="text-lg font-bold text-slate-900 truncate">Branches</h1>
                     </div>
+                    <p class="text-xs text-slate-500 hidden sm:block truncate">The structure your users are scoped to.</p>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
-                    <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
-                    <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
-                </div>
-                <button onclick="openNotifDrawer()" aria-label="Notifications" title="Notifications" class="relative text-gray-500 hover:text-gray-700 transition-colors">
-                    <i class="fa-regular fa-bell text-xl"></i>
-                    <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
-                </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
-                    <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
-                        <option>All branches</option>
-                        <option>London HQ</option>
-                        <option>Manchester Hub</option>
-                        <option>Birmingham Depot</option>
-                    </select>
-                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-[10px] pointer-events-none"></i>
-                </div>
+            <div class="flex items-center gap-3 flex-shrink-0">
+                
+                <button data-s1-bell aria-label="Notifications" class="relative w-9 h-9 flex items-center justify-center rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-regular fa-bell text-slate-600 text-sm" aria-hidden="true"></i></button>
+                <a href="agency.identity-access.profile.html" aria-label="My account (Daniel Wright)" class="flex items-center gap-2 pl-3 border-l border-slate-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">
+                    <span class="w-8 h-8 rounded-full text-white text-xs font-bold flex items-center justify-center" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);" aria-hidden="true">DW</span>
+                    <span class="hidden xl:block"><span class="block text-xs font-semibold text-slate-700">Daniel Wright</span><span class="block text-xs text-slate-400">TechForce Recruitment</span></span>
+                </a>
             </div>
         </header>
+        <main id="main" class="flex-1 overflow-y-auto px-4 sm:px-6 xl:px-8 py-6 bg-slate-100">
+            <div data-s1-show="denied" class="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-14 text-center">
+                <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-lock text-xl" aria-hidden="true"></i></div>
+                <h2 class="text-base font-bold text-slate-900">You don't have access to this page</h2>
+                <p class="text-sm text-slate-600 mt-1 max-w-md mx-auto">Seeing your organisation's structure needs the permission to view users. Ask someone who can manage users and roles if you need it.</p>
+                <a href="agency.shell.dashboard.html" data-s1-home class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 mt-5"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to the dashboard</a>
+            </div>
+            <div data-s1-hide="denied">
+            <nav aria-label="Settings" data-embedded-hide class="flex items-center gap-6 border-b border-slate-200 mb-5 overflow-x-auto whitespace-nowrap"><a href="agency.identity-access.users.html"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-users text-xs" aria-hidden="true"></i>Users</a><a href="agency.identity-access.users.html#roles"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-user-shield text-xs" aria-hidden="true"></i>Roles</a><a href="agency.identity-access.permission-matrix.html"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-table-cells text-xs" aria-hidden="true"></i>Permissions</a><a href="agency.organisations.agency-profile.html"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-id-card text-xs" aria-hidden="true"></i>Profile</a><a href="agency.organisations.compliance-documents.html"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-shield-halved text-xs" aria-hidden="true"></i>Compliance</a><a href="agency.organisations.branches.html" aria-current="page" class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-blue-700 text-sm font-semibold text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-sitemap text-xs" aria-hidden="true"></i>Branches</a><a href="agency.notifications.notification-preferences.html"  class="inline-flex items-center gap-2 px-1 pb-3 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-bell text-xs" aria-hidden="true"></i>Notification preferences</a></nav>
+            <div data-s1-show="readonly" role="status" class="mb-4 text-sm text-slate-600 flex items-start gap-2"><i class="fa-solid fa-eye text-slate-400 mt-0.5" aria-hidden="true"></i><p>You can see your organisation's structure but not change it. Changing it needs permission to manage users and roles.</p></div>
+            <div id="approval-banner" style="display:none" role="status" class="mb-4 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 flex items-start gap-3 text-sm text-blue-900"><i class="fa-solid fa-circle-info text-blue-600 mt-0.5" aria-hidden="true"></i><p><span class="font-semibold">Abstract approves changes to your structure.</span> A change you make is sent to Abstract and applied once approved. <span id="pending-count-line"></span></p></div>
 
-        <!-- Workspace Details -->
-        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
-            <div class="max-w-7xl mx-auto space-y-6">
-                
-                <!-- Page Header Area -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h1 class="text-2xl font-sora font-bold text-navy">Branches</h1>
-                        <p class="text-sm text-gray-600 mt-1">Manage all geographical branches and office locations for your agency.</p>
-                    </div>
-                    <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="bg-blue hover:bg-blue/90 text-white px-4 py-2.5 rounded-md text-sm font-medium transition-colors shadow-sm flex items-center gap-2 whitespace-nowrap">
-                        <i class="fa-solid fa-plus"></i>
-                        Add Branch
-                    </button>
-                </div>
+            <div data-s1-show="loading" class="bg-white rounded-2xl border border-slate-200 shadow-sm" aria-busy="true" aria-label="Loading the structure">
+              <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:16px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:30%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:36px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:28%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:56px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:24%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:56px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:22%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:36px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:26%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:16px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:30%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div><div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100" style="padding-left:36px"><div class="w-5 h-5 rounded bg-slate-200 animate-pulse"></div><div class="h-3 bg-slate-200 rounded animate-pulse" style="width:24%"></div><div class="ml-auto w-16 h-3 bg-slate-200 rounded animate-pulse hidden md:block"></div></div>
+              <p class="sr-only">Loading…</p>
+            </div>
+            <div data-s1-show="error" class="bg-white rounded-2xl border border-slate-200 shadow-sm px-6 py-12 text-center" role="alert">
+                <div class="w-14 h-14 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-triangle-exclamation text-xl" aria-hidden="true"></i></div>
+                <h2 class="text-base font-bold text-slate-900">We couldn't load the structure</h2>
+                <p class="text-sm text-slate-600 mt-1 max-w-md mx-auto">Something went wrong on our side. Try again — if it keeps happening, quote reference <span class="font-semibold text-slate-800 tnum">ERR-STR-4A10-7733</span> to Abstract support.</p>
+                <button type="button" onclick="S1.setState('loading');setTimeout(function(){S1.setState('default')},700)" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 mt-5"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Retry</button>
+            </div>
 
-                <!-- Settings Tab Navigation (Contextual) -->
-                <div class="border-b border-gray-200 overflow-x-auto">
-                    <nav class="flex gap-6 min-w-max">
-                        <a href="agency.organisations.agency-profile.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">General Profile</a>
-                        <a href="agency.organisations.compliance-documents.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Compliance</a>
-                        <a href="agency.organisations.branches.html" class="pb-3 text-sm font-medium text-blue border-b-2 border-blue transition-colors whitespace-nowrap">Branches</a>
-                        <a href="agency.identity-access.users.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Users & Roles</a>
-                        <a href="agency.notifications.notification-preferences.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Notifications</a>
-                        <a href="agency.configuration.integrations.html" class="pb-3 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap">Integrations</a>
-                    </nav>
-                </div>
-
-                <!-- Data Table Card -->
-                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
-                    
-                    <!-- Table Toolbar -->
-                    <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-white">
-                        <div class="relative">
-                            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                            <input type="text" placeholder="Search branches..." class="pl-9 pr-4 py-1.5 border border-gray-200 focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
-                        </div>
-                        <button class="text-gray-500 hover:text-gray-700 border border-gray-200 px-3 py-1.5 rounded-md text-sm font-medium bg-white hover:bg-gray-50 flex items-center gap-2">
-                            <i class="fa-solid fa-filter text-xs"></i> Filter
-                        </button>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead class="bg-gray-50/80 border-b border-gray-200 text-gray-500 font-medium">
-                                <tr>
-                                    <th class="px-6 py-3">Branch Name</th>
-                                    <th class="px-6 py-3">Address</th>
-                                    <th class="px-6 py-3">User Count</th>
-                                    <th class="px-6 py-3 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100 text-gray-700">
-                                <tr class="hover:bg-gray-50/50 transition-colors group">
-                                    <td class="px-6 py-4">
-                                        <div class="font-medium text-navy flex items-center gap-2">
-                                            London HQ
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue/10 text-blue">Primary</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-500">120 Holborn, London, EC1N 2TD</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 text-gray-600">
-                                            <i class="fa-solid fa-users text-gray-400 text-xs"></i> 14
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="p-1.5 text-gray-500 hover:text-blue hover:bg-blue/10 rounded-md transition-colors" title="Edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button onclick="openConfirm('deactivateBranch')" class="p-1.5 text-gray-500 hover:text-danger hover:bg-danger/10 rounded-md transition-colors" title="Deactivate">
-                                                <i class="fa-solid fa-power-off"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50/50 transition-colors group">
-                                    <td class="px-6 py-4">
-                                        <div class="font-medium text-navy">Manchester Hub</div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-500">Trafford Park, Manchester, M17 1AB</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 text-gray-600">
-                                            <i class="fa-solid fa-users text-gray-400 text-xs"></i> 8
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="p-1.5 text-gray-500 hover:text-blue hover:bg-blue/10 rounded-md transition-colors" title="Edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button onclick="openConfirm('deactivateBranch')" class="p-1.5 text-gray-500 hover:text-danger hover:bg-danger/10 rounded-md transition-colors" title="Deactivate">
-                                                <i class="fa-solid fa-power-off"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50/50 transition-colors group">
-                                    <td class="px-6 py-4">
-                                        <div class="font-medium text-navy">Birmingham Depot</div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-500">Aston Expressway, Birmingham, B6 4EQ</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 text-gray-600">
-                                            <i class="fa-solid fa-users text-gray-400 text-xs"></i> 5
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="p-1.5 text-gray-500 hover:text-blue hover:bg-blue/10 rounded-md transition-colors" title="Edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button onclick="openConfirm('deactivateBranch')" class="p-1.5 text-gray-500 hover:text-danger hover:bg-danger/10 rounded-md transition-colors" title="Deactivate">
-                                                <i class="fa-solid fa-power-off"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="bg-gray-50/50 hover:bg-gray-50 transition-colors group">
-                                    <td class="px-6 py-4">
-                                        <div class="font-medium text-gray-400 flex items-center gap-2">
-                                            Leeds Branch
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-200 text-gray-600">Inactive</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-400">Wellington Place, Leeds, LS1 4AP</td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2 text-gray-400">
-                                            <i class="fa-solid fa-users text-gray-300 text-xs"></i> 0
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="p-1.5 text-gray-500 hover:text-blue hover:bg-blue/10 rounded-md transition-colors" title="Edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button onclick="document.getElementById('add-branch-modal').classList.remove('hidden')" class="p-1.5 text-gray-500 hover:text-success hover:bg-success/10 rounded-md transition-colors" title="Reactivate">
-                                                <i class="fa-solid fa-rotate-left"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Table Pagination -->
-                    <div class="p-4 border-t border-gray-100 bg-white flex items-center justify-between text-sm text-gray-500">
-                        <div>Showing 1 to 4 of 4 branches</div>
-                        <div class="flex gap-1">
-                            <button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50" disabled>Prev</button>
-                            <button class="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50 disabled:opacity-50" disabled>Next</button>
-                        </div>
-                    </div>
-                </div>
-    
-                
-
-                    </div>
+            <div data-s1-hide="loading error">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div class="flex flex-wrap items-center gap-3 px-4 py-3 border-b border-slate-200">
+                <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 min-h-[38px] focus-within:border-blue-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-600/20 flex-1 min-w-[180px]"><i class="fa-solid fa-magnifying-glass text-slate-400 text-xs" aria-hidden="true"></i><span class="sr-only">Search nodes</span><input id="tree-search" type="search" placeholder="Search nodes" class="bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none w-full"/></label>
+                <div class="hidden sm:flex items-center gap-1"><button type="button" id="btn-expand" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline rounded px-1 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Expand all</button><span class="text-slate-300" aria-hidden="true">·</span><button type="button" id="btn-collapse" class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline rounded px-1 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Collapse to level 2</button></div>
+                <button type="button" id="btn-add" data-edit class="inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed hidden sm:inline-flex" style="background:linear-gradient(135deg,#1D4ED8,#5B2E91)"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add node</button>
+              </div>
+              <div class="hidden md:flex items-center gap-2 px-3 py-2 bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider" aria-hidden="true">
+                <span class="flex-1 pl-9">Name</span><span class="w-28 flex-shrink-0">Type</span><span class="w-28 flex-shrink-0" id="col-cc">Cost centre</span><span class="w-14 flex-shrink-0 text-right">Users</span><span class="w-44 flex-shrink-0" id="col-actions"></span>
+              </div>
+              <div id="tree"></div>
+              <div id="tree-empty" style="display:none" class="px-6 py-10 text-center border-t border-slate-100">
+                <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-sitemap text-xl" aria-hidden="true"></i></div>
+                <h2 class="text-base font-bold text-slate-900">No structure yet</h2>
+                <p class="text-sm text-slate-600 mt-1 max-w-md mx-auto" id="tree-empty-copy"></p>
+                <button type="button" data-edit class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 mt-5" onclick="openAdd('__root')"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add node</button>
+              </div>
+              <p id="tree-foot" class="px-4 py-3 text-xs text-slate-500 border-t border-slate-200 bg-slate-50"></p>
+            </div>
+            <div class="sm:hidden sticky bottom-0 -mx-4 px-4 py-3 bg-white border-t border-slate-200 mt-4" data-edit><button type="button" id="btn-add-m" class="inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed w-full" style="background:linear-gradient(135deg,#1D4ED8,#5B2E91)"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add node</button></div>
+            </div>
+            </div>
+        </main>
+    </div>
 </div>
-</main>
+<script>
+/* Mobile navigation (sidebar is hidden below lg — this is the only way to reveal it) */
+(function () {
+  var btn = document.getElementById('mobile-menu-btn'),
+      sb  = document.getElementById('sidebar');
+  if (!btn || !sb) return;
+  btn.setAttribute('aria-controls', 'sidebar');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Open navigation');
+  var bd = document.createElement('div');
+  bd.setAttribute('aria-hidden', 'true');
+  bd.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:40;display:none';
+  document.body.appendChild(bd);
+  function open() {
+    sb.style.display = 'flex'; sb.style.position = 'fixed'; sb.style.top = '0';
+    sb.style.bottom = '0'; sb.style.left = '0'; sb.style.zIndex = '50';
+    bd.style.display = 'block'; btn.setAttribute('aria-expanded', 'true');
+  }
+  function close() {
+    ['display','position','top','bottom','left','zIndex'].forEach(function (p) { sb.style[p] = ''; });
+    bd.style.display = 'none'; btn.setAttribute('aria-expanded', 'false');
+  }
+  btn.addEventListener('click', function () { bd.style.display === 'block' ? close() : open(); });
+  bd.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && bd.style.display === 'block') close(); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 1024) close(); });
+})();
+</script>
+<script>
+var BADGE = {
+  'Draft': ['bg-slate-100 text-slate-700 border border-slate-200', 'fa-file-pen'],
+  'In Setup': ['bg-blue-50 text-blue-700 border border-blue-200', 'fa-screwdriver-wrench'],
+  'Pending Activation': ['bg-amber-50 text-amber-700 border border-amber-200', 'fa-hourglass-half'],
+  'Active': ['bg-emerald-50 text-emerald-700 border border-emerald-200', 'fa-circle-check'],
+  'Suspended': ['bg-red-50 text-red-700 border border-red-200', 'fa-ban'],
+  'Invited': ['bg-amber-50 text-amber-700 border border-amber-200', 'fa-envelope'],
+  'Inactive': ['bg-slate-100 text-slate-500 border border-slate-200', 'fa-circle-minus'],
+  'Pending approval': ['bg-amber-50 text-amber-700 border border-amber-200', 'fa-hourglass-half'],
+  'Approved': ['bg-emerald-50 text-emerald-700 border border-emerald-200', 'fa-circle-check'],
+  'Rejected': ['bg-red-50 text-red-700 border border-red-200', 'fa-circle-xmark'],
+  'Compliant': ['bg-emerald-50 text-emerald-700 border border-emerald-200', 'fa-circle-check'],
+  'Pending': ['bg-amber-50 text-amber-700 border border-amber-200', 'fa-hourglass-half'],
+  'Expired': ['bg-red-50 text-red-700 border border-red-200', 'fa-circle-xmark'],
+  'Not Applicable': ['bg-slate-100 text-slate-700 border border-slate-200', 'fa-minus']
+};
+function badge(s, small) {
+  var b = BADGE[s] || BADGE['Draft'];
+  return '<span class="inline-flex items-center gap-1.5 ' + (small ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs') + ' rounded-full font-semibold whitespace-nowrap ' + b[0] + '"><i class="fa-solid ' + b[1] + ' text-[10px]" aria-hidden="true"></i>' + s + '</span>';
+}
+/* Markers are not statuses (design-tokens §5): default neutral, success, warning, info */
+var MARK = { 'default': 'bg-slate-100 text-slate-700 border-slate-200', success: 'bg-emerald-50 text-emerald-700 border-emerald-200', warning: 'bg-amber-50 text-amber-700 border-amber-200', info: 'bg-blue-50 text-blue-700 border-blue-200' };
+function marker(text, variant, title) {
+  return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold border whitespace-nowrap ' + MARK[variant || 'default'] + '"' + (title ? ' title="' + esc(title) + '"' : '') + '>' + text + '</span>';
+}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+function initials(n) { return String(n).split(/\s+/).map(function (p) { return p[0]; }).slice(0, 2).join('').toUpperCase(); }
+var GBP = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
+function money(s) { return GBP.format(Number(s)); }
+function pct(s) { return Number(s).toFixed(2) + ' %'; }
+function fmtDate(iso) { if (!iso) return '—'; var d = new Date(iso + (iso.length === 10 ? 'T00:00:00' : '')); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+function fmtDateTime(iso) { var d = new Date(iso); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }
+var BTN_SEC = 'inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1';
+var BTN_PRI = 'inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed';
+var BTN_PRI_STYLE = 'background:linear-gradient(135deg,#1D4ED8,#5B2E91)';
+var BTN_DANGER = 'inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-lg px-4 py-2.5 text-xs font-semibold min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-1 disabled:opacity-50';
+var BTN_GHOST = 'inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 hover:underline rounded px-1 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1';
+var INPUT = 'w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-600/20';
+var INPUT_ERR = 'border-red-400 bg-red-50/40 focus:border-red-400 focus:ring-red-600/20';
+var Q = new URLSearchParams(location.search);
+function setErr(id, msg) { var i = document.getElementById(id), e = document.getElementById(id + '-err'); if (!i) return; if (msg) { i.classList.add.apply(i.classList, INPUT_ERR.split(' ')); i.setAttribute('aria-invalid', 'true'); if (e) { e.textContent = msg; e.style.display = ''; } } else { i.classList.remove.apply(i.classList, INPUT_ERR.split(' ')); i.removeAttribute('aria-invalid'); if (e) e.style.display = 'none'; } }
+</script>
 
-    <!-- Add/Edit Branch Modal (Overlay) -->
-    <div id="add-branch-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/40 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            
-            <!-- Modal Header -->
-            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-white">
-                <h3 class="text-lg font-sora font-semibold text-navy">Add New Branch</h3>
-                <button class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Modal Body (Form) -->
-            <div class="p-6 space-y-5 bg-white">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Branch Name <span class="text-danger">*</span></label>
-                    <input type="text" placeholder="e.g. Glasgow Depot" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue transition-colors text-sm">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Address <span class="text-danger">*</span></label>
-                    <textarea rows="3" placeholder="Enter full branch address..." class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue focus:border-blue transition-colors text-sm resize-none"></textarea>
-                    <p class="text-xs text-gray-500 mt-1">This address will be used for local compliance reporting.</p>
-                </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex items-center justify-end gap-3">
-                <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors shadow-sm">
-                    Cancel
-                </button>
-                <button onclick="document.getElementById('add-branch-modal').classList.add('hidden');toast('Branch saved.')" class="px-4 py-2 text-sm font-medium text-white bg-blue rounded-md hover:bg-blue/90 transition-colors shadow-sm">
-                    Save Branch
-                </button>
-            </div>
+<div data-s1-modal id="m-add" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(15,26,62,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" role="dialog" aria-modal="true" aria-labelledby="m-add-t">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <div class="min-w-0"><h2 id="m-add-t" class="text-base font-bold text-slate-900">Add node</h2></div>
+            <button type="button" onclick="S1.closeModal('m-add')" aria-label="Close" class="w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 flex items-center justify-center text-slate-500 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
+        <div class="px-6 py-5 flex flex-col gap-4">
+        <p class="text-sm text-slate-600">Under: <span id="add-under" class="font-semibold text-slate-900"></span></p>
+        <div>
+      <label for="n-name" class="block text-xs font-semibold text-slate-700 mb-1.5">Name <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only"> (required)</span></label>
+      <input id="n-name" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-600/20" placeholder="e.g. Coventry DC" aria-describedby="n-name-err n-name-hint" />
+      <p id="n-name-err" class="text-xs text-red-600 mt-1.5" style="display:none" role="alert"></p>
+      
     </div>
-
-
-    <!-- ============ Notification drawer (shared shell component) ============ -->
-    <div id="notif-backdrop" onclick="closeNotifDrawer()" class="fixed inset-0 bg-navy/30 backdrop-blur-[1px] z-40 opacity-0 pointer-events-none transition-opacity duration-200"></div>
-    <aside id="notif-drawer" role="dialog" aria-label="Notifications" aria-modal="true"
-           class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 shadow-2xl flex flex-col translate-x-full transition-transform duration-250 ease-out">
-        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 flex-shrink-0">
-            <div class="flex items-center gap-2.5">
-                <h2 class="text-base font-sora font-semibold text-gray-900">Notifications</h2>
-                <span id="notif-unread-pill" class="px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[11px] font-semibold">5 unread</span>
-            </div>
-            <div class="flex items-center gap-1">
-                <button onclick="markAllNotifRead()" class="text-xs font-medium text-gray-500 hover:text-blue px-2 py-1 rounded transition-colors">Mark all read</button>
-                <button onclick="closeNotifDrawer()" aria-label="Close notifications" class="w-8 h-8 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-        </div>
-        <div id="notif-list" class="flex-1 overflow-y-auto">
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-right-left text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request sent</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">8m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">You asked Metro Logistics to approve un-booking Grace Owusu (Forklift Operative) on Thu 11 Jun.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-circle-check text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Un-book request approved</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">35m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Barratt Developments approved un-booking Callum Fraser on Fri 20 Jun. The day is now released.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.timesheets.timesheets.html" class="text-xs font-medium text-blue hover:underline">View on timesheet <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-user-clock text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-briefcase text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-signature text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-shield-halved text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Compliance expiring</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">3h ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">FLT Licence for Sarah Smith expires in 14 days. Please upload updated documents.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.candidates.candidate-detail.html" class="text-xs font-medium text-blue hover:underline">Update candidate <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-calendar-check text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Booking confirmed</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Shift booking confirmed for 5 candidates starting Monday at Apex Distribution.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.bookings.bookings.html" class="text-xs font-medium text-blue hover:underline">View bookings <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Self-bill generated</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Self-bill SB-2023-1045 has been generated for week ending 12 Nov 2023.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.money.self-bill-detail.html" class="text-xs font-medium text-blue hover:underline">View self-bill <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <div id="notif-empty" class="hidden px-6 py-16 text-center">
-                <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-regular fa-bell-slash text-gray-400"></i>
-                </div>
-                <p class="text-sm font-medium text-gray-700">You&#39;re all caught up</p>
-                <p class="text-xs text-gray-500 mt-1">New vacancies, proposal decisions and self-bills will appear here.</p>
-            </div>
-        </div>
-        <div class="px-5 py-3.5 border-t border-gray-200 bg-gray-50 flex-shrink-0 flex items-center justify-between">
-            <a href="agency.notifications.notification-centre.html" class="text-sm font-medium text-blue hover:underline">See all notifications</a>
-            <a href="agency.notifications.notification-preferences.html" class="text-xs text-gray-500 hover:text-gray-700"><i class="fa-solid fa-gear mr-1"></i>Preferences</a>
-        </div>
-    </aside>
-
-    <script>
-        function openNotifDrawer() {
-            document.getElementById('notif-drawer').classList.remove('translate-x-full');
-            var b = document.getElementById('notif-backdrop');
-            b.classList.remove('opacity-0', 'pointer-events-none');
-        }
-        function closeNotifDrawer() {
-            document.getElementById('notif-drawer').classList.add('translate-x-full');
-            var b = document.getElementById('notif-backdrop');
-            b.classList.add('opacity-0', 'pointer-events-none');
-        }
-        function refreshNotifCount() {
-            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
-            var pill = document.getElementById('notif-unread-pill');
-            pill.textContent = n + ' unread';
-            pill.classList.toggle('hidden', n === 0);
-            document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
-        }
-        function markNotifRead(btn) {
-            var item = btn.closest('.notif-item');
-            item.dataset.unread = '0';
-            item.classList.remove('is-unread');
-            item.querySelector('.notif-dot').classList.add('hidden');
-            btn.classList.add('hidden');
-            refreshNotifCount();
-        }
-        function markAllNotifRead() {
-            document.querySelectorAll('#notif-list .notif-item').forEach(function (i) {
-                i.dataset.unread = '0';
-                i.classList.remove('is-unread');
-                i.querySelector('.notif-dot').classList.add('hidden');
-                var b = i.querySelector('.notif-read'); if (b) b.classList.add('hidden');
-            });
-            refreshNotifCount();
-        }
-        // Account menu
-        function toggleAccountMenu(e) {
-            if (e) e.stopPropagation();
-            document.getElementById('account-menu').classList.toggle('hidden');
-        }
-        document.addEventListener('click', function (e) {
-            var m = document.getElementById('account-menu');
-            var t = document.getElementById('account-trigger');
-            if (m && !m.classList.contains('hidden') && !m.contains(e.target) && !t.contains(e.target)) m.classList.add('hidden');
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeNotifDrawer();
-                var m = document.getElementById('account-menu'); if (m) m.classList.add('hidden');
-            }
-        });
-    </script>
-
-
-    <!-- ============ Confirm dialog (shared) ============ -->
-    <div id="confirm-backdrop" onclick="closeConfirm()" class="fixed inset-0 bg-navy/40 z-40 hidden"></div>
-    <div id="confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"
-         class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md overflow-hidden">
-            <div class="p-6">
-                <div class="flex items-start gap-4">
-                    <div id="confirm-icon" class="w-10 h-10 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <div class="min-w-0">
-                        <h3 id="confirm-title" class="text-base font-sora font-semibold text-navy">Are you sure?</h3>
-                        <p id="confirm-body" class="text-sm text-gray-600 mt-2 leading-relaxed"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-end gap-3">
-                <button onclick="closeConfirm()" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-white transition-colors">Cancel</button>
-                <button id="confirm-go" onclick="closeConfirm()" class="px-4 py-2 bg-danger text-white rounded-md text-sm font-medium hover:bg-danger/90 transition-colors">Confirm</button>
-            </div>
-        </div>
+        <div><label for="n-type" class="block text-xs font-semibold text-slate-700 mb-1.5">Type <span class="text-red-600" aria-hidden="true">*</span></label><select id="n-type" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-600/20"></select><p class="text-xs text-slate-500 mt-1.5">The types Abstract seeded for your organisation.</p></div>
+        <div id="add-cc-wrap"></div>
+        <div id="add-err" style="display:none" role="alert" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"></div></div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap justify-end gap-3 sm:rounded-b-2xl"><button type="button" onclick="S1.closeModal('m-add')" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Cancel</button><button type="button" id="add-save" class="inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed" style="background:linear-gradient(135deg,#1D4ED8,#5B2E91)"></button></div>
     </div>
-
-    <script>
-        // Every consequential action states its consequence in plain English before it runs.
-        var CONFIRMS = {
-            deactivateUser: {
-                title: 'Deactivate this user?',
-                body: 'They will be signed out of every session immediately and will not be able to sign in again. Their proposals, bookings and history are kept. An Agency Admin can reactivate them later.',
-                cta: 'Deactivate user', tone: 'danger'
-            },
-            deactivateBranch: {
-                title: 'Deactivate this branch?',
-                body: 'The branch stops appearing in branch pickers and no new users or candidates can be assigned to it. Existing bookings, self-bills and history are unaffected.',
-                cta: 'Deactivate branch', tone: 'danger'
-            },
-            withdrawProposal: {
-                title: 'Withdraw this proposal?',
-                body: 'The client and Abstract are notified and the proposal moves to Withdrawn. You cannot undo this \u2014 you would need to submit a new proposal against the vacancy.',
-                cta: 'Withdraw proposal', tone: 'danger'
-            },
-            acknowledgeSelfBill: {
-                title: 'Acknowledge this self-bill?',
-                body: 'You are confirming the figures match your records. The self-bill moves from Sent to Acknowledged and Abstract is notified. Raise a query with Abstract instead if anything looks wrong.',
-                cta: 'Acknowledge', tone: 'success'
-            },
-            unbookDay: {
-                title: 'Request to un-book this day?',
-                body: 'The client is asked to approve. The day stays Booked as Pending client approval until they respond \u2014 you can withdraw the request while it is still pending.',
-                cta: 'Send request', tone: 'blue'
-            }
-        };
-        function openConfirm(key) {
-            var c = CONFIRMS[key]; if (!c) return;
-            document.getElementById('confirm-title').textContent = c.title;
-            document.getElementById('confirm-body').textContent = c.body;
-            var go = document.getElementById('confirm-go');
-            go.textContent = c.cta;
-            go.className = 'px-4 py-2 text-white rounded-md text-sm font-medium transition-colors bg-' + c.tone + ' hover:bg-' + c.tone + '/90';
-            var icon = document.getElementById('confirm-icon');
-            icon.className = 'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-' + c.tone + '/10 text-' + c.tone;
-            icon.innerHTML = c.tone === 'danger'
-                ? '<i class="fa-solid fa-triangle-exclamation"></i>'
-                : '<i class="fa-solid fa-circle-question"></i>';
-            document.getElementById('confirm-backdrop').classList.remove('hidden');
-            var m = document.getElementById('confirm-modal');
-            m.classList.remove('hidden'); m.classList.add('flex');
-        }
-        function closeConfirm() {
-            document.getElementById('confirm-backdrop').classList.add('hidden');
-            var m = document.getElementById('confirm-modal');
-            m.classList.add('hidden'); m.classList.remove('flex');
-        }
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeConfirm(); });
-    </script>
-
-
-    <script>
-        // Empty states are real markup, not a mock-up of one. Append ?empty=1 to any list screen
-        // to see it — the populated table hides and the empty block takes its place.
-        (function () {
-            if (new URLSearchParams(window.location.search).get('empty') !== '1') return;
-            var e = document.getElementById('empty-branches');
-            if (!e) return;
-            document.querySelectorAll('#main-content table').forEach(function (t) {
-                var card = t.closest('.bg-white') || t.parentElement;
-                card.classList.add('hidden');
-            });
-            document.querySelectorAll('#main-content .grid').forEach(function (g) {
-                if (g.querySelector('.notif-item')) return;
-                if (g.closest('#empty-branches')) return;
-            });
-            e.classList.remove('hidden');
-        })();
-    </script>
-
-    <script>
-        // Roles are a BRD concept (§5.1) with a design consequence: the nav differs per role.
-        var ROLE_HIDES = {
-            admin:     [],
-            recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
-            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
-        };
-        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
-        function applyRole(role) {
-            var hide = ROLE_HIDES[role] || [];
-            document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
-                var href = a.getAttribute('href');
-                a.classList.toggle('hidden', hide.indexOf(href) !== -1);
-            });
-            document.querySelectorAll('[data-role-label]').forEach(function (el) { el.textContent = ROLE_LABEL[role]; });
-            try { sessionStorage.setItem('agencyRole', role); } catch (e) {}
-        }
-        (function () {
-            var r = 'admin';
-            try { r = sessionStorage.getItem('agencyRole') || 'admin'; } catch (e) {}
-            var sel = document.getElementById('role-switch');
-            if (sel) sel.value = r;
-            applyRole(r);
-        })();
-    </script>
-
-    <!-- ============ Toast (shared) ============ -->
-    <div id="toast" role="status" aria-live="polite"
-         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] opacity-0 pointer-events-none transition-all duration-200 translate-y-2">
-        <div class="flex items-center gap-3 bg-navy text-white rounded-lg shadow-2xl px-4 py-3">
-            <i id="toast-icon" class="fa-solid fa-circle-check text-success"></i>
-            <p id="toast-msg" class="text-sm font-medium"></p>
+</div>
+<div data-s1-modal id="m-rename" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(15,26,62,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" role="dialog" aria-modal="true" aria-labelledby="m-rename-t">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <div class="min-w-0"><h2 id="m-rename-t" class="text-base font-bold text-slate-900">Rename</h2></div>
+            <button type="button" onclick="S1.closeModal('m-rename')" aria-label="Close" class="w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 flex items-center justify-center text-slate-500 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
+        <div class="px-6 py-5 flex flex-col gap-4"><div>
+      <label for="r-name" class="block text-xs font-semibold text-slate-700 mb-1.5">Name <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only"> (required)</span></label>
+      <input id="r-name" type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-600/20" placeholder="" aria-describedby="r-name-err r-name-hint" />
+      <p id="r-name-err" class="text-xs text-red-600 mt-1.5" style="display:none" role="alert"></p>
+      
+    </div><div id="rename-err" style="display:none" role="alert" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"></div></div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap justify-end gap-3 sm:rounded-b-2xl"><button type="button" onclick="S1.closeModal('m-rename')" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Cancel</button><button type="button" id="rename-save" class="inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed" style="background:linear-gradient(135deg,#1D4ED8,#5B2E91)"></button></div>
     </div>
+</div>
+<div data-s1-modal id="m-move" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(15,26,62,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" role="dialog" aria-modal="true" aria-labelledby="m-move-t">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <div class="min-w-0"><h2 id="m-move-t" class="text-base font-bold text-slate-900">Move</h2></div>
+            <button type="button" onclick="S1.closeModal('m-move')" aria-label="Close" class="w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 flex items-center justify-center text-slate-500 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="px-6 py-5 flex flex-col gap-4">
+        <p class="text-sm text-slate-600" id="move-copy"></p>
+        <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 min-h-[38px] focus-within:border-blue-300 focus-within:bg-white"><i class="fa-solid fa-magnifying-glass text-slate-400 text-xs" aria-hidden="true"></i><span class="sr-only">Search nodes</span><input id="move-search" type="search" placeholder="Search nodes" class="bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none w-full"/></label>
+        <div id="move-tree" class="rounded-xl border border-slate-200 max-h-72 overflow-y-auto"></div>
+        <div id="move-err" style="display:none" role="alert" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"></div></div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap justify-end gap-3 sm:rounded-b-2xl"><button type="button" onclick="S1.closeModal('m-move')" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Cancel</button><button type="button" id="move-save" class="inline-flex items-center justify-center gap-2 text-white rounded-lg px-4 py-2.5 text-xs font-semibold hover:opacity-95 transition-opacity min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed" style="background:linear-gradient(135deg,#1D4ED8,#5B2E91)" disabled></button></div>
+    </div>
+</div>
+<div data-s1-modal id="m-cant" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(15,26,62,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" role="dialog" aria-modal="true" aria-labelledby="m-cant-t">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <div class="min-w-0"><h2 id="m-cant-t" class="text-base font-bold text-slate-900">Can't remove</h2></div>
+            <button type="button" onclick="S1.closeModal('m-cant')" aria-label="Close" class="w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 flex items-center justify-center text-slate-500 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="px-6 py-5 flex flex-col gap-4"><div id="cant-body" class="text-sm text-slate-700"></div></div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap justify-end gap-3 sm:rounded-b-2xl"><button type="button" onclick="S1.closeModal('m-cant')" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Close</button></div>
+    </div>
+</div>
+<div data-s1-modal id="m-sheet" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(15,26,62,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" role="dialog" aria-modal="true" aria-labelledby="m-sheet-t">
+    <div class="bg-white w-full sm:max-w-lg rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+            <div class="min-w-0"><h2 id="m-sheet-t" class="text-base font-bold text-slate-900">Actions</h2></div>
+            <button type="button" onclick="S1.closeModal('m-sheet')" aria-label="Close" class="w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 hover:border-blue-300 flex items-center justify-center text-slate-500 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+        </div>
+        <div class="px-6 py-5 flex flex-col gap-4"><div id="sheet-body" class="flex flex-col gap-2"></div></div>
+        <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap justify-end gap-3 sm:rounded-b-2xl"><button type="button" onclick="S1.closeModal('m-sheet')" class="inline-flex items-center justify-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 rounded-lg px-3 py-2 text-xs font-semibold transition-colors min-h-[38px] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-1">Cancel</button></div>
+    </div>
+</div>
+<script>
+var ORGS = {"acme": {"name": "Acme Logistics", "party": "client", "status": "Active", "users": 5, "pct": null, "approval": true, "activatedAt": "2026-03-14T10:12:00Z", "activatedBy": "Sarah Mitchell", "accessEnabledAt": "2026-03-15T09:02:00Z", "accessEnabledBy": "Sarah Mitchell", "address": {"line1": "Acme House", "line2": "12 Fenton Way", "town": "Birmingham", "postcode": "B6 7QD", "country": "GB"}, "contacts": [{"name": "Rachel Green", "role": "Procurement lead", "email": "rachel.green@acmelogistics.co.uk", "tel": "0121 496 0102"}, {"name": "Priya Natarajan", "role": "Accounts payable", "email": "priya.natarajan@acmelogistics.co.uk", "tel": "0121 496 0110"}], "contract": {"ref": "ABS-CL-2026-004", "start": "2026-02-01", "end": "2028-01-31", "renewal": "Notice period 90 days; review in Q4 2027."}}, "northgate": {"name": "Northgate Foods", "party": "client", "status": "Active", "users": 4, "pct": null, "approval": false, "activatedAt": "2026-04-02T14:40:00Z", "activatedBy": "James Okafor", "accessEnabledAt": "2026-04-02T15:05:00Z", "accessEnabledBy": "James Okafor", "address": {"line1": "Unit 4, Northgate Business Park", "line2": null, "town": "Leeds", "postcode": "LS9 8AQ", "country": "GB"}, "contacts": [{"name": "Hannah Price", "role": "HR director", "email": "h.price@northgatefoods.co.uk", "tel": "0113 496 0220"}], "contract": {"ref": "ABS-CL-2026-007", "start": "2026-04-01", "end": null, "renewal": null}}, "harbour": {"name": "Harbour Retail Group", "party": "client", "status": "In Setup", "users": 2, "pct": 30, "approval": false, "address": {"line1": "Harbour Point", "line2": "1 Quay Street", "town": "Southampton", "postcode": "SO14 2AQ", "country": "GB"}, "contacts": [{"name": "Marcus Lee", "role": "Operations director", "email": "marcus.lee@harbourretail.co.uk", "tel": "023 8049 0310"}], "contract": {"ref": "ABS-CL-2026-011", "start": "2026-11-01", "end": "2028-10-31", "renewal": "Review six months before the end date."}}, "meridian": {"name": "Meridian Healthcare Services", "party": "client", "status": "Pending Activation", "users": 3, "pct": 90, "approval": false, "address": {"line1": "Meridian House", "line2": "30 Castle Street", "town": "Reading", "postcode": "RG1 7SN", "country": "GB"}, "contacts": [{"name": "Dr Anita Rao", "role": "Director of nursing", "email": "a.rao@meridianhealth.org.uk", "tel": "0118 496 0415"}], "contract": {"ref": "ABS-CL-2026-012", "start": "2026-10-01", "end": "2027-09-30", "renewal": null}}, "coastline": {"name": "Coastline Manufacturing", "party": "client", "status": "Draft", "users": 0, "pct": 0, "approval": false, "address": null, "contacts": [], "contract": {"ref": "", "start": null, "end": null, "renewal": null}}, "pennine": {"name": "Pennine Distribution", "party": "client", "status": "Suspended", "users": 3, "pct": null, "approval": false, "activatedAt": "2026-01-20T11:00:00Z", "activatedBy": "Sarah Mitchell", "accessEnabledAt": "2026-01-21T08:30:00Z", "accessEnabledBy": "Sarah Mitchell", "suspension": {"reason": "Contract dispute: invoices unpaid since July 2026. Reinstate once the finance team confirms settlement.", "at": "2026-09-02T16:20:00Z", "by": "Sarah Mitchell"}, "address": {"line1": "Pennine Way Depot", "line2": null, "town": "Huddersfield", "postcode": "HD2 1UA", "country": "GB"}, "contacts": [{"name": "Gary Holmes", "role": "Site director", "email": "g.holmes@penninedist.co.uk", "tel": "01484 496 0501"}], "contract": {"ref": "ABS-CL-2025-019", "start": "2025-11-01", "end": "2026-10-31", "renewal": "Not renewing while suspended."}}, "techforce": {"name": "TechForce Recruitment", "party": "agency", "status": "Active", "users": 4, "pct": null, "approval": false, "activatedAt": "2026-03-10T09:45:00Z", "activatedBy": "Sarah Mitchell", "accessEnabledAt": "2026-03-10T10:00:00Z", "accessEnabledBy": "Sarah Mitchell", "address": {"line1": "14 Kingsway House", "line2": null, "town": "Coventry", "postcode": "CV1 2LH", "country": "GB"}, "contacts": [{"name": "Daniel Wright", "role": "Operations director", "email": "daniel.wright@techforce-recruitment.co.uk", "tel": "024 7649 0210"}, {"name": "Aisha Khan", "role": "Payroll", "email": "aisha.khan@techforce-recruitment.co.uk", "tel": null}], "paymentTermsDays": 30, "marginBasis": "percentage_of_charge", "marginValue": "12.50", "sba": {"ref": "SBA-2026-0417", "signed": "2026-07-03", "expiry": "2027-07-02", "doc": "SBA_TechForce_signed.pdf"}}, "nexus": {"name": "Nexus Talent", "party": "agency", "status": "Active", "users": 4, "pct": null, "approval": true, "activatedAt": "2026-03-18T13:00:00Z", "activatedBy": "James Okafor", "accessEnabledAt": "2026-03-19T09:00:00Z", "accessEnabledBy": "James Okafor", "address": {"line1": "2nd Floor, Nexus Court", "line2": "8 Wellington Street", "town": "Sheffield", "postcode": "S1 4HG", "country": "GB"}, "contacts": [{"name": "Aisha Rahman", "role": "Managing director", "email": "a.rahman@nexustalent.co.uk", "tel": "0114 496 0330"}], "paymentTermsDays": 14, "marginBasis": "fixed_per_hour", "marginValue": "2.40", "sba": {"ref": "SBA-2026-0391", "signed": "2026-03-12", "expiry": "2027-03-11", "doc": "SBA_Nexus_signed.pdf"}}, "peoplebridge": {"name": "PeopleBridge", "party": "agency", "status": "Pending Activation", "users": 2, "pct": 88, "approval": false, "address": {"line1": "Bridge House", "line2": "5 Canal Street", "town": "Manchester", "postcode": "M1 3HE", "country": "GB"}, "contacts": [{"name": "Leo Marsh", "role": "Director", "email": "leo@peoplebridge.co.uk", "tel": "0161 496 0180"}], "paymentTermsDays": 30, "marginBasis": "percentage_of_charge", "marginValue": "11.00", "sba": {"ref": "SBA-2026-0442", "signed": "2026-09-28", "expiry": "2027-09-27", "doc": "SBA_PeopleBridge_signed.pdf"}}, "summit": {"name": "Summit Staffing Solutions", "party": "agency", "status": "In Setup", "users": 1, "pct": 33, "approval": false, "address": {"line1": "Summit House", "line2": "22 Peak Road", "town": "Derby", "postcode": "DE1 2QR", "country": "GB"}, "contacts": [{"name": "Fiona Wallace", "role": "Owner", "email": "fiona@summitstaffing.co.uk", "tel": "01332 496 0290"}], "paymentTermsDays": null, "marginBasis": "percentage_of_charge", "marginValue": null, "sba": null}, "rapid": {"name": "Rapid Resource", "party": "agency", "status": "Suspended", "users": 3, "pct": null, "approval": false, "activatedAt": "2026-02-11T10:00:00Z", "activatedBy": "Sarah Mitchell", "accessEnabledAt": "2026-02-11T10:30:00Z", "accessEnabledBy": "Sarah Mitchell", "suspension": {"reason": "Employer's liability insurance lapsed on 31 Aug 2026 and no renewal has been received.", "at": "2026-09-01T09:10:00Z", "by": "Hannah Clarke"}, "address": {"line1": "9 Station Approach", "line2": null, "town": "Nottingham", "postcode": "NG1 7AB", "country": "GB"}, "contacts": [{"name": "Kim Barrow", "role": "Director", "email": "kim@rapidresource.co.uk", "tel": "0115 496 0770"}], "paymentTermsDays": 30, "marginBasis": "percentage_of_charge", "marginValue": "12.00", "sba": {"ref": "SBA-2026-0360", "signed": "2026-02-05", "expiry": "2027-02-04", "doc": "SBA_Rapid_signed.pdf"}}};
+var TREES = {"acme": [{"id": "mid", "parentId": null, "name": "Midlands", "nodeType": "region", "cc": "CC-MID", "userCount": 0}, {"id": "bhx", "parentId": "mid", "name": "Birmingham DC", "nodeType": "site", "cc": "CC-BHX-01", "userCount": 1}, {"id": "bhx-n", "parentId": "bhx", "name": "Nights", "nodeType": "department", "cc": "CC-BHX-01-N", "userCount": 1}, {"id": "bhx-d", "parentId": "bhx", "name": "Days", "nodeType": "department", "cc": "CC-BHX-01-D", "userCount": 0}, {"id": "lei", "parentId": "mid", "name": "Leicester DC", "nodeType": "site", "cc": "CC-LEI-02", "userCount": 1}, {"id": "nth", "parentId": null, "name": "Northern", "nodeType": "region", "cc": "CC-NTH", "userCount": 1}, {"id": "lds", "parentId": "nth", "name": "Leeds Hub", "nodeType": "site", "cc": "CC-LDS-01", "userCount": 0}, {"id": "lgw", "parentId": null, "name": "London Gateway", "nodeType": "site", "cc": "CC-LGW-03", "userCount": 0}], "northgate": [{"id": "ng-hq", "parentId": null, "name": "Head office", "nodeType": "business_unit", "cc": "NG-100", "userCount": 2}, {"id": "ng-prod", "parentId": null, "name": "Production", "nodeType": "business_unit", "cc": "NG-200", "userCount": 1}, {"id": "ng-leeds", "parentId": "ng-prod", "name": "Leeds bakery", "nodeType": "site", "cc": "NG-210", "userCount": 1}], "harbour": [{"id": "hb-south", "parentId": null, "name": "South coast", "nodeType": "region", "cc": "HB-S", "userCount": 0}, {"id": "hb-soton", "parentId": "hb-south", "name": "Southampton store", "nodeType": "site", "cc": "HB-S-01", "userCount": 1}], "meridian": [{"id": "md-rdg", "parentId": null, "name": "Reading hospital", "nodeType": "site", "cc": "MH-RDG", "userCount": 2}, {"id": "md-rdg-w", "parentId": "md-rdg", "name": "Wards", "nodeType": "department", "cc": "MH-RDG-W", "userCount": 0}], "coastline": [], "pennine": [{"id": "pn-hud", "parentId": null, "name": "Huddersfield depot", "nodeType": "site", "cc": "PN-HUD", "userCount": 2}], "techforce": [{"id": "tf-cov", "parentId": null, "name": "Coventry", "nodeType": "branch", "userCount": 1}, {"id": "tf-mk", "parentId": null, "name": "Milton Keynes", "nodeType": "branch", "userCount": 0}, {"id": "tf-north", "parentId": null, "name": "North Division", "nodeType": "division", "userCount": 1}, {"id": "tf-shf", "parentId": "tf-north", "name": "Sheffield Hub", "nodeType": "branch", "userCount": 0}, {"id": "tf-lds", "parentId": "tf-north", "name": "Leeds Branch", "nodeType": "branch", "userCount": 0}], "nexus": [{"id": "nx-north", "parentId": null, "name": "North Division", "nodeType": "division", "userCount": 1}, {"id": "nx-shf", "parentId": "nx-north", "name": "Sheffield", "nodeType": "branch", "userCount": 1}, {"id": "nx-south", "parentId": null, "name": "South Division", "nodeType": "division", "userCount": 0}, {"id": "nx-hub", "parentId": "nx-south", "name": "Hub", "nodeType": "branch", "userCount": 1}], "peoplebridge": [{"id": "pb-man", "parentId": null, "name": "Manchester", "nodeType": "branch", "userCount": 1}], "summit": [], "rapid": [{"id": "rr-not", "parentId": null, "name": "Nottingham", "nodeType": "branch", "userCount": 2}]};
+var CHANGES = [{"id": "scr-1041", "org": "acme", "requestedBy": "Rachel Green", "requestedAt": "2026-10-06T14:20:00Z", "status": "Pending approval", "change": {"kind": "add", "nodeId": null, "parentId": "mid", "name": "Coventry DC", "nodeType": "site", "cc": "CC-COV-03"}, "summary": "Add site \"Coventry DC\" under Midlands", "applicable": true}, {"id": "scr-1042", "org": "acme", "requestedBy": "Rachel Green", "requestedAt": "2026-10-06T14:22:00Z", "status": "Pending approval", "change": {"kind": "rename", "nodeId": "lds", "parentId": null, "name": "Leeds Distribution Hub", "nodeType": null, "cc": null}, "summary": "Rename \"Leeds Hub\" to \"Leeds Distribution Hub\"", "applicable": true}, {"id": "scr-1043", "org": "acme", "requestedBy": "Mark Davies", "requestedAt": "2026-10-07T09:05:00Z", "status": "Pending approval", "change": {"kind": "remove", "nodeId": "lgw", "parentId": null, "name": null, "nodeType": null, "cc": null}, "summary": "Remove \"London Gateway\"", "applicable": true}, {"id": "scr-1044", "org": "nexus", "requestedBy": "Aisha Rahman", "requestedAt": "2026-10-05T09:05:00Z", "status": "Pending approval", "change": {"kind": "move", "nodeId": "nx-hub", "parentId": "nx-north", "name": null, "nodeType": null, "cc": null}, "summary": "Move \"Hub\" under North Division", "applicable": true}, {"id": "scr-1038", "org": "acme", "requestedBy": "Rachel Green", "requestedAt": "2026-10-02T11:40:00Z", "status": "Rejected", "change": {"kind": "add", "nodeId": null, "parentId": "bhx", "name": "Twilight", "nodeType": "department", "cc": "CC-BHX-01-T"}, "summary": "Add department \"Twilight\" under Birmingham DC", "applicable": true, "decidedBy": "Sarah Mitchell", "decidedAt": "2026-10-03T08:12:00Z", "reason": "Twilight is a working-time window, not a department. Ask Abstract to record it as a Shift in your configuration instead."}, {"id": "scr-1035", "org": "nexus", "requestedBy": "Aisha Rahman", "requestedAt": "2026-09-29T16:02:00Z", "status": "Approved", "change": {"kind": "rename", "nodeId": "nx-shf", "parentId": null, "name": "Sheffield", "nodeType": null, "cc": null}, "summary": "Rename \"Sheffield Branch\" to \"Sheffield\"", "applicable": true, "decidedBy": "James Okafor", "decidedAt": "2026-09-30T09:48:00Z", "reason": null}, {"id": "scr-1039", "org": "acme", "requestedBy": "Mark Davies", "requestedAt": "2026-10-04T10:15:00Z", "status": "Pending approval", "change": {"kind": "add", "nodeId": null, "parentId": "lgw-old", "name": "Gateway Nights", "nodeType": "department", "cc": "CC-LGW-03-N"}, "summary": "Add department \"Gateway Nights\" under Thames Gateway", "applicable": false, "notApplicable": "\"Thames Gateway\" was removed on 5 Oct by Sarah Mitchell, so \"Gateway Nights\" has nowhere to go."}];
+var USERS = {"acme": [{"name": "Rachel Green", "email": "rachel.green@acmelogistics.co.uk", "roles": ["Administrator"], "status": "Active", "scope": [], "last": "2026-10-09T08:02:00Z"}, {"name": "Mark Davies", "email": "mark.davies@acmelogistics.co.uk", "roles": ["Hiring manager"], "status": "Active", "scope": ["bhx"], "last": "2026-10-08T14:18:00Z"}, {"name": "Priya Natarajan", "email": "priya.natarajan@acmelogistics.co.uk", "roles": ["Finance approver"], "status": "Active", "scope": [], "last": "2026-10-07T10:47:00Z"}, {"name": "Olivia Brown", "email": "olivia.brown@acmelogistics.co.uk", "roles": ["Hiring manager"], "status": "Invited", "scope": ["lei", "nth"], "last": null}, {"name": "Ben Taylor", "email": "ben.taylor@acmelogistics.co.uk", "roles": ["Hiring manager", "Seasonal supervisors"], "status": "Inactive", "scope": ["bhx-n"], "last": "2026-08-02T16:20:00Z"}], "techforce": [{"name": "Daniel Wright", "email": "daniel.wright@techforce-recruitment.co.uk", "roles": ["Administrator"], "status": "Active", "scope": [], "last": "2026-10-09T07:55:00Z"}, {"name": "Sophie Turner", "email": "sophie.turner@techforce-recruitment.co.uk", "roles": ["Recruiter"], "status": "Active", "scope": ["tf-cov"], "last": "2026-10-08T12:09:00Z"}, {"name": "Aisha Khan", "email": "aisha.khan@techforce-recruitment.co.uk", "roles": ["Payroll"], "status": "Active", "scope": [], "last": "2026-10-06T09:30:00Z"}, {"name": "Ryan Hughes", "email": "ryan.hughes@techforce-recruitment.co.uk", "roles": ["Recruiter"], "status": "Invited", "scope": ["tf-north"], "last": null}], "harbour": [{"name": "Marcus Lee", "email": "marcus.lee@harbourretail.co.uk", "roles": ["Administrator"], "status": "Invited", "scope": [], "last": null}, {"name": "Jo Patel", "email": "jo.patel@harbourretail.co.uk", "roles": ["Hiring manager"], "status": "Invited", "scope": ["hb-soton"], "last": null}], "summit": [{"name": "Fiona Wallace", "email": "fiona@summitstaffing.co.uk", "roles": ["Administrator"], "status": "Invited", "scope": [], "last": null}]};
+var TYPE_LABEL = {"business_unit": "Business unit", "region": "Region", "site": "Site", "department": "Department", "branch": "Branch", "division": "Division"};
+var CLIENT_TYPES = ["business_unit", "region", "site", "department"];
+var AGENCY_TYPES = ["branch", "region", "division"];
+var TODAY = "2026-10-10";
 
-    <script>
-        var _toastTimer;
-        function toast(msg, icon) {
-            var t = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = msg;
-            document.getElementById('toast-icon').className = 'fa-solid ' + (icon || 'fa-circle-check') + ' text-success';
-            t.classList.remove('opacity-0', 'translate-y-2');
-            clearTimeout(_toastTimer);
-            _toastTimer = setTimeout(function () { t.classList.add('opacity-0', 'translate-y-2'); }, 2600);
-        }
-    </script>
 
+/* ---------- Tree (kernel K13) ---------- */
+function Tree(host, props) {
+  var self = this;
+  host = typeof host === 'string' ? document.getElementById(host) : host;
+  this.host = host; this.p = Object.assign({ selection: 'none', value: [], disabledIds: [], defaultExpandedDepth: 99, search: false, root: null, columns: [], decorate: null, renderRow: null, ghosts: [], readOnly: false, compact: false }, props || {});
+  this.expanded = {}; this.focusId = null; this.query = ''; this.value = (this.p.value || []).slice();
+  this.setNodes(this.p.nodes || []);
+  host.classList.add('s2-tree');
+  host.addEventListener('keydown', function (e) { self.onKey(e); });
+  this.render();
+}
+Tree.prototype.setNodes = function (nodes) {
+  var self = this;
+  this.nodes = nodes.map(function (n) { return Object.assign({}, n); });
+  this.byId = {}; this.children = {}; this.nodes.forEach(function (n) { self.byId[n.id] = n; });
+  this.nodes.forEach(function (n) { var p = n.parentId && self.byId[n.parentId] ? n.parentId : '__root'; n._p = p; (self.children[p] = self.children[p] || []).push(n); });
+  this.nodes.forEach(function (n) { n.depth = self.depthOf(n.id); n.path = self.pathOf(n.id); });
+  var self2 = this; if (!Object.keys(this.expanded).length) this.nodes.forEach(function (n) { self2.expanded[n.id] = n.depth < self2.p.defaultExpandedDepth; });
+};
+Tree.prototype.depthOf = function (id) { var d = 0, n = this.byId[id]; while (n && n._p !== '__root') { d++; n = this.byId[n._p]; } return d; };
+Tree.prototype.pathOf = function (id) { var out = [], n = this.byId[id]; while (n) { out.unshift(n.name); n = n._p === '__root' ? null : this.byId[n._p]; } return out; };
+Tree.prototype.descendants = function (id) { var out = [], self = this; (function walk(x) { (self.children[x] || []).forEach(function (c) { out.push(c.id); walk(c.id); }); })(id); return out; };
+Tree.prototype.ancestors = function (id) { var out = [], n = this.byId[id]; while (n && n._p !== '__root') { out.push(n._p); n = this.byId[n._p]; } return out; };
+Tree.prototype.matches = function (n) { return !this.query || n.name.toLowerCase().indexOf(this.query) >= 0; };
+Tree.prototype.visible = function () {
+  // depth-first list of rows to draw: with a query, every match plus its ancestors (expanded)
+  var self = this, out = [], keep = null;
+  if (this.query) { keep = {}; this.nodes.forEach(function (n) { if (self.matches(n)) { keep[n.id] = 1; self.ancestors(n.id).forEach(function (a) { keep[a] = 1; }); } }); }
+  (function walk(p) {
+    (self.children[p] || []).forEach(function (n) {
+      if (keep && !keep[n.id]) return;
+      out.push(n);
+      var open = keep ? true : self.expanded[n.id];
+      if (open) walk(n.id);
+      (self.p.ghosts || []).filter(function (g) { return g.parentId === n.id && (open || keep); }).forEach(function (g) { out.push(Object.assign({ _ghost: true, _p: n.id, depth: n.depth + 1 }, g)); });
+    });
+  })('__root');
+  (self.p.ghosts || []).filter(function (g) { return !g.parentId; }).forEach(function (g) { out.push(Object.assign({ _ghost: true, _p: '__root', depth: 0 }, g)); });
+  return out;
+};
+Tree.prototype.covered = function (id) { var self = this; return this.ancestors(id).some(function (a) { return self.value.indexOf(a) >= 0; }); };
+Tree.prototype.isDisabled = function (id) { return (this.p.disabledIds || []).indexOf(id) >= 0 || (this.p.selection === 'multi' && this.covered(id)); };
+Tree.prototype.toggle = function (id, open) { this.expanded[id] = open == null ? !this.expanded[id] : open; if (this.p.onExpandedChange) this.p.onExpandedChange(this.expanded); this.render(); };
+Tree.prototype.expandAll = function () { var self = this; this.nodes.forEach(function (n) { self.expanded[n.id] = true; }); this.render(); };
+Tree.prototype.collapseTo = function (depth) { var self = this; this.nodes.forEach(function (n) { self.expanded[n.id] = n.depth < depth; }); this.render(); };
+Tree.prototype.setQuery = function (q) { this.query = (q || '').trim().toLowerCase(); this.render(); };
+Tree.prototype.select = function (id) {
+  if (this.p.selection === 'none' || this.isDisabled(id)) return;
+  if (this.p.selection === 'single') this.value = this.value[0] === id ? [] : [id];
+  else { var i = this.value.indexOf(id); if (i >= 0) this.value.splice(i, 1); else { var self = this; this.value = this.value.filter(function (v) { return self.ancestors(v).indexOf(id) < 0; }); this.value.push(id); } }
+  if (this.p.onChange) this.p.onChange(this.value.slice());
+  this.render();
+};
+Tree.prototype.render = function () {
+  var self = this, rows = this.visible(), ro = this.p.readOnly, sel = this.p.selection, hasRoot = !!this.p.root;
+  var html = '';
+  if (hasRoot) html += this.rowHtml(Object.assign({ id: '__root', depth: -1, name: this.p.root.name, nodeType: 'Organisation', _root: true, userCount: this.p.root.userCount }, {}), true, rows.length > 0);
+  rows.forEach(function (n) { html += self.rowHtml(n, false, (self.children[n.id] || []).length > 0 || (self.p.ghosts || []).some(function (g) { return g.parentId === n.id; })); });
+  this.host.innerHTML = '<ul role="tree" aria-label="' + esc(this.p.label || 'Structure') + '" class="divide-y divide-slate-100">' + html + '</ul>';
+  if (this.query) {
+    var m = this.nodes.filter(function (n) { return self.matches(n); }).length;
+    this.host.insertAdjacentHTML('beforeend', '<p class="px-4 py-2 text-xs text-slate-500 border-t border-slate-100" role="status">' + m + ' of ' + this.nodes.length + ' nodes match</p>');
+  }
+  this.host.querySelectorAll('[data-toggle]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); self.toggle(b.dataset.toggle); }; });
+  this.host.querySelectorAll('[role="treeitem"]').forEach(function (li) {
+    li.onfocus = function () { self.focusId = li.dataset.id; self.host.querySelectorAll('[role="treeitem"]').forEach(function (x) { x.tabIndex = -1; }); li.tabIndex = 0; };
+    li.onclick = function (e) { if (e.target.closest('button,a,input,label')) return; self.focusId = li.dataset.id; if (sel !== 'none' && !li.dataset.ghost && li.dataset.id !== '__root') self.select(li.dataset.id); if (sel === 'none' && self.p.onPick && !li.dataset.ghost) { self.p.onPick(li.dataset.id); self.render(); } };
+  });
+  this.host.querySelectorAll('input[type="checkbox"][data-check]').forEach(function (c) { c.onchange = function () { self.select(c.dataset.check); }; });
+  var first = this.host.querySelector('[role="treeitem"][data-id="' + (this.focusId || '') + '"]') || this.host.querySelector('[role="treeitem"]');
+  if (first) first.tabIndex = 0;
+  if (this.p.afterRender) this.p.afterRender();
+};
+Tree.prototype.rowHtml = function (n, isRoot, hasKids) {
+  var sel = this.p.selection, open = isRoot ? true : !!this.expanded[n.id], ghost = !!n._ghost, depth = isRoot ? 0 : n.depth + 1;
+  var disabled = !isRoot && !ghost && this.isDisabled(n.id), covered = !isRoot && !ghost && sel === 'multi' && this.covered(n.id);
+  var selected = !isRoot && !ghost && this.value.indexOf(n.id) >= 0;
+  var picked = this.p.picked === n.id;
+  var indent = '<span class="flex-shrink-0 flex" style="width:' + (depth * 20) + 'px" aria-hidden="true">' + (depth ? Array.apply(null, Array(depth)).map(function () { return '<span class="block w-5 border-l border-slate-200 h-full"></span>'; }).join('') : '') + '</span>';
+  var chevron = (hasKids && !isRoot) ? '<button type="button" data-toggle="' + esc(n.id) + '" class="w-6 h-6 rounded flex items-center justify-center text-slate-500 hover:bg-slate-100 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600" aria-label="' + (open ? 'Collapse' : 'Expand') + ' ' + esc(n.name) + '" tabindex="-1"><i class="fa-solid fa-chevron-' + (open ? 'down' : 'right') + ' text-[10px]" aria-hidden="true"></i></button>' : '<span class="w-6 h-6 flex-shrink-0 flex items-center justify-center text-slate-300" aria-hidden="true">' + (isRoot ? '<i class="fa-solid fa-building text-xs text-slate-500"></i>' : ghost ? '<i class="fa-regular fa-circle-dot text-[10px] text-amber-500"></i>' : '<i class="fa-solid fa-circle text-[5px]"></i>') + '</span>';
+  var check = '';
+  if (sel === 'multi' && !isRoot && !ghost) check = '<input type="checkbox" data-check="' + esc(n.id) + '" ' + (selected || covered ? 'checked' : '') + ' ' + (disabled ? 'disabled' : '') + ' class="w-4 h-4 rounded border-slate-300 text-blue-700 focus:ring-blue-600 flex-shrink-0" aria-label="' + esc(n.name) + (covered ? ' (covered)' : '') + '" tabindex="-1"/>';
+  if (sel === 'single' && !ghost) check = '<span class="w-4 h-4 rounded-full border flex-shrink-0 flex items-center justify-center ' + (selected || picked ? 'border-blue-700' : 'border-slate-300') + (disabled ? ' opacity-40' : '') + '" aria-hidden="true">' + (selected || picked ? '<span class="w-2 h-2 rounded-full bg-blue-700"></span>' : '') + '</span>';
+  var typeLabel = isRoot ? 'Organisation' : (TYPE_LABEL[n.nodeType] || n.nodeType);
+  var name = '<span class="text-sm ' + (isRoot ? 'font-bold text-slate-900' : ghost ? 'font-medium text-slate-500 italic' : 'font-medium text-slate-900') + ' truncate">' + esc(n.name) + (n.marker ? ' ' + n.marker : '') + '</span>';
+  var meta = '<span class="text-xs text-slate-500 md:hidden block truncate">' + esc(typeLabel) + (this.p.showCost && n.cc ? ' · ' + esc(n.cc) : '') + (covered ? ' · covered' : '') + '</span>';
+  var cols = '';
+  if (!this.p.compact) {
+    cols += '<span class="hidden md:block w-28 flex-shrink-0 text-xs text-slate-600 truncate">' + esc(typeLabel) + (covered ? '<span class="text-slate-400"> · covered</span>' : '') + '</span>';
+    if (this.p.showCost) cols += '<span class="hidden md:block w-28 flex-shrink-0 text-xs text-slate-600 tnum truncate">' + esc(n.cc || (isRoot ? '—' : '')) + '</span>';
+    if (this.p.showUsers) cols += '<span class="hidden md:block w-14 flex-shrink-0 text-xs text-slate-700 tnum text-right">' + (ghost ? '' : (this.p.userLink && !isRoot && n.userCount ? '<a href="' + this.p.userLink(n) + '" class="text-blue-700 hover:underline" title="Users scoped at this node">' + n.userCount + '</a>' : (n.userCount == null ? '' : n.userCount))) + '</span>';
+  } else if (covered) { cols += '<span class="hidden md:inline text-xs text-slate-400">covered</span>'; }
+  var deco = this.p.decorate && !isRoot ? (this.p.decorate(n) || '') : '';
+  var actions = this.p.renderRow && !ghost ? (this.p.renderRow(n, isRoot) || '') : '';
+  var cls = 'tree-row group flex items-start gap-2 px-3 py-2 min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-600 ' + (selected || picked ? 'bg-blue-50 ' : 'hover:bg-slate-50 ') + (ghost ? 'bg-amber-50/40 ' : '') + (disabled && sel !== 'none' ? 'opacity-60 ' : '') + (sel !== 'none' && !disabled && !isRoot && !ghost ? 'cursor-pointer ' : '');
+  return '<li role="treeitem" data-id="' + esc(n.id) + '" ' + (ghost ? 'data-ghost="1" ' : '') + 'aria-level="' + (depth + 1) + '" ' + (hasKids || isRoot ? 'aria-expanded="' + open + '" ' : '') + (sel !== 'none' ? 'aria-selected="' + selected + '" ' : '') + (disabled ? 'aria-disabled="true" ' : '') + 'tabindex="-1" class="' + cls + '"' + (disabled && this.p.disabledTitle ? ' title="' + esc(this.p.disabledTitle) + '"' : '') + '>' +
+    indent + chevron + (check ? '<span class="flex items-center h-5 flex-shrink-0">' + check + '</span>' : '') +
+    '<span class="flex-1 min-w-0"><span class="flex items-center gap-2 min-w-0">' + name + (this.p.showUsers && !ghost && !this.p.compact ? '<span class="md:hidden text-xs text-slate-500 tnum ml-auto flex-shrink-0">' + (n.userCount == null ? '' : n.userCount + ' <i class="fa-regular fa-user text-[10px]" aria-hidden="true"></i>') + '</span>' : '') + '</span>' + meta + deco + '</span>' +
+    cols + (actions ? '<span class="flex-shrink-0 flex items-center">' + actions + '</span>' : '') + '</li>';
+};
+Tree.prototype.onKey = function (e) {
+  var items = Array.prototype.slice.call(this.host.querySelectorAll('[role="treeitem"]'));
+  var cur = document.activeElement.closest ? document.activeElement.closest('[role="treeitem"]') : null;
+  var i = items.indexOf(cur); if (i < 0) return;
+  var n = this.byId[cur.dataset.id], go = null;
+  if (e.key === 'ArrowDown') go = items[i + 1];
+  else if (e.key === 'ArrowUp') go = items[i - 1];
+  else if (e.key === 'Home') go = items[0];
+  else if (e.key === 'End') go = items[items.length - 1];
+  else if (e.key === 'ArrowRight') { if (cur.getAttribute('aria-expanded') === 'false') { this.toggle(cur.dataset.id, true); this.focusAfter(cur.dataset.id); e.preventDefault(); return; } go = items[i + 1]; }
+  else if (e.key === 'ArrowLeft') { if (cur.getAttribute('aria-expanded') === 'true' && cur.dataset.id !== '__root') { this.toggle(cur.dataset.id, false); this.focusAfter(cur.dataset.id); e.preventDefault(); return; } var p = n ? n._p : null; go = p && p !== '__root' ? this.host.querySelector('[data-id="' + p + '"]') : (this.p.root ? this.host.querySelector('[data-id="__root"]') : null); }
+  else if (e.key === 'Enter' || e.key === ' ') { if (cur.dataset.id !== '__root' && !cur.dataset.ghost) { if (this.p.selection !== 'none') this.select(cur.dataset.id); else if (this.p.onPick) { this.p.onPick(cur.dataset.id); this.render(); } this.focusAfter(cur.dataset.id); } e.preventDefault(); return; }
+  else if (e.key.length === 1 && /\S/.test(e.key)) { var k = e.key.toLowerCase(); for (var j = 1; j <= items.length; j++) { var it = items[(i + j) % items.length], nn = this.byId[it.dataset.id] || (it.dataset.id === '__root' ? this.p.root : null); if (nn && nn.name.toLowerCase().charAt(0) === k) { go = it; break; } } }
+  if (go) { go.focus(); e.preventDefault(); }
+};
+Tree.prototype.focusAfter = function (id) { var self = this; setTimeout(function () { var el = self.host.querySelector('[data-id="' + id + '"]'); if (el) el.focus(); }, 0); };
+
+var PORTAL = 'agency', IS_ABS = false;
+var state = Q.get('state') || 'default', slug = 'techforce';
+var ORG, nodes, pending, tree, ro = false, addTarget = '__root';
+function withOrg(href) { return IS_ABS ? href + (href.indexOf('?') >= 0 ? '&' : '?') + 'org=' + slug : href; }
+document.querySelectorAll('a[data-keep-org]').forEach(function (a) { a.setAttribute('href', withOrg(a.getAttribute('href'))); });
+
+function bigTree() {
+  var out = [], regions = ['Midlands', 'Northern', 'Southern', 'Eastern', 'Western', 'Scotland', 'Wales', 'London'];
+  regions.forEach(function (r, i) { out.push({ id: 'r' + i, parentId: null, name: r, nodeType: 'region', cc: 'CC-R' + i, userCount: i % 3 ? 0 : 1 });
+    for (var s = 0; s < 7; s++) { var sid = 'r' + i + 's' + s; out.push({ id: sid, parentId: 'r' + i, name: r + ' site ' + (s + 1), nodeType: 'site', cc: 'CC-R' + i + '-' + (s + 1), userCount: (s + i) % 4 ? 0 : 2 });
+      for (var d = 0; d < 5; d++) out.push({ id: sid + 'd' + d, parentId: sid, name: ['Nights', 'Days', 'Twilight', 'Weekend', 'Inbound'][d], nodeType: 'department', cc: 'CC-R' + i + '-' + (s + 1) + '-' + d, userCount: (d + s) % 5 ? 0 : 1 }); } });
+  return out;
+}
+function load() {
+  if (state === 'pending') slug = 'nexus';
+  ORG = ORGS[slug]; nodes = JSON.parse(JSON.stringify(TREES[slug] || []));
+  if (state === 'empty') nodes = [];
+  if (state === 'large') nodes = bigTree();
+  ro = state === 'readonly';
+  var approval = state === 'pending' ? true : state === 'large' || state === 'empty' ? false : !!ORG.approval;
+  pending = (state === 'large' || state === 'empty') ? [] : CHANGES.filter(function (c) { return c.org === slug && c.status === 'Pending approval' && c.applicable; });
+  ORG = Object.assign({}, ORG, { approval: approval });
+  document.querySelectorAll('[data-org-name]').forEach(function (e) { e.textContent = ORG.name; });
+  if (IS_ABS) { document.title = 'Structure · ' + ORG.name + ' · Abstract VMS'; document.getElementById('header').style.borderTop = '4px solid #1D4ED8'; document.getElementById('ctx-party').textContent = (ORG.party === 'client' ? 'Client' : 'Agency') + ' organisation. You see the same screens its own user administrators see.'; document.getElementById('ctx-status').textContent = ORG.status !== 'Active' ? ' Its status is ' + ORG.status + '.' : ''; var sb = document.getElementById('nav-organisations'); if (sb) sb.setAttribute('aria-current', 'page'); }
+  document.getElementById('col-cc').style.display = ORG.party === 'client' ? '' : 'none';
+  document.getElementById('approval-banner').style.display = approval && !IS_ABS ? '' : 'none';
+  if (approval && IS_ABS) { document.getElementById('approval-banner').style.display = ''; document.getElementById('approval-banner').querySelector('p').innerHTML = '<span class="font-semibold">Abstract approves changes to this structure.</span> Its own users\' changes wait in the <a class="underline font-semibold" href="abstract.organisations.structure-changes.html?org=' + slug + '">Structure changes</a> queue; a change you make here applies at once. <span id="pending-count-line"></span>'; }
+  var pc = document.getElementById('pending-count-line'); if (pc) pc.textContent = pending.length ? pending.length + (pending.length === 1 ? ' change is' : ' changes are') + ' waiting.' : '';
+  document.querySelectorAll('[data-edit]').forEach(function (b) { b.style.display = ro ? 'none' : ''; });
+  document.getElementById('tree-empty-copy').textContent = ro ? 'Nothing has been added to ' + ORG.name + "'s structure yet." : 'Add a first node under ' + ORG.name + ' — ' + (ORG.party === 'client' ? 'a region, a site or a department.' : 'a branch, a region or a division.');
+  buildTree();
+}
+function userCountBeneath(id) { var t = 0; tree.descendants(id).forEach(function (d) { t += tree.byId[d].userCount || 0; }); return t; }
+function pendingFor(id) { return pending.find(function (c) { return c.change.nodeId === id; }); }
+function nameOf(id) { return id === '__root' || !id ? ORG.name : (tree && tree.byId[id] ? tree.byId[id].name : id); }
+function buildTree() {
+  var ghosts = pending.filter(function (c) { return c.change.kind === 'add'; }).map(function (c) { return { id: 'ghost-' + c.id, parentId: c.change.parentId, name: c.change.name, nodeType: c.change.nodeType, cc: c.change.cc, userCount: null, _req: c }; });
+  tree = new Tree('tree', {
+    nodes: nodes, root: { name: ORG.name, userCount: (USERS[slug] || []).filter(function (u) { return !u.scope.length; }).length }, selection: 'none', showCost: ORG.party === 'client', showUsers: true, ghosts: ghosts,
+    defaultExpandedDepth: nodes.length >= 50 ? 1 : 99, label: ORG.name + ' structure',
+    userLink: function (n) { return IS_ABS ? 'abstract.identity-access.users.html?org=' + slug + '&scope=' + n.id : (PORTAL + '.identity-access.users.html?scope=' + n.id); },
+    onPick: function (id) { addTarget = id; },
+    decorate: function (n) {
+      var c = n._ghost ? n._req : pendingFor(n.id); if (!c) return '';
+      var what = c.change.kind === 'add' ? 'Add' : c.change.kind === 'rename' ? 'Rename to “' + esc(c.change.name) + '”' : c.change.kind === 'move' ? 'Move under ' + esc(nameOf(c.change.parentId)) : 'Remove';
+      return '<span class="flex items-center gap-2 flex-wrap mt-1">' + badge('Pending approval', true) + '<span class="text-xs text-slate-500">' + what + ' · requested by ' + esc(c.requestedBy) + ' · ' + fmtDateTime(c.requestedAt) + '</span></span>';
+    },
+    renderRow: function (n, isRoot) {
+      if (ro) return '';
+      if (!isRoot && pendingFor(n.id)) return '<span class="text-xs text-slate-500 italic w-44 hidden md:block">Waiting for Abstract</span>';
+      var b = function (act, label, cls) { return '<button type="button" data-act="' + act + '" data-node="' + esc(n.id) + '" class="' + BTN_GHOST + ' ' + (cls || '') + '">' + label + '</button>'; };
+      var desk = '<span class="row-actions hidden md:inline-flex items-center gap-1 w-44 justify-end">' + b('add', 'Add under') + (isRoot ? '' : b('rename', 'Rename') + b('move', 'Move') + b('remove', 'Remove', 'text-red-700 hover:text-red-900')) + '</span>';
+      var mob = '<button type="button" data-sheet="' + esc(n.id) + '" class="md:hidden w-9 h-9 rounded-lg border border-slate-200 bg-white text-slate-500 flex items-center justify-center" aria-label="Actions for ' + esc(n.name) + '"><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>';
+      return desk + mob;
+    },
+    afterRender: wire
+  });
+  document.getElementById('tree-empty').style.display = nodes.length || ghosts.length ? 'none' : '';
+  foot();
+}
+function foot() {
+  var users = (USERS[slug] || []).length; if (state === 'large') users = 128;
+  document.getElementById('tree-foot').textContent = nodes.length + (nodes.length === 1 ? ' node' : ' nodes') + ' · ' + users + ' users assigned' + (nodes.length >= 50 ? ' · opened collapsed below level 2' : '');
+}
+function wire() {
+  document.querySelectorAll('[data-act]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); act(b.dataset.act, b.dataset.node); }; });
+  document.querySelectorAll('[data-sheet]').forEach(function (b) { b.onclick = function (e) { e.stopPropagation(); openSheet(b.dataset.sheet); }; });
+}
+function openSheet(id) {
+  var isRoot = id === '__root', n = isRoot ? { name: ORG.name } : tree.byId[id];
+  document.getElementById('m-sheet-t').textContent = n.name;
+  var acts = [['add', 'Add under', 'fa-plus']]; if (!isRoot) acts = acts.concat([['rename', 'Rename', 'fa-pen'], ['move', 'Move', 'fa-arrows-up-down'], ['remove', 'Remove', 'fa-xmark']]);
+  document.getElementById('sheet-body').innerHTML = acts.map(function (a) { return '<button type="button" data-sact="' + a[0] + '" class="' + BTN_SEC + ' justify-start w-full ' + (a[0] === 'remove' ? 'text-red-700' : '') + '"><i class="fa-solid ' + a[2] + ' w-4" aria-hidden="true"></i> ' + a[1] + '</button>'; }).join('');
+  document.querySelectorAll('[data-sact]').forEach(function (b) { b.onclick = function () { S1.closeModal('m-sheet'); act(b.dataset.sact, id); }; });
+  S1.openModal('m-sheet');
+}
+var curNode = null;
+function act(kind, id) {
+  curNode = id;
+  if (kind === 'add') openAdd(id);
+  if (kind === 'rename') { var n = tree.byId[id]; document.getElementById('m-rename-t').textContent = 'Rename ' + n.name; document.getElementById('r-name').value = n.name; setErr('r-name', ''); document.getElementById('rename-err').style.display = 'none'; document.getElementById('rename-save').textContent = ORG.approval && !IS_ABS ? 'Send for approval' : 'Rename'; S1.openModal('m-rename'); }
+  if (kind === 'move') openMove(id);
+  if (kind === 'remove') tryRemove(id);
+}
+function openAdd(id) {
+  addTarget = id || '__root';
+  document.getElementById('add-under').textContent = nameOf(addTarget);
+  var types = ORG.party === 'client' ? CLIENT_TYPES : AGENCY_TYPES;
+  document.getElementById('n-type').innerHTML = types.map(function (t) { return '<option value="' + t + '">' + TYPE_LABEL[t] + '</option>'; }).join('');
+  document.getElementById('n-name').value = ''; setErr('n-name', ''); var cc = document.getElementById('n-cc'); if (cc) { cc.value = ''; }
+  document.getElementById('add-err').style.display = 'none';
+  document.getElementById('add-save').textContent = ORG.approval && !IS_ABS ? 'Send for approval' : 'Add node';
+  if (state === 'validation') { document.getElementById('n-name').value = nodes.length ? (tree.children[addTarget] && tree.children[addTarget][0] ? tree.children[addTarget][0].name : 'Midlands') : ''; setTimeout(function () { document.getElementById('add-save').click(); }, 50); }
+  S1.openModal('m-add');
+}
+function siblingTaken(parent, name, exceptId) { return (tree.children[parent] || []).some(function (s) { return s.id !== exceptId && s.name.toLowerCase() === name.toLowerCase(); }); }
+function submitChange(kind, payload, applyFn, toastWord) {
+  if (ORG.approval && !IS_ABS) {
+    var summ = kind === 'add' ? 'Add ' + TYPE_LABEL[payload.nodeType].toLowerCase() + ' “' + payload.name + '” under ' + nameOf(payload.parentId) : kind === 'rename' ? 'Rename “' + nameOf(payload.nodeId) + '” to “' + payload.name + '”' : kind === 'move' ? 'Move “' + nameOf(payload.nodeId) + '” under ' + nameOf(payload.parentId) : 'Remove “' + nameOf(payload.nodeId) + '”';
+    pending.push({ id: 'scr-' + Date.now(), org: slug, requestedBy: 'Daniel Wright', requestedAt: new Date().toISOString(), status: 'Pending approval', applicable: true, change: Object.assign({ kind: kind, nodeId: null, parentId: null, name: null, nodeType: null, cc: null }, payload), summary: summ });
+    buildTree(); var pc = document.getElementById('pending-count-line'); if (pc) pc.textContent = pending.length + (pending.length === 1 ? ' change is' : ' changes are') + ' waiting.';
+    S1.toast("Sent to Abstract for approval. You'll be notified of the decision.", 'success');
+  } else { applyFn(); buildTree(); S1.toast(toastWord, 'success'); }
+}
+document.getElementById('add-save').onclick = function () {
+  var name = document.getElementById('n-name').value.trim(), type = document.getElementById('n-type').value, ccEl = document.getElementById('n-cc'), cc = ccEl ? ccEl.value.trim() || null : null;
+  var parent = addTarget === '__root' ? null : addTarget;
+  if (!name) { setErr('n-name', 'Give the node a name.'); return; }
+  if (siblingTaken(parent || '__root', name)) { setErr('n-name', nameOf(addTarget) + ' already has a node called ' + name + '.'); return; }
+  if (pending.some(function (c) { return c.change.kind === 'remove' && c.change.nodeId === parent; })) { var e = document.getElementById('add-err'); e.textContent = 'A removal of ' + nameOf(addTarget) + ' is waiting for approval, so nothing can be added under it yet.'; e.style.display = ''; return; }
+  setErr('n-name', '');
+  S1.closeModal('m-add');
+  submitChange('add', { parentId: parent, name: name, nodeType: type, cc: cc }, function () { nodes.push({ id: 'n' + Date.now(), parentId: parent, name: name, nodeType: type, cc: cc, userCount: 0 }); if (parent) tree.expanded[parent] = true; }, 'Node added.');
+};
+document.getElementById('rename-save').onclick = function () {
+  var n = tree.byId[curNode], name = document.getElementById('r-name').value.trim();
+  if (!name) { setErr('r-name', 'Give the node a name.'); return; }
+  if (siblingTaken(n._p, name, n.id)) { setErr('r-name', nameOf(n._p) + ' already has a node called ' + name + '.'); return; }
+  S1.closeModal('m-rename');
+  if (name === n.name) return;
+  submitChange('rename', { nodeId: n.id, name: name }, function () { n.name = name; nodes.find(function (x) { return x.id === n.id; }).name = name; }, 'Renamed.');
+};
+var moveTree = null, moveTo = null;
+function openMove(id) {
+  var n = tree.byId[id]; moveTo = null;
+  document.getElementById('m-move-t').textContent = 'Move “' + n.name + '” under…';
+  document.getElementById('move-copy').textContent = 'Its nodes beneath move with it; users scoped to it keep their scope, because scope covers the node, not its position.';
+  document.getElementById('move-err').style.display = 'none';
+  var save = document.getElementById('move-save'); save.disabled = true; save.textContent = ORG.approval && !IS_ABS ? 'Send for approval' : 'Move';
+  var disabled = [id].concat(tree.descendants(id));
+  moveTree = new Tree('move-tree', { nodes: nodes, root: { name: ORG.name }, selection: 'single', compact: true, disabledIds: disabled, disabledTitle: 'A node cannot move beneath itself.', defaultExpandedDepth: nodes.length >= 50 ? 1 : 99, label: 'Choose a new parent',
+    onChange: function (v) { moveTo = v[0] || null; save.disabled = !v.length; } });
+  // the root (top level) is a valid target: pick it by clicking the organisation row
+  document.querySelector('#move-tree [data-id="__root"]').addEventListener('click', function () { moveTree.value = []; moveTo = '__root'; moveTree.p.picked = '__root'; moveTree.render(); save.disabled = false; });
+  document.getElementById('move-search').value = ''; document.getElementById('move-search').oninput = function () { moveTree.setQuery(this.value); };
+  S1.openModal('m-move');
+}
+document.getElementById('move-save').onclick = function () {
+  var n = tree.byId[curNode], parent = moveTo === '__root' ? null : moveTo;
+  if ((parent || '__root') === n._p) { S1.closeModal('m-move'); return; }
+  if (siblingTaken(parent || '__root', n.name)) { var e = document.getElementById('move-err'); e.textContent = nameOf(parent || '__root') + ' already has a node called ' + n.name + '. Rename one of them first.'; e.style.display = ''; return; }
+  S1.closeModal('m-move');
+  submitChange('move', { nodeId: n.id, parentId: parent }, function () { nodes.find(function (x) { return x.id === n.id; }).parentId = parent; if (parent) tree.expanded[parent] = true; }, 'Moved.');
+};
+function tryRemove(id) {
+  var n = tree.byId[id], kids = tree.children[id] || [], here = n.userCount || 0, beneath = userCountBeneath(id);
+  if (kids.length || here || beneath) {
+    document.getElementById('m-cant-t').textContent = "Can't remove " + n.name;
+    var parts = [];
+    if (kids.length) parts.push('<p>It still has ' + kids.length + (kids.length === 1 ? ' node' : ' nodes') + ' beneath it: ' + kids.map(function (k) { return '<span class="font-semibold">' + esc(k.name) + '</span>'; }).join(', ') + '. Move or remove them first.</p>');
+    if (here || beneath) { var who = []; if (here) who.push(here + (here === 1 ? ' user is' : ' users are') + ' assigned here'); kids.forEach(function (k) { var c = (k.userCount || 0) + userCountBeneath(k.id); if (c) who.push(c + ' at ' + esc(k.name) + ' beneath it'); }); parts.push('<p class="mt-2">' + who.join(', ') + '. Change their scope on the <a class="text-blue-700 font-semibold underline" href="' + (IS_ABS ? 'abstract.identity-access.users.html?org=' + slug : PORTAL + '.identity-access.users.html') + '">Users page</a> first.</p>'); }
+    document.getElementById('cant-body').innerHTML = parts.join('');
+    S1.openModal('m-cant'); return;
+  }
+  S1.confirm({ title: 'Remove ' + n.name + '?', body: n.name + ' is removed from the tree and from every scope picker. Nothing is assigned to it. The record is kept for the audit log.', cta: ORG.approval && !IS_ABS ? 'Send for approval' : 'Remove', tone: 'danger', onConfirm: function () {
+    submitChange('remove', { nodeId: id }, function () { nodes = nodes.filter(function (x) { return x.id !== id; }); }, 'Removed.');
+  } });
+}
+document.getElementById('btn-add').onclick = function () { openAdd(addTarget); };
+document.getElementById('btn-add-m').onclick = function () { openAdd(addTarget); };
+document.getElementById('btn-expand').onclick = function () { tree.expandAll(); };
+document.getElementById('btn-collapse').onclick = function () { tree.collapseTo(1); };
+document.getElementById('tree-search').addEventListener('input', function () { tree.setQuery(this.value); if (!this.value) foot(); });
+document.addEventListener('s1:state', function (e) { state = e.detail.state; slug = 'techforce'; load(); if (state === 'validation') setTimeout(function () { openAdd(nodes.length ? '__root' : '__root'); }, 200); });
+if (window.S1 && S1.embedded) document.addEventListener('s1:ready', function () { document.querySelectorAll('[data-embedded-hide]').forEach(function (e) { e.style.display = 'none'; }); });
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>
