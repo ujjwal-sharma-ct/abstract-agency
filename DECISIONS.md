@@ -211,3 +211,11 @@ so deleting that content would lose the later slices' design.
 
 **Consequences:** The full-product flow is unchanged; the slice 1 demo is one toggle away. Older
 agency/client screens look different from the new kernel-styled ones until they are rebuilt.
+
+## 2026-10-10 — Slice 2: agency pages carry only what the agency may see
+
+**Context:** TSD 2.8 TV-9 allows no margin basis, figure or sentence in the agency portal's markup, and the old profile export showed the margin basis.
+
+**Decision:** The agency pages are generated from a data set scoped to the agency's own organisation (other organisations appear only by name where a link names them), and the contract card shows payment terms and the self-billing agreement only. The *Visibility Confirmed* banner reads "You see your pay rates only" and nothing else.
+
+**Consequences:** A grep for margin, charge, spread and base pay over the agency pages returns nothing.
