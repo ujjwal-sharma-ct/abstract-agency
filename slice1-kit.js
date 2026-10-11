@@ -19,7 +19,8 @@ window.S1_CONFIG = {
     'agency.shell.error-pages.html', 'agency.identity-access.profile.html',
     'agency.notifications.notification-centre-slice-1.html', 'agency.shell.dashboard-slice-1.html',
     'agency.design.slice-1-index.html',
-    'agency.identity-access.two-factor.html', 'agency.identity-access.two-factor-sign-in.html'
+    'agency.identity-access.two-factor.html', 'agency.identity-access.two-factor-sign-in.html',
+    'agency.identity-access.user-detail.html'
   ],
   // slice 2 screens (docs/slices/2/design/DESIGN-BRIEF.md); slice 2 mode shows slice 1 + these
   slice2Hub: 'agency.design.slice-2-index.html',
@@ -347,7 +348,8 @@ window.S1_CONFIG = {
 
   // ---------- Prototype state switcher ----------
   var LABELS = { 'default': 'Default', loading: 'Loading', empty: 'Empty', error: 'Error', validation: 'Validation failure', denied: 'Permission denied', large: 'Large data', conflict: 'Edit conflict (412)', pending: 'Pending', refused: 'Activation refused', ready: 'Every gate met', readonly: 'View only', floor: 'Under the margin floor', notapplicable: 'Cannot be applied', expired: 'Expired link', success: 'Success', decided: 'Decided',
-    required: 'Required by policy', password: 'Step 1 · password', wrongpassword: 'Wrong password', scan: 'Step 2 · authenticator app', wrongcode: 'Wrong code', ratelimited: 'Too many attempts', codes: 'Step 3 · backup codes', enrolled: 'On', regenerate: 'New backup codes · confirm', newcodes: 'New backup codes', backup: 'Backup code', wrongbackup: 'Wrong backup code', challenge: 'Sign-in step expired', resetconflict: 'Two-step already reset (409)' };
+    required: 'Required by policy', password: 'Step 1 · password', wrongpassword: 'Wrong password', scan: 'Step 2 · authenticator app', wrongcode: 'Wrong code', ratelimited: 'Too many attempts', codes: 'Step 3 · backup codes', enrolled: 'On', regenerate: 'New backup codes · confirm', newcodes: 'New backup codes', backup: 'Backup code', wrongbackup: 'Wrong backup code', challenge: 'Sign-in step expired', resetconflict: 'Two-step already reset (409)',
+    sent: 'Link sent', passwordexpired: 'Password expired', notfound: 'Not found (404)', invited: 'Invited user', inactive: 'Inactive user', self: 'Your own record' };
   S1.setState = function (name) {
     document.body.setAttribute('data-s1-state', name);
     document.querySelectorAll('[data-s1-show]').forEach(function (e) {

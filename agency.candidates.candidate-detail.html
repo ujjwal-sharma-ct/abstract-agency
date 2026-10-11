@@ -104,15 +104,15 @@
             <div class="mt-4 px-1 relative">
                 <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
                     <div class="px-3 py-2 border-b border-gray-100">
-                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                        <p class="text-sm font-medium text-gray-900 truncate">Daniel Wright</p>
+                        <p class="text-xs text-gray-500 truncate">daniel.wright@techforce-recruitment.co.uk</p>
                     </div>
                     <div class="px-3 py-2 border-b border-gray-100">
                         <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
                         <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
-                            <option value="admin">Agency Admin</option>
-                            <option value="recruiter">Agency Recruiter</option>
-                            <option value="finance">Agency Finance</option>
+                            <option value="admin">Administrator</option>
+                            <option value="recruiter">Recruiter</option>
+                            <option value="finance">Finance</option>
                         </select>
                         <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
                     </div>
@@ -135,8 +135,8 @@
                         class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
                     <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
                     <div class="overflow-hidden flex-1">
-                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                        <p class="text-sm font-medium text-white truncate">Daniel Wright</p>
+                        <p class="text-xs text-gray-400 truncate">TechForce Recruitment</p>
                     </div>
                     <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
                 </button>
@@ -758,7 +758,7 @@
             recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
             finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
         };
-        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        var ROLE_LABEL = { admin: 'Administrator', recruiter: 'Recruiter', finance: 'Finance' };
         function applyRole(role) {
             var hide = ROLE_HIDES[role] || [];
             document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {

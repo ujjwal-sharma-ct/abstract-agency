@@ -103,15 +103,15 @@
             <div class="mt-4 px-1 relative">
                 <div id="account-menu" class="hidden absolute bottom-full left-2 right-2 mb-2 bg-white rounded-lg shadow-2xl border border-gray-200 py-1.5 overflow-hidden">
                     <div class="px-3 py-2 border-b border-gray-100">
-                        <p class="text-sm font-medium text-gray-900 truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-500 truncate">admin@agency.com &middot; <span data-role-label>Agency Admin</span></p>
+                        <p class="text-sm font-medium text-gray-900 truncate">Daniel Wright</p>
+                        <p class="text-xs text-gray-500 truncate">daniel.wright@techforce-recruitment.co.uk</p>
                     </div>
                     <div class="px-3 py-2 border-b border-gray-100">
                         <p class="text-[11px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">View as role</p>
                         <select id="role-switch" onchange="applyRole(this.value)" class="w-full text-sm border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue">
-                            <option value="admin">Agency Admin</option>
-                            <option value="recruiter">Agency Recruiter</option>
-                            <option value="finance">Agency Finance</option>
+                            <option value="admin">Administrator</option>
+                            <option value="recruiter">Recruiter</option>
+                            <option value="finance">Finance</option>
                         </select>
                         <p class="text-[11px] text-gray-400 mt-1.5 leading-snug">Prototype control — shows the nav each role actually gets.</p>
                     </div>
@@ -134,8 +134,8 @@
                         class="w-full flex items-center gap-3 px-2 py-2 rounded-md hover:bg-white/5 transition-colors text-left">
                     <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="" class="w-8 h-8 rounded-full border border-white/20 flex-shrink-0">
                     <div class="overflow-hidden flex-1">
-                        <p class="text-sm font-medium text-white truncate">Agency Admin</p>
-                        <p class="text-xs text-gray-400 truncate">admin@agency.com</p>
+                        <p class="text-sm font-medium text-white truncate">Daniel Wright</p>
+                        <p class="text-xs text-gray-400 truncate">TechForce Recruitment</p>
                     </div>
                     <i class="fa-solid fa-ellipsis-vertical text-white/40 text-xs flex-shrink-0"></i>
                 </button>
@@ -213,11 +213,11 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">Full name</label>
-                            <input type="text" value="Sarah Jenkins" class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue transition-colors">
+                            <input type="text" value="Daniel Wright" class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue transition-colors">
                         </div>
                             <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">Email address</label>
-                            <input type="email" value="sarah.j@agency.com" class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue transition-colors">
+                            <input type="email" value="daniel.wright@techforce-recruitment.co.uk" class="w-full px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue transition-colors">
                         </div>
                             <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1.5">Telephone</label>
@@ -262,28 +262,18 @@
                     </div>
                 </div>
 
-                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
-                    <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-4">
-                        <div>
-                            <h2 class="text-base font-sora font-semibold text-navy">Two-factor authentication</h2>
-                            <p class="text-sm text-gray-500 mt-0.5">A second step at sign-in, on top of your password.</p>
-                        </div>
-                        
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between gap-6">
-                            <div>
-                                <div class="flex items-center gap-2.5">
-                                    <p class="text-sm font-medium text-gray-900">Authenticator app</p>
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success bg-success/10 border border-success/20">On</span>
-                                </div>
-                                <p class="text-xs text-gray-500 mt-1.5 max-w-md">Codes come from your authenticator app. Recovery codes were last generated on 14 Apr 2026.</p>
-                                <div class="flex items-center gap-3 mt-3">
-                                    <button class="px-3.5 py-1.5 border border-gray-200 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-50 transition-colors">View recovery codes</button>
-                                    <button class="px-3.5 py-1.5 text-danger hover:bg-danger/5 rounded-md text-xs font-medium transition-colors">Turn off</button>
-                                </div>
+                        <!-- Two-step verification: on or off, and the way to the two-step page (the row on Profile). No way to turn it off and no list of codes here (slice 1 TSD §3.1.13). -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm" role="group" aria-labelledby="tf-row-t">
+                    <div class="p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex flex-wrap items-center gap-2.5">
+                                <h2 id="tf-row-t" class="text-base font-sora font-semibold text-navy">Two-step verification</h2>
+                                <span data-tf="off"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium text-gray-600 bg-gray-100 border border-gray-200">Off</span></span>
+                                <span data-tf="on" style="display:none"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-success bg-success/10 border border-success/20"><i class="fa-solid fa-shield-halved text-[10px]" aria-hidden="true"></i>On</span></span>
                             </div>
+                            <p class="text-sm text-gray-500 mt-1 max-w-md"><span data-tf="off">Add a 6-digit code from an authenticator app when you sign in, so your password alone isn't enough.</span><span data-tf="on" style="display:none">You enter a 6-digit code from your authenticator app each time you sign in.</span></p>
                         </div>
+                        <a href="agency.identity-access.two-factor.html" class="inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue flex-shrink-0 w-full sm:w-auto"><i class="fa-solid fa-shield-halved text-xs" aria-hidden="true"></i> <span data-tf="off">Turn on</span><span data-tf="on" style="display:none">Manage</span></a>
                     </div>
                 </div>
                     </div>
@@ -293,7 +283,7 @@
                     <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-4">
                         <div>
                             <h2 class="text-base font-sora font-semibold text-navy">Your access</h2>
-                            <p class="text-sm text-gray-500 mt-0.5">Set by an Agency Admin (AM-004).</p>
+                            <p class="text-sm text-gray-500 mt-0.5">Set by an administrator in your organisation (AM-004).</p>
                         </div>
                         
                     </div>
@@ -301,7 +291,7 @@
                         <div class="space-y-4">
                             <div>
                                 <p class="text-xs uppercase tracking-wider text-gray-500 font-medium">Role</p>
-                                <p class="text-sm text-gray-900 mt-1.5">Agency Admin</p>
+                                <p class="text-sm text-gray-900 mt-1.5">Administrator</p>
                                 <p class="text-xs text-gray-400 mt-1">Full access including Settings, users and branches.</p>
                             </div>
                             <div class="pt-4 border-t border-gray-50">
@@ -310,7 +300,7 @@
                             </div>
                             <div class="pt-4 border-t border-gray-50">
                                 <p class="text-xs uppercase tracking-wider text-gray-500 font-medium">Agency</p>
-                                <p class="text-sm text-gray-900 mt-1.5">Prime Staffing Solutions Ltd</p>
+                                <p class="text-sm text-gray-900 mt-1.5">TechForce Recruitment</p>
                             </div>
                         </div>
                     </div>
@@ -602,7 +592,7 @@
             recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
             finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
         };
-        var ROLE_LABEL = { admin: 'Agency Admin', recruiter: 'Agency Recruiter', finance: 'Agency Finance' };
+        var ROLE_LABEL = { admin: 'Administrator', recruiter: 'Recruiter', finance: 'Finance' };
         function applyRole(role) {
             var hide = ROLE_HIDES[role] || [];
             document.querySelectorAll('aside a[href$=".html"]').forEach(function (a) {
@@ -620,6 +610,16 @@
             applyRole(r);
         })();
     </script>
+<script>
+/* Two-step verification row: on or off (Me.twoFactor.enrolled). The prototype remembers what this viewer did on the
+   two-step page; ?twofactor=on|off shows either. Same rule as the row on Profile. */
+(function () {
+  var on = false, q = new URLSearchParams(location.search).get('twofactor');
+  try { on = window.localStorage.getItem('s1-2fa-agency') === 'on'; } catch (e) { /* private window */ }
+  if (q === 'on') on = true; if (q === 'off') on = false;
+  document.querySelectorAll('[data-tf]').forEach(function (e) { e.style.display = (e.getAttribute('data-tf') === 'on') === on ? '' : 'none'; });
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>
