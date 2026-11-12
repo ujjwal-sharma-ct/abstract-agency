@@ -251,3 +251,9 @@ agency/client screens look different from the new kernel-styled ones until they 
 **Decision:** (1) Sample roles carry the TSD's seed names (§3.3.4) plus one custom role per party, with one set of ids across Users, User detail and the matrix. (2) Abstract's view of a party's roles and keys is a copy of that party's own matrix; no matrix was redrawn onto the TSD's key list. (3) The older full-product pages show the same signed-in person as the slice 1 pages, with his organisation under his name. The *View as role* control of 2026-08-18 stays, as a labelled prototype control that lists role records by name; the identity line no longer repeats the role. (4) A static slice 2 part carries `data-s1-later`; a part drawn by script asks the mode when it draws and is redrawn on the kit's `s1:mode` event, because the kit hides marked elements only at the moment the mode is applied. (5) *Correct email* is its own action and dialog for an `Invited` user, separate from slice 2's *Change email* for an `Active` user: a correction takes effect at once and sends a new activation link, a change waits for the person to confirm it.
 
 **Consequences:** The prototype's key lists still differ from the TSD's twelve slice 1 keys per party; that is a contract gap for a later pass, recorded in `PROGRESS.md`.
+
+## 2026-11-13 — Design audit: withdrawn change email, backup codes as built (Ujjwal Sharma)
+
+- *Change email* is removed (slice 2 R-33 withdrew it; only *Correct email* for an Invited user is built). The confirm-email page is kept, marked withdrawn, with no inbound link.
+- Backup codes: *Copy codes* and *I've saved these* only, as built; Download and Print dropped.
+- Design passes keep the existing look (AGENTS.md, ruling of 2026-11-12).

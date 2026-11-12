@@ -26,8 +26,7 @@ window.S1_CONFIG = {
   slice2Hub: 'agency.design.slice-2-index.html',
   slice2Screens: [
     'agency.organisations.branches.html', 'agency.organisations.agency-profile.html',
-    'agency.organisations.compliance-documents.html', 'agency.notifications.notification-preferences.html',
-    'agency.identity-access.confirm-email.html', 'agency.design.slice-2-index.html'
+    'agency.organisations.compliance-documents.html', 'agency.notifications.notification-preferences.html', 'agency.design.slice-2-index.html'
   ],
   slice2NavHide: [],
   // slice 1 raises no notification for agency users; the centre starts empty
@@ -337,6 +336,7 @@ window.S1_CONFIG = {
     if (r === 'idle') msg = 'You were signed out after ' + mins + ' minutes of inactivity. Sign in again to continue.';
     else if (r === 'absolute') msg = 'You were signed out because your session reached its 12-hour limit. Sign in again to continue.';
     else if (r === 'signed-out') msg = 'You have signed out.';
+    else if (r === 'revoked') msg = 'You were signed out because your access changed. Sign in again to continue.';
     else if (r === 'access-not-enabled') msg = 'Your organisation\'s access to Abstract VMS hasn\'t been enabled yet. Abstract will let your administrator know when it is.';
     else if (r === 'org-not-active') msg = 'Your organisation\'s account isn\'t active at the moment, so you can\'t sign in. Contact Abstract if you think this is wrong.';
     if (!msg) { host.style.display = 'none'; return; }
@@ -347,9 +347,11 @@ window.S1_CONFIG = {
   };
 
   // ---------- Prototype state switcher ----------
-  var LABELS = { 'default': 'Default', loading: 'Loading', empty: 'Empty', error: 'Error', validation: 'Validation failure', denied: 'Permission denied', large: 'Large data', conflict: 'Edit conflict (412)', pending: 'Pending', refused: 'Activation refused', ready: 'Every gate met', readonly: 'View only', floor: 'Under the margin floor', notapplicable: 'Cannot be applied', expired: 'Expired link', success: 'Success', decided: 'Decided',
+  var LABELS = { 'default': 'Default', wrongcredentials: 'Wrong email or password', accountinactive: 'Account not active', firstuser: 'Only you (first colleague)', nousers: 'No users yet', noadmin: 'No one can manage users', orgnotactive: 'Organisation not active', passwordset: 'Password set', 'no-match': 'No one matches', running: 'Job running', failed: 'Job failed', 'erasure-refused': 'Erasure refused', 'read-only': 'View only', saving: 'Saving', saved: 'Saved', 'search-error': 'Search failed', erased: 'Erased', 'already-erased': 'Already erased (409)', invalid: 'Link can\'t be used', unavailable: 'Couldn\'t check the link', catalogue: 'Permission list changed', nocancel: 'Without the cancel key', scoped: 'Access below the root', nonavkeys: 'Without the vacancy and booking keys', noedit: 'Without the edit key', nofill: 'Without the fill key', loading: 'Loading', empty: 'Empty', error: 'Error', validation: 'Validation failure', denied: 'Permission denied', large: 'Large data', conflict: 'Edit conflict (412)', pending: 'Pending', refused: 'Activation refused', ready: 'Every gate met', readonly: 'View only', floor: 'Under the margin floor', notapplicable: 'Cannot be applied', expired: 'Expired link', success: 'Success', decided: 'Decided',
     required: 'Required by policy', password: 'Step 1 · password', wrongpassword: 'Wrong password', scan: 'Step 2 · authenticator app', wrongcode: 'Wrong code', ratelimited: 'Too many attempts', codes: 'Step 3 · backup codes', enrolled: 'On', regenerate: 'New backup codes · confirm', newcodes: 'New backup codes', backup: 'Backup code', wrongbackup: 'Wrong backup code', challenge: 'Sign-in step expired', resetconflict: 'Two-step already reset (409)',
     sent: 'Link sent', passwordexpired: 'Password expired', notfound: 'Not found (404)', invited: 'Invited user', inactive: 'Inactive user', self: 'Your own record' };
+  // Labels for states added in the 2026-11-13 audit fixes (and older states that showed their raw names).
+  Object.assign(LABELS, { noexport: 'Without the export key', 'export-failed': 'Export failed', partial: 'Saved in part', photo: 'With a photo', histloading: 'History loading', histerror: 'History failed to load', used: 'Link already used', deactivated: 'Account deactivated', reach: 'Change reaches outside your scope', accessnotenabled: 'Portal access not enabled', nodeliveryview: 'Without the delivery-failures key', block: 'Margin floor: blocked', noshifts: 'No Shifts yet', importjob: 'Import runs as a job', importrefused: 'Import refused: preview expired', importfailed: 'Import failed', nopricing: 'Without the price-manually key', noclient: 'No client chosen', bkloading: 'Bookings loading', bkerror: 'Bookings failed to load', noaudit: 'Without the audit-log key', nofill: 'Without the fill key', noedit: 'Without the edit key' });
   S1.setState = function (name) {
     document.body.setAttribute('data-s1-state', name);
     document.querySelectorAll('[data-s1-show]').forEach(function (e) {

@@ -30,7 +30,7 @@
         }
     </script>
 </head>
-<body class="font-inter bg-slate-100 overflow-hidden text-slate-900" data-s1-page data-s1-states="default loading empty error denied readonly saving saved refused conflict">
+<body class="font-inter bg-slate-100 overflow-hidden text-slate-900" data-s1-page data-s1-states="default loading empty error denied readonly saving saved refused conflict catalogue">
 
 <div id="app-root" class="flex w-full" style="height: 100vh;">
 
@@ -213,7 +213,7 @@
                     <div id="refused-banner" data-s1-show="refused" class="mt-4 bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm" role="alert">
                         <div class="flex items-start gap-2.5"><i class="fa-solid fa-circle-exclamation mt-0.5" aria-hidden="true"></i>
                             <div><p class="font-semibold">These permissions weren't saved.</p>
-                            <p class="mt-0.5">You can't remove them from the Administrator role — it would leave TechForce Recruitment with no one who can manage users. Give another active role the <em>Invite users and edit their names</em>, <em>Assign roles to users</em> and <em>Configure role permissions</em> permissions first.</p></div>
+                            <p class="mt-0.5">You can't remove them from the Administrator role — it would leave TechForce Recruitment with no one who can manage users. Give another active role the <em>Invite and edit users</em>, <em>Assign roles to users</em> and <em>Set role permissions</em> permissions first.</p></div>
                         </div>
                     </div>
 
@@ -223,6 +223,15 @@
                             <div><p class="font-semibold">This role changed while you were editing. Review and save again.</p>
                             <p class="mt-0.5">Someone else saved permissions for this role a moment ago. Load their version, then reapply your changes.</p>
                             <button id="conflict-reload" class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 min-h-[36px]"><i class="fa-solid fa-rotate-right text-xs"></i> Load the latest version</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Stale catalogue: the save named a permission this page doesn't know (PERMISSION_KEY_UNKNOWN; TSD 1 §5.9 UI states) -->
+                    <div data-s1-show="catalogue" class="mt-4 bg-amber-50 border border-amber-200 text-amber-900 rounded-lg px-4 py-3 text-sm" role="alert">
+                        <div class="flex items-start gap-2.5"><i class="fa-solid fa-arrows-rotate mt-0.5" aria-hidden="true"></i>
+                            <div><p class="font-semibold">Permissions list changed.</p>
+                            <p class="mt-0.5">The list of permissions has changed since this page loaded, so nothing was saved. Reload the page and make your changes again.</p>
+                            <button id="catalogue-reload" class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold underline underline-offset-2 min-h-[36px] rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"><i class="fa-solid fa-rotate-right text-xs" aria-hidden="true"></i> Reload the page</button></div>
                         </div>
                     </div>
 
@@ -302,27 +311,44 @@
   // Agency catalogue — the role's own party catalogue. It has no client charge-rate
   // item, no pay or margin item and no GDPR-tagged item at all (RBAC-009/017).
   var CAT = [
+    // Slice 1 keys as the backend catalogue builds them (agency.catalogue.json; labels and kinds as filed)
     { id: 'users', name: 'Users', icon: 'fa-users', items: [
       { k: 'user:view', label: 'View users', kind: 'view' },
-      { k: 'user:create_edit', label: 'Invite users and edit their names', kind: 'edit', admin: true },
-      { k: 'user:resend_activation', label: 'Resend activation links', kind: 'action' }, { k: 'user:reset_two_factor', label: 'Reset two-step verification', kind: 'action' },
-      { k: 'user:delete', label: 'Deactivate and reactivate users', kind: 'delete' },
-      { k: 'user.email:view', label: 'Users\' email addresses', kind: 'field' },
-      { k: 'user.last_sign_in:view', label: 'Users\' last sign-in times', kind: 'field' }
+      { k: 'user:create_edit', label: 'Invite and edit users', kind: 'edit', admin: true },
+      { k: 'user:delete', label: 'Deactivate users', kind: 'delete' },
+      { k: 'user:reset_two_factor', label: 'Reset two-factor authentication', kind: 'action' }
     ]},
     { id: 'roles', name: 'Roles', icon: 'fa-user-shield', items: [
       { k: 'role:view', label: 'View roles', kind: 'view' },
       { k: 'role:create_edit', label: 'Create and rename roles', kind: 'edit' },
       { k: 'role:assign', label: 'Assign roles to users', kind: 'action', admin: true },
-      { k: 'role:configure_permissions', label: 'Configure role permissions', kind: 'action', admin: true },
-      { k: 'role:delete', label: 'Deactivate and reactivate roles', kind: 'delete' }
+      { k: 'role:grant', label: 'Set role permissions', kind: 'action', admin: true },
+      { k: 'role:delete', label: 'Deactivate roles', kind: 'delete' }
+    ]},
+    { id: 'job', name: 'Background jobs', icon: 'fa-gears', items: [
+      { k: 'job:view', label: 'View own background jobs', kind: 'view' }
+    ]},
+    { id: 'document', name: 'Documents', icon: 'fa-file-lines', items: [
+      { k: 'document:view', label: 'View documents', kind: 'view' },
+      { k: 'document:create_edit', label: 'Upload documents', kind: 'edit' }
+    ]},
+    // Slice 2 (TSD 2 §3.3.3, agency.slice-2.catalogue.json): the agency's own organisation, seeded on every default role
+    { id: 'organisation', name: 'Organisation', icon: 'fa-building', s: 2, items: [
+      { k: 'organisation:view', label: 'View your organisation', kind: 'view' }
     ]}
   ];
-  var ALL = []; CAT.forEach(function (g) { g.items.forEach(function (i) { ALL.push(i.k); }); });
+  /* A group is drawn from its slice's mode on: absent in Slice 1 only, present in Slices 1 + 2 and full product.
+     Decided from S1.mode() when drawn, and again on the kit's s1:mode event (which also fires at load). */
+  var CAT_ALL = CAT;
+  function groupShown(g) { var m = window.S1 && S1.mode ? S1.mode() : 'full'; return (g.s || 1) <= ({ s1: 1, s2: 2 }[m] || 99); }
+  var ALL_FULL = []; CAT_ALL.forEach(function (g) { g.items.forEach(function (i) { ALL_FULL.push(i.k); }); });
+  var ALL;
+  function buildCat() { CAT = CAT_ALL.filter(groupShown); ALL = []; CAT.forEach(function (g) { g.items.forEach(function (i) { ALL.push(i.k); }); }); }
+  buildCat();
   var ROLES = {
-    administrator: { name: 'Administrator', def: true, status: 'Active', grants: ALL.slice() },
-    recruiter: { name: 'Recruiter', def: true, status: 'Active', grants: ['user:view', 'user.email:view', 'role:view'] },
-    finance: { name: 'Finance', def: true, status: 'Active', grants: ['user:view'] },
+    administrator: { name: 'Administrator', def: true, status: 'Active', grants: ALL_FULL.slice() },
+    recruiter: { name: 'Recruiter', def: true, status: 'Active', grants: ['user:view', 'job:view', 'document:view', 'document:create_edit', 'organisation:view'] },
+    finance: { name: 'Finance', def: true, status: 'Active', grants: ['user:view', 'job:view', 'document:view', 'organisation:view'] },
     teamlead: { name: 'Team Lead', def: false, status: 'Active', grants: [] }
   };
   var KIND = {
@@ -412,15 +438,17 @@
     if (roleId === 'administrator' && CAT.some(function (g) { return g.items.some(function (i) { return i.admin && !work[i.k]; }); })) {
       realRefusal = true; S1.setState('refused'); realRefusal = false; return;
     }
+    if (document.body.getAttribute('data-s1-state') === 'catalogue') { document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' }); S1.toast('Not saved — the list of permissions has changed. Reload the page.', 'error'); return; }
     saving = true; render();
     setTimeout(function () {
-      saving = false; ROLES[roleId].grants = ALL.filter(function (k) { return work[k]; }); load(roleId);
+      saving = false; ROLES[roleId].grants = ALL_FULL.filter(function (k) { return work[k]; }); load(roleId);
       if (document.body.getAttribute('data-s1-state') !== 'default') S1.setState('default'); else render();
       S1.toast('Permissions saved. They apply from each user\'s next click.');
     }, 1100);
   };
+  document.getElementById('catalogue-reload').onclick = function () { S1.setState('loading'); setTimeout(function () { load(roleId); S1.setState('default'); }, 700); };
   document.getElementById('conflict-reload').onclick = function () {
-    ROLES[roleId].grants = ROLES[roleId].grants.concat(['user:resend_activation']).filter(function (v, i, a) { return a.indexOf(v) === i; });
+    ROLES[roleId].grants = ROLES[roleId].grants.concat(['user:reset_two_factor']).filter(function (v, i, a) { return a.indexOf(v) === i; });
     load(roleId); S1.setState('default'); S1.toast('Latest version loaded. Reapply your changes, then save.', 'info');
   };
 
@@ -431,10 +459,12 @@
     else if (s === 'refused' && !realRefusal) { if (roleId !== 'administrator') load('administrator'); work['role:assign'] = false; work['user:create_edit'] = false; }
     else if (s === 'saving') { load('recruiter'); work['user:create_edit'] = true; work['role:assign'] = true; saving = true; }
     else if (s === 'saved') { load(roleId); S1.toast('Permissions saved. They apply from each user\'s next click.'); }
-    else if (s === 'conflict') { load('recruiter'); work['user:resend_activation'] = true; work['user:delete'] = true; work['role:view'] = false; }
+    else if (s === 'catalogue') { load('recruiter'); work['user:reset_two_factor'] = true; }
+    else if (s === 'conflict') { load('recruiter'); work['user:reset_two_factor'] = true; work['user:delete'] = true; work['role:view'] = true; }
     else if (s === 'readonly' || s === 'default') { if (!changes()) load(roleId); }
     render();
   });
+  document.addEventListener('s1:mode', function () { buildCat(); render(); });
   load(roleId); render();
 })();
 </script>
