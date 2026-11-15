@@ -22,6 +22,7 @@
       </div>
       <div class="flex flex-wrap gap-2">
         <a href="agency.design.slice-1-index.html" class="px-4 py-2 rounded-lg text-sm font-semibold border border-white/20 text-white hover:bg-white/10">Slice 1 index</a>
+        <a href="agency.design.slice-5-index.html" class="px-4 py-2 rounded-lg text-sm font-semibold border border-white/20 text-white hover:bg-white/10">Slice 5 index</a>
         <a href="agency.identity-access.sign-in.html" class="px-4 py-2 rounded-lg text-sm font-semibold border border-white/20 text-white hover:bg-white/10">Sign in</a>
         <a href="agency.shell.dashboard-slice-1.html?s2=1" class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Start the slice 2 demo</a>
       </div>
@@ -107,7 +108,7 @@
   </main>
   <script>
     document.addEventListener('s1:ready', function () {
-      var names = { full: 'full product', s1: 'slice 1 only', s2: 'slices 1 + 2' };
+      var names = { full: 'full product', s1: 'slice 1 only', s2: 'slices 1 + 2', s5: 'slices 1 to 5' };
       function paint() { document.getElementById('mode-now').textContent = names[S1.mode()]; }
       ['full', 's1', 's2'].forEach(function (m) { document.getElementById('mode-' + m).onclick = function () { S1.setMode(m); paint(); }; });
       paint();

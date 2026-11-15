@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slice 5 Index · Agency Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>tailwind.config = { theme: { extend: { fontFamily: { inter: ['Inter', 'sans-serif'] } } } }</script>
+</head>
+<!-- Prototype hub, not a product screen: every slice 5 screen of the Agency Portal with its brief item
+     (project-docs docs/slices/5/design/DESIGN-BRIEF.md Part C) and deep links to its states and records. -->
+<body class="font-inter bg-slate-100 text-slate-600 min-h-screen" data-s5-page data-s1-states="default">
+  <header class="text-white" style="background: linear-gradient(180deg, #0f1a3e 0%, #172554 42%, #1e1a4a 100%);">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between">
+      <div class="flex items-center gap-4">
+        <img src="logo.png" alt="Abstract VMS" class="h-12 w-auto -ml-[5px]">
+        <div><h1 class="text-lg font-bold">Slice 5 screens · Agency Portal</h1><p class="text-xs text-white/60">Released vacancies, proposals, your candidates, bookings with each week’s days, payroll</p></div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a href="agency.design.slice-2-index.html" class="px-4 py-2 rounded-lg text-sm font-semibold border border-white/20 text-white hover:bg-white/10">Slice 2 index</a>
+        <button id="reset" type="button" class="px-4 py-2 rounded-lg text-sm font-semibold border border-white/20 text-white hover:bg-white/10">Reset the demo data</button>
+        <a href="agency.demand.vacancies.html?s5=1" class="px-4 py-2 rounded-lg text-sm font-semibold text-white" style="background: linear-gradient(135deg, #1D4ED8, #5B2E91);">Start the slice 5 demo</a>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-4">
+    <div class="rounded-lg border border-blue-200 bg-blue-50 text-blue-800 text-sm px-4 py-3 flex gap-3">
+      <i class="fa-solid fa-circle-info mt-0.5"></i>
+      <div>
+        <p><strong>Slices 1 to 5</strong> shows the slice 1, 2 and 5 screens together as the agency portal at slice 5's close (slices 3 and 4 drew no agency page): the menu reads Dashboard, Vacancies, Proposals, Candidates, Bookings, Payroll, and Self-Bills, Timesheets, Reports and every later part are hidden. Navigation is <span id="mode-now" class="font-semibold">—</span>.
+          <button id="mode-s5" class="ml-1 underline font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Slices 1 to 5</button> · <button id="mode-s2" class="underline font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Slices 1 + 2</button> · <button id="mode-full" class="underline font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Full product</button></p>
+        <p class="mt-1 text-blue-700/80">Every screen has a <strong>Prototype</strong> menu (bottom) to switch its states, and <code>?state=&lt;name&gt;</code> opens one directly. The demo data is shared with the Abstract and client portals on this origin: a proposal, a withdrawal or a justification made here shows there. <span id="reset-done" class="font-semibold" hidden>Demo data reset.</span></p>
+      </div>
+    </div>
+    <div class="rounded-lg border border-slate-200 bg-white text-sm px-4 py-3">
+      <p class="font-semibold text-slate-900 mb-1">The demo walk (P1)</p>
+      <ol class="list-decimal pl-5 space-y-1 text-slate-600">
+        <li>Vacancies: three released to TechForce Recruitment, each with its open positions, your pay rate and your release date. VAC-1041 is at your limit (2 of 2).</li>
+        <li>Proposals: open PRP-1006 (Daniel Osei, Submitted) and <em>Withdraw</em> it. VAC-1041 drops to 1 of 2.</li>
+        <li>VAC-1041: <em>Propose Candidate</em>, choose Amira Hassan, write the notes, <em>Submit Proposal</em>. It reads Submitted; edit its notes.</li>
+        <li>Candidates: <em>Add Candidate</em> at a branch; it lists under Candidates and can be proposed.</li>
+        <li>Bookings: BK-2210 — the 28 Sep week is invoiced and shows pay; the 5 Oct week shows none. <em>Justify</em> Wed 7 Oct; it reads Justified with your reason (and on the client's and Abstract's week).</li>
+        <li>Payroll: Kofi Mensah's statement for the 28 Sep week, with pay; switch <em>View as role</em> to Finance or Recruiter to see the menu change.</li>
+      </ol>
+    </div>
+    <p class="text-xs text-slate-500">IDs refer to Part C of the slice 5 design brief. P1 = the demo path.</p>
+    
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <h2 class="px-5 pt-5 pb-3 text-sm font-bold text-slate-900">Vacancies and proposals</h2>
+        <ul class="divide-y divide-slate-100">
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C1</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.demand.vacancies.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Released vacancies</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.demand.vacancies.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Empty (none released)</a><a href="agency.demand.vacancies.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation (dates)</a><a href="agency.demand.vacancies.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large (46)</a><a href="agency.demand.vacancies.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.demand.vacancies.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.demand.vacancies.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C2</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.demand.vacancy-detail.html?id=v1041" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Vacancy Detail — description, requirements, Propose a candidate, my proposals</a>
+              <p class="text-xs text-slate-600 mt-1">Blocked actions explain why: at the cap the Propose action is disabled with the limit explained.</p>
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.demand.vacancy-detail.html?id=v1041" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">VAC-1041 at the limit (2 of 2)</a><a href="agency.demand.vacancy-detail.html?id=v1042" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">VAC-1042 (1 of 1)</a><a href="agency.demand.vacancy-detail.html?id=v1043" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">VAC-1043 Filled</a><a href="agency.demand.vacancy-detail.html?id=v1047" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Not released to you (404)</a><a href="agency.demand.vacancy-detail.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">No proposals on it</a><a href="agency.demand.vacancy-detail.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large</a><a href="agency.demand.vacancy-detail.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.demand.vacancy-detail.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.demand.vacancy-detail.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C2</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.demand.create-proposal.html?vacancy=v1041" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Propose a candidate — own candidates picker, notes, refusals inline</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rcap" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 PROPOSAL_CAP_REACHED</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rnoopen" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 VACANCY_NO_OPEN_POSITIONS</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rstatus" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 VACANCY_STATUS_INVALID</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rduplicate" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 PROPOSAL_CANDIDATE_DUPLICATE</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rnotapproved" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">422 PROPOSAL_AGENCY_NOT_APPROVED</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rcandidate" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">422 PROPOSAL_CANDIDATE_INVALID</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=rclientinactive" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">422 VACANCY_CLIENT_NOT_ACTIVE</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=nocandidates" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">No candidates yet</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large picker</a><a href="agency.demand.create-proposal.html?vacancy=v1047" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Not released (404)</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.demand.create-proposal.html?vacancy=v1041&state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C3</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.demand.proposals.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">My proposals</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.demand.proposals.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Empty (none yet)</a><a href="agency.demand.proposals.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation</a><a href="agency.demand.proposals.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large (44)</a><a href="agency.demand.proposals.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.demand.proposals.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.demand.proposals.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C3</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.demand.proposal-detail.html?id=p1002" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Proposal Detail — Edit notes, Withdraw, a decision’s reason</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.demand.proposal-detail.html?id=p1002" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Submitted</a><a href="agency.demand.proposal-detail.html?id=p1005" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Under Review</a><a href="agency.demand.proposal-detail.html?id=p1001" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Accepted → BK-2210</a><a href="agency.demand.proposal-detail.html?id=p1003" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Rejected with reason</a><a href="agency.demand.proposal-detail.html?id=p1004" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Rejected (Position Filled)</a><a href="agency.demand.proposal-detail.html?id=p1007" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Withdrawn</a><a href="agency.demand.proposal-detail.html?id=p1002&state=vacclosed" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Rejected: Vacancy closed</a><a href="agency.demand.proposal-detail.html?id=p1002&state=vaccancelled" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Rejected: Vacancy cancelled</a><a href="agency.demand.proposal-detail.html?id=p1002&state=edit" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Edit notes</a><a href="agency.demand.proposal-detail.html?id=p1002&state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation</a><a href="agency.demand.proposal-detail.html?id=p1002&state=stale" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 on save (click Save)</a><a href="agency.demand.proposal-detail.html?id=p1002&state=withdraw" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Withdraw confirm</a><a href="agency.demand.proposal-detail.html?id=p9999" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Not found</a><a href="agency.demand.proposal-detail.html?id=p1002&state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large notes</a><a href="agency.demand.proposal-detail.html?id=p1002&state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.demand.proposal-detail.html?id=p1002&state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.demand.proposal-detail.html?id=p1002&state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+        </ul>
+      </section>
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <h2 class="px-5 pt-5 pb-3 text-sm font-bold text-slate-900">Candidates</h2>
+        <ul class="divide-y divide-slate-100">
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C4</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.candidates.candidates.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Candidates — name, branch, compliance, licences</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.candidates.candidates.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Empty (Add your first candidate)</a><a href="agency.candidates.candidates.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation (filter 422)</a><a href="agency.candidates.candidates.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large (52)</a><a href="agency.candidates.candidates.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.candidates.candidates.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.candidates.candidates.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C4</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.candidates.candidate-detail.html?id=ac-kofi" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Candidate Detail — personal details, the four compliance items, licences, documents</a>
+              <p class="text-xs text-slate-600 mt-1">No availability, legal hold or job-role control; the AWR tab is full product only.</p>
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.candidates.candidate-detail.html?id=ac-kofi" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Kofi Mensah</a><a href="agency.candidates.candidate-detail.html?state=licexpired" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Expired licence (Ryan Hughes)</a><a href="agency.candidates.candidate-detail.html?id=ac-daniel" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Pending DBS</a><a href="agency.candidates.candidate-detail.html?id=nx-grace" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Another agency’s (404)</a><a href="agency.candidates.candidate-detail.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Many licences</a><a href="agency.candidates.candidate-detail.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.candidates.candidate-detail.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.candidates.candidate-detail.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 self-start sm:self-auto">P2</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C4</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.candidates.create-candidate.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Add / Edit Candidate — branch picker, personal details, compliance, licences, documents</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.candidates.create-candidate.html?mode=edit&id=ac-kofi" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Edit Kofi Mensah</a><a href="agency.candidates.create-candidate.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Field errors</a><a href="agency.candidates.create-candidate.html?state=branchinvalid" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">422 CANDIDATE_BRANCH_INVALID</a><a href="agency.candidates.create-candidate.html?state=fieldnotallowed" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">422 CANDIDATE_FIELD_NOT_ALLOWED</a><a href="agency.candidates.create-candidate.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Many branches</a><a href="agency.candidates.create-candidate.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.candidates.create-candidate.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.candidates.create-candidate.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+        </ul>
+      </section>
+      <section class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <h2 class="px-5 pt-5 pb-3 text-sm font-bold text-slate-900">Bookings and payroll</h2>
+        <ul class="divide-y divide-slate-100">
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C5</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.bookings.bookings.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Bookings — reference, candidate, job role, client, business unit, dates, Shift, pay rate</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.bookings.bookings.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Empty (No bookings yet)</a><a href="agency.bookings.bookings.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation (dates)</a><a href="agency.bookings.bookings.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large (48)</a><a href="agency.bookings.bookings.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.bookings.bookings.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.bookings.bookings.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C5</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.bookings.booking-detail.html?id=b2210" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Booking Detail — AgencyBookingWeeks (each week’s days, read-only), Justify</a>
+              <p class="text-xs text-slate-600 mt-1">The 28 Sep week is the prototype’s stand-in for an invoiced week (slice 6 writes the real record). Thu 1 Oct shows only <span class="font-semibold">Overridden by Abstract</span>.</p>
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.bookings.booking-detail.html?id=b2210" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">BK-2210 (both weeks)</a><a href="agency.bookings.booking-detail.html?state=invoiced" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Invoiced week: pay figures</a><a href="agency.bookings.booking-detail.html?state=notinvoiced" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">No week invoiced</a><a href="agency.bookings.booking-detail.html?state=justify" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Justify open (Wed 7 Oct)</a><a href="agency.bookings.booking-detail.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Reason required</a><a href="agency.bookings.booking-detail.html?state=conflict" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">409 on submit (click Submit)</a><a href="agency.bookings.booking-detail.html?state=noweek" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">No timesheet entered yet</a><a href="agency.bookings.booking-detail.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Many weeks</a><a href="agency.bookings.booking-detail.html?id=b2211" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Another agency’s (404)</a><a href="agency.bookings.booking-detail.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.bookings.booking-detail.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.bookings.booking-detail.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C6</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.timesheets.payroll.html" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Payroll — your workers’ pay statements</a>
+              <p class="text-xs text-slate-600 mt-1">Administrator and Finance only: switch <span class="font-semibold">View as role</span> in the account menu to Recruiter and Payroll leaves the menu; to Finance and Vacancies, Proposals and Candidates leave it (TSD 5.8 TV-9).</p>
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.timesheets.payroll.html?state=empty" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Empty (No pay statements yet)</a><a href="agency.timesheets.payroll.html?state=validation" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Validation</a><a href="agency.timesheets.payroll.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large (46)</a><a href="agency.timesheets.payroll.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.timesheets.payroll.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.timesheets.payroll.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+          <li class="px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="w-12 shrink-0 text-xs font-semibold text-slate-500">C6</span>
+            <div class="flex-1 min-w-0">
+              <a href="agency.timesheets.pay-statement.html?id=ps-ts-s5-1-v1" class="text-sm font-semibold text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded">Pay Statement — hours by day, Shift, job role; pay figures on an invoiced week</a>
+              
+              <div class="flex flex-wrap gap-1.5 mt-1.5"><a href="agency.timesheets.pay-statement.html?state=invoiced" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Invoiced week</a><a href="agency.timesheets.pay-statement.html?state=notinvoiced" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Not invoiced yet</a><a href="agency.timesheets.pay-statement.html?state=large" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Large</a><a href="agency.timesheets.pay-statement.html?id=ps-x" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Not found</a><a href="agency.timesheets.pay-statement.html?state=loading" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Loading</a><a href="agency.timesheets.pay-statement.html?state=error" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Error</a><a href="agency.timesheets.pay-statement.html?state=denied" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">Denied</a></div>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 self-start sm:self-auto">P1 · demo</span>
+          </li>
+        </ul>
+      </section>
+  </main>
+  <script src="slice5-proto.js"></script>
+  <script>
+    document.getElementById('reset').onclick = function () { S5.reset(); document.getElementById('reset-done').hidden = false; };
+    document.addEventListener('s1:ready', function () {
+      var names = { full: 'full product', s1: 'slice 1 only', s2: 'slices 1 + 2', s5: 'slices 1 to 5' };
+      function paint() { document.getElementById('mode-now').textContent = names[S1.mode()]; }
+      ['full', 's2', 's5'].forEach(function (m) { document.getElementById('mode-' + m).onclick = function () { S1.setMode(m); paint(); }; });
+      paint();
+    });
+  </script>
+<script src="slice1-kit.js"></script>
+</body>
+</html>

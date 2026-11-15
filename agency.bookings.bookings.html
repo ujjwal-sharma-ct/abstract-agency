@@ -76,7 +76,7 @@
         }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading empty error validation denied large">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
@@ -193,7 +193,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -201,8 +201,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -218,7 +218,7 @@
         <div class="flex-1 flex overflow-hidden">
             
             <!-- Filters Sidebar -->
-            <div class="w-72 bg-white border-r border-gray-200 h-full overflow-y-auto flex flex-col flex-shrink-0 hidden lg:flex">
+            <div id="bk-filters" class="w-72 bg-white border-r border-gray-200 h-full overflow-y-auto flex flex-col flex-shrink-0 hidden lg:flex">
                 <div class="p-4 border-b border-gray-200 flex items-center justify-between">
                     <h3 class="font-sora font-semibold text-gray-900">Filters</h3>
                     <button class="text-sm text-blue hover:text-navy font-medium">Clear All</button>
@@ -226,8 +226,8 @@
                 
                 <div class="p-4 space-y-6 flex-1">
                     
-                    <!-- Branch -->
-                    <div>
+                    <!-- Branch: a booking's branch is not on the agency's read (TSD §3.3.4) — full product only -->
+                    <div data-s5-later>
                         <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Branch</label>
                         <div class="relative">
                             <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
@@ -242,8 +242,8 @@
                         </div>
                     </div>
 
-                    <!-- Client -->
-                    <div>
+                    <!-- Client: an agency's clientId filter names only its own organisation (K52) — full product only -->
+                    <div data-s5-later>
                         <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Client</label>
                         <div class="relative">
                             <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
@@ -337,14 +337,16 @@
                         <button class="lg:hidden px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
                             <i class="fa-solid fa-filter"></i> Filters
                         </button>
-                        <button onclick="toast('Download started — the file will appear in your downloads.','fa-file-arrow-down')" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                        <!-- Export: no list export in slice 5 (TSD 5.8 Absent) — full product only -->
+                        <button data-s5-later onclick="toast('Download started — the file will appear in your downloads.','fa-file-arrow-down')" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
                             <i class="fa-solid fa-download"></i> Export
                         </button>
                     </div>
                 </div>
 
                 <!-- Main Table Container -->
-                <div class="p-4 sm:p-6 flex-1 overflow-hidden flex flex-col">
+                <div id="bk-state" class="px-4 sm:px-6 pt-4 sm:pt-6" hidden></div>
+                <div id="bk-main" class="p-4 sm:p-6 flex-1 overflow-hidden flex flex-col">
                     <div class="bg-white border border-gray-200 rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
                         <div id="bulk-bar" class="hidden items-center justify-between gap-4 px-5 py-3 bg-navy text-white rounded-t-lg">
                             <p class="text-sm font-medium"><span id="bulk-count">0</span> selected</p>
@@ -358,11 +360,11 @@
                         <!-- Table Header Actions -->
                         <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-xl">
                             <div class="flex items-center gap-4">
-                                <span class="text-sm font-medium text-gray-700">12 Bookings Found</span>
+                                <span id="bk-count" class="text-sm font-medium text-gray-700">12 Bookings Found</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="relative">
-                                    <input type="text" placeholder="Search ref or candidate..." class="pl-8 pr-4 py-1.5 bg-white border border-gray-300 focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-48 sm:w-64 transition-all outline-none">
+                                    <input id="bk-q" type="text" aria-label="Search bookings" placeholder="Search ref or candidate..." class="pl-8 pr-4 py-1.5 bg-white border border-gray-300 focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-48 sm:w-64 transition-all outline-none">
                                     <i class="fa-solid fa-search absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                                 </div>
                             </div>
@@ -373,7 +375,8 @@
                             <table class="w-full text-left border-collapse min-w-[1000px]">
                                 <thead class="bg-white sticky top-0 z-10 shadow-sm">
                                     <tr>
-                                        <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 w-10">
+                                        <!-- bulk selection served the export: full product only -->
+                                        <th data-s5-later class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 w-10">
                                             <input type="checkbox" class="custom-checkbox">
                                         </th>
                                         <th class="py-3 px-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-gray-200 cursor-pointer hover:text-navy">
@@ -402,7 +405,7 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-100">
+                                <tbody id="bk-rows" class="divide-y divide-gray-100">
                                     
                                     <!-- Row 1 -->
                                     <tr class="hover:bg-gray-50 transition-colors group">
@@ -621,7 +624,7 @@
                         </div>
 
                         <!-- Pagination Footer -->
-                        <div class="p-4 border-t border-gray-200 bg-white flex items-center justify-between">
+                        <div id="bk-pager" class="p-4 border-t border-gray-200 bg-white flex flex-col sm:flex-row gap-3 items-center justify-between">
                             <div class="flex items-center gap-4">
                                 <span class="text-sm text-gray-500">Showing 1 to 10 of 12 entries</span>
                                 <select class="bg-lightbg border border-gray-300 text-gray-700 py-1 px-2 rounded text-xs focus:outline-none focus:border-blue">
@@ -987,6 +990,60 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C5 — Bookings (TSD 5.8 TV-5; GET /bookings for an agency caller: its own Agency-sourced bookings, the agency
+   column set — agencyPayRate only; §3.3.4 rule 2). Reference, candidate, client and business unit, job role, dates and
+   Shift, pay rate, status. No source badge, no other rate, no export, no bulk action. */
+(function () {
+  var esc = A5.esc, page = 1;
+  function large() { var b = S5.agencyBookings(), out = [], st = ['Active', 'Pending Start', 'Completed', 'Cancelled', 'Extended']; for (var i = 0; i < 48; i++) { var x = JSON.parse(JSON.stringify(b[0])); x.id = null; x.reference = 'BK-' + (2400 + i); x.candidateName = ['Abi Shaw', 'Ben Pike', 'Cara Lowe', 'Dev Reid', 'Eve Hart'][i % 5]; x.status = st[i % 5]; out.push(x); } return out; }
+  function row(b) {
+    var href = b.id ? 'agency.bookings.booking-detail.html?id=' + encodeURIComponent(b.id) : null;
+    return '<tr class="hover:bg-gray-50 transition-colors group">' +
+      '<td class="py-3 px-4 whitespace-nowrap">' + (href ? '<a href="' + href + '" class="text-blue hover:underline font-mono text-sm font-medium">' + esc(b.reference) + '</a>' : '<span class="font-mono text-sm text-gray-700">' + esc(b.reference) + '</span>') + '</td>' +
+      '<td class="py-3 px-4 whitespace-nowrap"><div class="flex items-center gap-2"><div class="w-6 h-6 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-[10px] font-sora">' + A5.initials(b.candidateName) + '</div><span class="text-sm font-medium text-gray-900">' + esc(b.candidateName) + '</span></div></td>' +
+      '<td class="py-3 px-4 whitespace-nowrap"><div class="flex flex-col"><span class="text-sm font-medium text-gray-900">' + esc(b.clientName) + '</span><span class="text-xs text-gray-500">' + esc(b.orgNodeName) + '</span></div></td>' +
+      '<td class="py-3 px-4 whitespace-nowrap"><span class="text-sm text-gray-700">' + esc(b.jobRoleTitle) + '</span></td>' +
+      '<td class="py-3 px-4 whitespace-nowrap"><div class="flex flex-col text-sm text-gray-700"><span>' + S5.fmtDate(b.startDate) + '</span><span class="text-xs text-gray-500">to ' + S5.fmtDate(b.endDate) + '</span><span class="text-xs text-gray-500 mt-0.5"><i class="fa-regular fa-clock mr-1"></i>' + esc(b.shiftName) + ' Shift</span></div></td>' +
+      '<td class="py-3 px-4 whitespace-nowrap text-right"><span class="text-sm font-mono font-medium text-gray-900">' + (b.payRate ? A5.money(b.payRate) : '—') + '</span><span class="text-xs text-gray-500">/hr</span></td>' +
+      '<td class="py-3 px-4 whitespace-nowrap text-center">' + A5.badge(b.status, true) + '</td>' +
+      '<td class="py-3 px-4 whitespace-nowrap text-right">' + (href ? '<a href="' + href + '" class="px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50">View</a>' : '') + '</td></tr>';
+  }
+  function paint(state) {
+    if (!A5.live()) return;
+    var fl = document.getElementById('bk-filters'), slot = document.getElementById('bk-state'), main = document.getElementById('bk-main'), body = document.getElementById('bk-rows'), pager = document.getElementById('bk-pager');
+    var checks = fl.querySelectorAll('input[type=checkbox]'), sels = fl.querySelectorAll('select'), role = sels[sels.length - 1], dates = fl.querySelectorAll('input[type=date]');
+    if (!fl.dataset.s5) {
+      fl.dataset.s5 = '1';
+      var roles = {}; S5.agencyBookings().forEach(function (b) { roles[b.jobRoleTitle] = 1; });
+      role.innerHTML = '<option value="">All Roles</option>' + Object.keys(roles).map(function (r) { return '<option>' + esc(r) + '</option>'; }).join('');
+      Array.prototype.forEach.call(checks, function (c) { c.addEventListener('change', function () { page = 1; paint(A5.state()); }); });
+      role.onchange = function () { page = 1; paint(A5.state()); };
+      fl.querySelector('.p-4.border-t button').onclick = function () { page = 1; paint(A5.state()); };
+      var clr = fl.querySelector('.p-4.border-b button'); if (clr) clr.onclick = function () { Array.prototype.forEach.call(checks, function (c) { c.checked = false; }); role.value = ''; dates.forEach(function (d) { d.value = ''; }); page = 1; S1.setState('default'); };
+      document.getElementById('bk-q').oninput = function () { page = 1; paint(A5.state()); };
+    }
+    slot.hidden = true; main.hidden = false;
+    var e0 = document.getElementById('bk-err'); if (e0) e0.remove();
+    if (state === 'error' || state === 'denied') { slot.hidden = false; main.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
+    if (state === 'loading') { body.innerHTML = A5.skeletonRows(8, 6); pager.hidden = true; document.getElementById('bk-count').textContent = 'Loading bookings…'; return; }
+    var all = state === 'empty' ? [] : state === 'large' ? large() : S5.agencyBookings();
+    if (!all.length) { slot.hidden = false; main.hidden = true; slot.innerHTML = A5.stateCard('empty', { icon: 'fa-calendar-check', title: 'No bookings yet', body: 'When a client or Abstract accepts one of your proposals, the booking appears here.', action: '<a href="agency.demand.proposals.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-file-signature text-xs"></i> My proposals</a>' }); return; }
+    var st = Array.prototype.filter.call(checks, function (c) { return c.checked; }).map(function (c) { return c.parentElement.querySelector('span').textContent.trim(); });
+    var q = document.getElementById('bk-q').value.trim().toLowerCase(), from = dates[0] && dates[0].value, to = dates[1] && dates[1].value;
+    if (state === 'validation') { from = '2026-11-30'; to = '2026-10-01'; dates[0].value = from; dates[1].value = to; }
+    if (from && to && from > to) { dates[1].closest('.grid').insertAdjacentHTML('afterend', '<div id="bk-err">' + A5.fieldError('The first date must be on or before the second.') + '</div>'); body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">Change the dates to see bookings. Nothing was searched.</td></tr>'; pager.hidden = true; document.getElementById('bk-count').textContent = 'Filters need a change'; return; }
+    var list = all.filter(function (b) { return (!st.length || st.indexOf(b.status) >= 0) && (!role.value || b.jobRoleTitle === role.value) && (!q || (b.reference + ' ' + b.candidateName).toLowerCase().indexOf(q) >= 0) && (!from || b.endDate >= from) && (!to || b.startDate <= to); });
+    document.getElementById('bk-count').textContent = list.length + ' Booking' + (list.length === 1 ? '' : 's') + ' Found';
+    if (!list.length) { body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">No booking matches these filters.</td></tr>'; pager.hidden = true; return; }
+    var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
+    body.innerHTML = list.slice(r.from, r.to).map(row).join('');
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

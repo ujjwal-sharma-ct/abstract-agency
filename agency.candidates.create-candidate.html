@@ -42,7 +42,7 @@
         .step-content.active { display: block; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading error validation denied large branchinvalid fieldnotallowed">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
@@ -161,7 +161,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -169,8 +169,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -189,7 +189,7 @@
                 <!-- Page Title & Actions -->
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h1 class="text-2xl font-sora font-semibold text-gray-900">Add New Candidate</h1>
+                        <h1 id="wizard-title" class="text-2xl font-sora font-semibold text-gray-900">Add New Candidate</h1>
                         <p id="wizard-sub" class="text-sm text-gray-500 mt-1">Complete the profile to register a new candidate.</p>
                     </div>
                     <div class="flex gap-3">
@@ -229,6 +229,9 @@
                     </div>
                 </div>
 
+                <!-- slice 5 (TSD 5.8 TV-4): a refusal of POST / PATCH /candidates, and the page's states -->
+                <div id="cc-alert" class="mb-6" hidden></div>
+                <div id="cc-state" hidden></div>
                 <!-- Form Container -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">
                     
@@ -898,6 +901,81 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C4 — Add / Edit Candidate (TSD 5.8 TV-4; POST and PATCH /candidates from an agency caller: agencyOrgNodeId
+   required, no jobRoleId, no availability, no legal hold — Q11; the branch picker reads GET /organisations/:id/structure,
+   K53). ?mode=edit&id=<candidate id>. The export's three steps are kept; saving writes through S5.act.saveCandidate. */
+(function () {
+  var esc = A5.esc;
+  var form = function () { return document.querySelector('#step-1').closest('.bg-white'); };
+  function byLabel(scope, text, tag) { var l = Array.prototype.filter.call(scope.querySelectorAll('label'), function (x) { return x.textContent.replace('*', '').trim() === text; })[0]; return l ? l.parentElement.querySelector(tag || 'input, select') : null; }
+  function section(title) { var h = Array.prototype.filter.call(document.querySelectorAll('#step-1 h3'), function (x) { return x.textContent.trim() === title; })[0]; return h ? h.parentElement : null; }
+  function step1() { return document.getElementById('step-1'); }
+  var COMP = { right_to_work: 359, dbs_check: 388, hs_training: 434 };
+  function selects() { return document.querySelectorAll('#step-2 select'); }
+  function toItem(v) { return /compliant|verified|basic|enhanced|valid|yes|complete/i.test(v) ? 'Compliant' : /expired/i.test(v) ? 'Expired' : /na|not applicable/i.test(v) ? 'Not Applicable' : 'Pending'; }
+  function clearErrs() { document.querySelectorAll('[data-cc-err]').forEach(function (e) { e.remove(); }); }
+  function fieldErr(el, msg) { if (!el) return; el.insertAdjacentHTML('afterend', '<div data-cc-err>' + A5.fieldError(msg) + '</div>'); }
+  function alertBox(html) { var a = document.getElementById('cc-alert'); a.hidden = !html; a.innerHTML = html ? A5.alert('error', html) : ''; }
+  function editing() { return A5.q('mode') === 'edit'; }
+  function branchSel() { return byLabel(step1(), 'Branch', 'select'); }
+  function fillBranches(large) {
+    var s = branchSel(); if (!s) return;
+    var opts = S5.BRANCHES.techforce.filter(function (n) { return !n.root; }).map(function (n) { var depth = 0, p = n; while (p && p.parentId) { depth++; p = S5.BRANCHES.techforce.filter(function (x) { return x.id === p.parentId; })[0]; } return { id: n.id, name: Array(depth).join(' ') + n.name }; });
+    if (large) for (var i = 0; i < 30; i++) opts.push({ id: 'tf-x' + i, name: '  ' + ['Wakefield', 'Bradford', 'Coventry', 'Wolverhampton', 'Derby', 'Hull'][i % 6] + ' branch ' + (i + 1) });
+    s.innerHTML = '<option value="">Choose a branch</option>' + opts.map(function (o) { return '<option value="' + o.id + '">' + esc(o.name) + '</option>'; }).join('');
+  }
+  function prefill(c) {
+    var s = step1(), set = function (label, v, scope) { var f = byLabel(scope || s, label); if (f) f.value = v || ''; };
+    set('Full Name', c.fullName); set('Date of Birth', c.dateOfBirth); set('NI Number', c.nationalInsuranceNumber); set('Email Address', c.email); set('Telephone', c.telephone);
+    var a = c.address || {}; set('Address Line 1', a.line1); set('Address Line 2', a.line2); set('City / Town', a.town); set('Postcode', a.postcode);
+    var kin = section('Next of Kin'), k = c.nextOfKin || {}; if (kin) { set('Name', k.name, kin); set('Relationship', k.relationship, kin); set('Telephone', k.telephone, kin); }
+    branchSel().value = c.agencyOrgNodeId || '';
+  }
+  function collect() {
+    var s = step1(), get = function (label, scope) { var f = byLabel(scope || s, label); return f ? f.value.trim() : ''; }, kin = section('Next of Kin');
+    var f = { fullName: get('Full Name'), dateOfBirth: get('Date of Birth') || null, nationalInsuranceNumber: get('NI Number') || null, email: get('Email Address'), telephone: get('Telephone'),
+      address: { line1: get('Address Line 1'), line2: get('Address Line 2') || null, town: get('City / Town'), postcode: get('Postcode'), country: 'GB' },
+      nextOfKin: kin && get('Name', kin) ? { name: get('Name', kin), relationship: get('Relationship', kin), telephone: get('Telephone', kin) } : null,
+      agencyOrgNodeId: branchSel().value || null };
+    var sel = selects(), keys = ['right_to_work', 'dbs_check', 'hs_training'];
+    if (sel.length >= 3) { f.items = { references: { status: 'Pending', expiryDate: null, doc: null } }; keys.forEach(function (k, i) { f.items[k] = { status: toItem(sel[i].value || sel[i].options[sel[i].selectedIndex].text), expiryDate: null, doc: null }; }); }
+    var l3 = document.getElementById('step-3'), lt = byLabel(l3, 'Licence Type', 'select'), le = byLabel(l3, 'Expiry Date'), lb = byLabel(l3, 'Issuing Body');
+    if (lt && le && le.value) f.licences = [{ licenceType: lt.options[lt.selectedIndex].text, issuingBody: lb ? lb.value || null : null, expiryDate: le.value }];
+    return f;
+  }
+  function save(e) {
+    e.preventDefault(); clearErrs(); alertBox();
+    var f = collect(), s = step1(), bad = false;
+    if (!f.fullName) { fieldErr(byLabel(s, 'Full Name'), 'Enter the candidate’s full name.'); bad = true; }
+    if (!f.email) { fieldErr(byLabel(s, 'Email Address'), 'Enter an email address.'); bad = true; }
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)) { fieldErr(byLabel(s, 'Email Address'), 'Enter an email address like name@example.com.'); bad = true; }
+    if (!f.agencyOrgNodeId) { fieldErr(branchSel().parentElement, 'Choose one of your branches for this candidate.'); bad = true; }
+    if (bad) { goToStep(1); alertBox('Check the highlighted fields. Nothing was saved.'); return; }
+    var id = editing() ? (A5.q('id') || 'ac-kofi') : null;
+    if (id) { var cur = S5.myCandidate(id); if (cur && !f.items) f.items = cur.items; if (cur && !f.licences) f.licences = cur.licences; }
+    try { var nid = S5.act.saveCandidate(f, id); location.href = 'agency.candidates.candidate-detail.html?id=' + encodeURIComponent(nid); }
+    catch (err) { goToStep(1); alertBox(esc(err.message) + ' <span class="block text-xs opacity-70 mt-1">' + err.code + '</span>'); if (err.code === 'CANDIDATE_BRANCH_INVALID') fieldErr(branchSel().parentElement, err.message); }
+  }
+  function paint(state) {
+    if (!A5.live()) return;
+    var fm = form(), slot = document.getElementById('cc-state');
+    fm.hidden = false; slot.hidden = true; clearErrs(); alertBox();
+    if (state === 'error' || state === 'denied') { fm.hidden = true; slot.hidden = false; slot.innerHTML = A5.stateCard(state); return; }
+    if (state === 'loading') { fm.hidden = true; slot.hidden = false; slot.innerHTML = '<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sm:p-8">' + A5.skeletonBlock(8) + '</div>'; return; }
+    fillBranches(state === 'large');
+    var c = editing() ? S5.myCandidate(A5.q('id') || 'ac-kofi') : null;
+    if (editing() && c) { prefill(c); document.getElementById('wizard-title').textContent = 'Edit ' + c.fullName; document.querySelectorAll('a[href^="agency.candidates.candidate-detail.html"]').forEach(function (a) { if (a.id !== 'wizard-save') a.href = 'agency.candidates.candidate-detail.html?id=' + encodeURIComponent(c.id); }); }
+    var sv = document.getElementById('wizard-save'); sv.onclick = save; document.querySelectorAll('a, button').forEach(function (b) { if (b.textContent.trim() === 'Save & Exit') b.onclick = save; });
+    if (state === 'validation') { if (!editing()) { byLabel(step1(), 'Email Address').value = 'kofi.mensah@'; } save({ preventDefault: function () {} }); }
+    if (state === 'branchinvalid') { goToStep(1); alertBox('Choose one of your branches for this candidate. The branch sent is not one of TechForce Recruitment’s, or it is outside your scope. <span class="block text-xs opacity-70 mt-1">CANDIDATE_BRANCH_INVALID</span>'); fieldErr(branchSel().parentElement, 'Choose one of your branches for this candidate.'); }
+    if (state === 'fieldnotallowed') { goToStep(1); alertBox('An agency can’t set a job role, availability or a legal hold on a candidate, so the form has none of them. Abstract sets a job role on a booking. <span class="block text-xs opacity-70 mt-1">CANDIDATE_FIELD_NOT_ALLOWED</span>'); }
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

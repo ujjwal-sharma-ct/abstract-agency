@@ -40,7 +40,7 @@
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading empty error validation denied large">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
@@ -157,7 +157,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -165,8 +165,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -183,12 +183,13 @@
             
             <div class="max-w-7xl mx-auto space-y-6">
                 <!-- Action Bar -->
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                <div id="cl-state" hidden></div>
+                <div id="cl-bar" class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                     <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                         <!-- Search -->
                         <div class="relative flex-grow sm:flex-grow-0 min-w-[200px]">
                             <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                            <input type="text" placeholder="Search by name..." class="w-full pl-9 pr-4 py-2 bg-lightbg border border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm transition-all outline-none">
+                            <input id="cf-q" type="text" aria-label="Search candidates by name" placeholder="Search by name..." class="w-full pl-9 pr-4 py-2 bg-lightbg border border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm transition-all outline-none">
                         </div>
                         
                         <!-- Filters -->
@@ -213,7 +214,8 @@
                             <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs pointer-events-none"></i>
                         </div>
 
-                        <div class="flex items-center gap-2 ml-2">
+                        <!-- Active Booking: not a candidate field or filter (TSD §3.3.3) — full product only -->
+                        <div class="flex items-center gap-2 ml-2" data-s5-later>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" value="" class="sr-only peer" checked>
                                 <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue"></div>
@@ -228,7 +230,7 @@
                 </div>
 
                 <!-- Data Table -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                <div id="cl-card" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
@@ -237,12 +239,13 @@
                                     <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Contact Info</th>
                                     <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Branch <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
                                     <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Compliance <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
-                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700">Active Bookings <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
-                                    <th class="py-4 px-6 font-medium">AWR Status</th>
+                                    <th class="py-4 px-6 font-medium" data-s4-later>Licences</th>
+                                    <th class="py-4 px-6 font-medium cursor-pointer hover:text-gray-700" data-s5-later>Active Bookings <i class="fa-solid fa-sort ml-1 text-gray-300"></i></th>
+                                    <th class="py-4 px-6 font-medium" data-s5-later>AWR Status</th>
                                     <th class="py-4 px-6 font-medium text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm text-gray-700 divide-y divide-gray-50">
+                            <tbody id="cl-rows" class="text-sm text-gray-700 divide-y divide-gray-50">
                                 <!-- Row 1 -->
                                 <tr class="hover:bg-gray-50/80 transition-colors cursor-pointer group" onclick="window.location.href='agency.candidates.candidate-detail.html'">
                                     <td class="py-4 px-6">
@@ -387,7 +390,7 @@
                     </div>
                     
                     <!-- Pagination -->
-                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-white">
+                    <div id="cl-pager" class="px-6 py-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3 items-center justify-between bg-white">
                         <div class="flex items-center gap-2 text-sm text-gray-500">
                             <span>Show</span>
                             <select class="border border-gray-200 rounded p-1 text-gray-700 outline-none focus:border-blue">
@@ -704,6 +707,54 @@
             applyRole(r);
         })();
     </script>
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C4 — Candidates (TSD 5.8 TV-4; GET /candidates?ownerType=agency: the agency's own, within the user's
+   branches; §3.3.3). Columns name, contact, branch, compliance, licences. No availability, legal hold or job role. */
+(function () {
+  var esc = A5.esc, page = 1;
+  function large() { var b = S5.myCandidates(), out = []; for (var i = 0; i < 52; i++) { var c = JSON.parse(JSON.stringify(b[i % b.length])); c.id = null; c.fullName = ['Abi', 'Ben', 'Cara', 'Dev', 'Eve', 'Finn', 'Gus'][i % 7] + ' ' + ['Shaw', 'Pike', 'Lowe', 'Reid', 'Hart', 'Moss'][(i * 5) % 6] + ' ' + (i + 1); out.push(c); } return out; }
+  function row(c) {
+    var href = c.id ? 'agency.candidates.candidate-detail.html?id=' + encodeURIComponent(c.id) : null;
+    return '<tr class="hover:bg-gray-50/80 transition-colors group' + (href ? ' cursor-pointer" onclick="window.location.href=\'' + href + '\'"' : '"') + '>' +
+      '<td class="py-4 px-4 sm:px-6 whitespace-nowrap"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center font-bold text-xs shrink-0">' + A5.initials(c.fullName) + '</div><div><span class="block font-medium text-gray-900 group-hover:text-blue transition-colors">' + esc(c.fullName) + '</span><span class="block text-xs text-gray-500">Added ' + S5.fmtDate(c.createdAt) + '</span></div></div></td>' +
+      '<td class="py-4 px-4 sm:px-6"><div class="space-y-1">' + (c.email ? '<div class="flex items-center gap-2 text-gray-600"><i class="fa-regular fa-envelope w-4"></i> ' + esc(c.email) + '</div>' : '') + (c.telephone ? '<div class="flex items-center gap-2 text-gray-600"><i class="fa-solid fa-phone w-4"></i> ' + esc(c.telephone) + '</div>' : '') + '</div></td>' +
+      '<td class="py-4 px-4 sm:px-6 whitespace-nowrap">' + esc(c.agencyOrgNodeName || '—') + '</td>' +
+      '<td class="py-4 px-4 sm:px-6">' + S5.ui.complianceBadge(c.complianceStatus) + '</td>' +
+      '<td class="py-4 px-4 sm:px-6"><div class="flex flex-col items-start gap-1">' + (c.licences.length ? c.licences.map(S5.ui.licenceChip).join('') : '<span class="text-xs text-gray-400">None</span>') + '</div></td>' +
+      '<td class="py-4 px-4 sm:px-6 text-right">' + (href ? '<a href="' + href + '" onclick="event.stopPropagation()" class="inline-block px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>' : '') + '</td></tr>';
+  }
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('cl-state'), bar = document.getElementById('cl-bar'), card = document.getElementById('cl-card'), body = document.getElementById('cl-rows'), pager = document.getElementById('cl-pager');
+    var sels = bar.querySelectorAll('select'); if (sels[0] && !sels[0].id) { sels[0].id = 'cf-branch'; sels[0].setAttribute('aria-label', 'Branch'); sels[1].id = 'cf-comp'; sels[1].setAttribute('aria-label', 'Compliance'); }
+    var bs = document.getElementById('cf-branch');
+    if (!bs.dataset.s5) {
+      bs.dataset.s5 = '1';
+      bs.innerHTML = '<option value="">All Branches</option>' + S5.BRANCHES.techforce.filter(function (n) { return !n.root; }).map(function (n) { return '<option value="' + n.id + '">' + esc(n.name) + '</option>'; }).join('');
+      document.getElementById('cf-comp').innerHTML = '<option value="">Compliance Status</option><option>Compliant</option><option>Pending</option><option>Expired</option>';
+      ['cf-branch', 'cf-comp'].forEach(function (id) { document.getElementById(id).onchange = function () { page = 1; paint(A5.state()); }; });
+      document.getElementById('cf-q').oninput = function () { page = 1; paint(A5.state()); };
+    }
+    slot.hidden = true; bar.hidden = false; card.hidden = false;
+    var e0 = document.getElementById('cf-err'); if (e0) e0.remove();
+    if (state === 'error' || state === 'denied') { slot.hidden = false; bar.hidden = true; card.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
+    if (state === 'loading') { body.innerHTML = A5.skeletonRows(6, 6); pager.hidden = true; return; }
+    var all = state === 'empty' ? [] : state === 'large' ? large() : S5.myCandidates();
+    if (!all.length) { slot.hidden = false; card.hidden = true; bar.hidden = true; slot.innerHTML = A5.stateCard('empty', { icon: 'fa-users', title: 'Add your first candidate', body: 'Candidates you add belong to TechForce Recruitment and one of its branches. You propose them to the vacancies released to you.', action: '<a href="agency.candidates.create-candidate.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90"><i class="fa-solid fa-plus"></i> Add Candidate</a>' }); return; }
+    if (state === 'validation') { document.getElementById('cf-q').closest('.relative').insertAdjacentHTML('afterend', '<div id="cf-err" class="w-full">' + A5.fieldError('That branch is outside your scope. Choose one of your branches.') + '</div>'); body.innerHTML = '<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">Nothing was searched.</td></tr>'; pager.hidden = true; return; }
+    var q = document.getElementById('cf-q').value.trim().toLowerCase(), br = bs.value, cp = document.getElementById('cf-comp').value;
+    // a branch filter covers the branch and the branches under it
+    function under(id, root) { if (!root) return true; var n = S5.BRANCHES.techforce.filter(function (x) { return x.id === id; })[0]; while (n) { if (n.id === root) return true; var pid = n.parentId; n = S5.BRANCHES.techforce.filter(function (x) { return x.id === pid; })[0]; } return false; }
+    var list = all.filter(function (c) { return (!q || c.fullName.toLowerCase().indexOf(q) >= 0) && under(c.agencyOrgNodeId, br) && (!cp || c.complianceStatus === cp); }).sort(function (a, b) { return a.fullName < b.fullName ? -1 : 1; });
+    if (!list.length) { body.innerHTML = '<tr><td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">No candidate matches these filters.</td></tr>'; pager.hidden = true; return; }
+    var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
+    body.innerHTML = list.slice(r.from, r.to).map(row).join('');
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

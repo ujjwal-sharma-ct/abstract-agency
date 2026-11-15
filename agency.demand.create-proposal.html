@@ -43,7 +43,7 @@
         .rte-btn:hover { background-color: #F3F4F6; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading error validation denied large notfound nocandidates rcap rnoopen rstatus rduplicate rnotapproved rcandidate rclientinactive">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
@@ -160,7 +160,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -168,8 +168,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -183,27 +183,31 @@
 
         <!-- Scrollable Form Content -->
         <div id="proposal-create-scroll" class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-            <div class="max-w-4xl mx-auto">
-                
+            <!-- slice 5 (TSD 5.8 TV-2): the not-found, error and denied states draw here -->
+            <div id="cp-state" class="max-w-4xl mx-auto" hidden></div>
+            <div id="cp-page" class="max-w-4xl mx-auto">
+
                 <!-- Page Header & Global Actions -->
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <div>
-                        <nav class="flex items-center gap-2 text-sm text-gray-500 mb-1">
+                        <nav id="cp-crumb" class="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-1">
                             <a href="agency.demand.proposals.html" class="hover:text-blue transition-colors">Proposals</a>
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             <span class="text-gray-900 font-medium">Create Proposal</span>
                         </nav>
-                        <h1 class="text-2xl font-sora font-semibold text-gray-900">Submit Candidate</h1>
+                        <h1 id="cp-title" class="text-2xl font-sora font-semibold text-gray-900">Submit Candidate</h1>
                     </div>
                     <div class="flex items-center gap-3">
-                        <a href="agency.demand.proposals.html" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
+                        <a data-cp-cancel href="agency.demand.proposals.html" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
                             Cancel
                         </a>
-                        <a href="agency.demand.proposal-detail.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-2">
+                        <a data-cp-submit href="agency.demand.proposal-detail.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors focus:outline-none focus:ring-2 focus:ring-blue focus:ring-offset-2">
                             Submit Proposal
                         </a>
                     </div>
                 </div>
+                <!-- slice 5: a refusal of POST /proposals (TSD §5 UI rules), or why the vacancy takes no proposal -->
+                <div id="cp-alert" class="mb-6" hidden></div>
 
                 <!-- Form Container -->
                 <div class="space-y-6">
@@ -212,7 +216,7 @@
                     <section id="vacancy-summary" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                         <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Target Vacancy</h2>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div id="cp-vacancy" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div>
                                 <p class="text-xs text-gray-500 mb-1">Vacancy Title</p>
                                 <p class="text-sm font-medium text-gray-900">Senior FLT Driver (Reach)</p>
@@ -233,7 +237,7 @@
                             <div>
                                 <p class="text-xs text-gray-500 mb-1">Open Positions</p>
                                 <p class="text-sm font-medium text-gray-900 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-user-group text-gray-400"></i> 3 remaining
+                                    <i class="fa-solid fa-user-group text-gray-400"></i> 3 open positions
                                 </p>
                                 <p class="text-[11px] text-gray-400 mt-0.5">You may propose up to this many candidates.</p>
                             </div>
@@ -248,13 +252,13 @@
                     <section id="candidate-selection" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                         <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
                             <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider">Candidate Details</h2>
-                            <a href="agency.candidates.create-candidate.html" class="text-sm font-medium text-blue hover:text-navy transition-colors flex items-center gap-1.5">
+                            <a id="cp-add" href="agency.candidates.create-candidate.html" class="text-sm font-medium text-blue hover:text-navy transition-colors flex items-center gap-1.5">
                                 <i class="fa-solid fa-user-plus text-xs"></i> Add New Candidate
                             </a>
                         </div>
 
                         <div class="space-y-4">
-                            <div class="relative z-10 group">
+                            <div id="cp-pick" class="relative z-10 group">
                                 <label class="block text-sm font-medium text-gray-700 mb-1.5">Select Candidate <span class="text-danger">*</span></label>
                                 
                                 <!-- Fake Combobox UI -->
@@ -306,8 +310,8 @@
                             <p class="text-xs text-gray-500 mt-1">Provide a brief overview of why this candidate is a good fit for the vacancy.</p>
                         </div>
                         
-                        <!-- Rich Text Toolbar -->
-                        <div class="bg-gray-50 border-b border-gray-200 px-4 py-2 flex items-center gap-1 overflow-x-auto">
+                        <!-- Rich Text Toolbar: the notes are plain text, 1 to 2,000 characters (PP-002) — full product only -->
+                        <div data-s5-later class="bg-gray-50 border-b border-gray-200 px-4 py-2 flex items-center gap-1 overflow-x-auto">
                             <button type="button" class="rte-btn p-1.5 rounded text-gray-600 hover:text-gray-900 transition-colors w-8 h-8 flex items-center justify-center" title="Bold">
                                 <i class="fa-solid fa-bold text-sm"></i>
                             </button>
@@ -331,11 +335,12 @@
                         </div>
                         
                         <!-- Textarea -->
-                        <textarea class="w-full p-4 min-h-[200px] border-none focus:ring-0 resize-y outline-none text-sm text-gray-800 bg-white placeholder-gray-400" placeholder="Enter candidate summary, relevant experience, and availability details here..."></textarea>
+                        <textarea id="cp-notes" aria-label="Suitability notes" maxlength="2000" class="w-full p-4 min-h-[200px] border-none focus:ring-0 resize-y outline-none text-sm text-gray-800 bg-white placeholder-gray-400" placeholder="Enter candidate summary, relevant experience, and availability details here..."></textarea>
+                        <div class="px-4 pb-3 flex items-start justify-between gap-3" data-s4-later><div id="cp-notes-err" class="min-w-0"></div><span id="cp-notes-n" class="text-[11px] text-gray-400 whitespace-nowrap">0 / 2,000</span></div>
                     </section>
 
-                    <!-- Section: Documents -->
-                    <section id="candidate-documents" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <!-- Section: Documents — a proposal carries no documents (TSD §3.3.2): full product only -->
+                    <section id="candidate-documents" data-s5-later class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                         <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
                             <div>
                                 <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider">Candidate Documents</h2>
@@ -396,10 +401,10 @@
                 
                 <!-- Bottom Action Footer -->
                 <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end gap-3 pb-8">
-                    <a href="agency.demand.proposals.html" class="px-6 py-2.5 border border-gray-300 rounded-md bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors focus:outline-none">
+                    <a data-cp-cancel href="agency.demand.proposals.html" class="px-6 py-2.5 border border-gray-300 rounded-md bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors focus:outline-none">
                         Cancel
                     </a>
-                    <a href="agency.demand.proposal-detail.html" class="px-6 py-2.5 bg-blue text-white rounded-md font-medium hover:bg-blue/90 transition-colors focus:outline-none flex items-center gap-2 shadow-sm">
+                    <a data-cp-submit href="agency.demand.proposal-detail.html" class="px-6 py-2.5 bg-blue text-white rounded-md font-medium hover:bg-blue/90 transition-colors focus:outline-none flex items-center gap-2 shadow-sm">
                         Submit Proposal <i class="fa-solid fa-paper-plane text-sm"></i>
                     </a>
                 </div>
@@ -693,6 +698,119 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C2 — the propose step (TSD 5.8 TV-2; POST /proposals §3.1.2; the picker reads GET /candidates?ownerType=agency,
+   K53). ?vacancy=<id> (default v1041). Refusals inline, in the TSD's order; the r* states show each as it would answer.
+   The page keeps the export's look; the rich-text toolbar and the documents section are full product only. */
+(function () {
+  var esc = A5.esc, chosen = null, open = false;
+  function vid() { return A5.q('vacancy') || 'v1041'; }
+  var REFUSE = {
+    rcap: ['PROPOSAL_CAP_REACHED', function (v) { return 'You have reached your proposal limit for this vacancy (' + v.myProposalCap + ' of ' + v.myProposalCap + '). A proposal that is withdrawn, rejected or accepted no longer counts, so withdraw one or wait for a decision to propose again.'; }],
+    rnoopen: ['VACANCY_NO_OPEN_POSITIONS', function (v) { return 'Every position on ' + v.reference + ' has been filled since you opened this page, so it takes no new proposal.'; }],
+    rstatus: ['VACANCY_STATUS_INVALID', function (v) { return v.reference + ' is Closed, so it takes no new proposal. Your proposals on it stay as they are.'; }],
+    rduplicate: ['PROPOSAL_CANDIDATE_DUPLICATE', function (v, c) { return c.fullName + ' is already proposed on this vacancy (PRP-1006). Choose another candidate.'; }],
+    rnotapproved: ['PROPOSAL_AGENCY_NOT_APPROVED', function (v) { return 'TechForce Recruitment isn’t approved to supply ' + v.clientName + ' today, so it can’t propose to this vacancy. Contact Abstract if you think this is wrong.'; }],
+    rcandidate: ['PROPOSAL_CANDIDATE_INVALID', function (v, c) { return c.fullName + '’s record is anonymised, so they can’t be proposed.'; }],
+    rclientinactive: ['VACANCY_CLIENT_NOT_ACTIVE', function (v) { return v.clientName + ' isn’t active at the moment, so its vacancies take no new proposal.'; }]
+  };
+  function cands(state) {
+    if (state === 'nocandidates') return [];
+    var l = S5.myCandidates();
+    if (state === 'large') { var b = l.slice(); for (var i = 0; i < 36; i++) { var c = JSON.parse(JSON.stringify(b[i % b.length])); c.id = c.id + '-x' + i; c.fullName = ['Abi', 'Ben', 'Cara', 'Dev', 'Eve', 'Finn'][i % 6] + ' ' + ['Shaw', 'Pike', 'Lowe', 'Reid', 'Hart', 'Moss'][(i * 5) % 6] + ' ' + (i + 1); l.push(c); } }
+    return l;
+  }
+  function vfield(label, html) { return '<div><p class="text-xs text-gray-500 mb-1">' + label + '</p>' + html + '</div>'; }
+  function drawVacancy(v) {
+    document.getElementById('cp-vacancy').innerHTML =
+      vfield('Vacancy', '<p class="text-sm font-medium text-gray-900">' + esc(v.jobTitle) + '</p><p class="text-xs text-gray-400 mt-0.5 font-mono">' + esc(v.reference) + '</p>') +
+      vfield('Client', '<p class="text-sm font-medium text-gray-900 flex items-center gap-1.5"><i class="fa-regular fa-building text-gray-400"></i> ' + esc(v.clientName) + '</p><p class="text-xs text-gray-500 mt-0.5">' + esc(v.orgNodeName) + '</p>') +
+      vfield('Job Role', '<p class="text-sm font-medium text-gray-900 flex items-center gap-1.5"><i class="fa-solid fa-truck-ramp-box text-gray-400"></i> ' + esc(v.jobRoleTitle) + '</p><p class="text-xs text-gray-500 mt-0.5">' + esc(v.shiftName) + ' Shift · ' + S5.fmtDate(v.startDate) + ' – ' + S5.fmtDate(v.endDate) + '</p>') +
+      vfield('Open Positions', '<p class="text-sm font-medium text-gray-900 flex items-center gap-1.5"><i class="fa-solid fa-user-group text-gray-400"></i> ' + v.openCount + ' open position' + (v.openCount === 1 ? '' : 's') + '</p><p class="text-[11px] text-gray-400 mt-0.5">Your proposals: ' + v.myPendingCount + ' of ' + v.myProposalCap + ' pending.</p>') +
+      '<div class="bg-lightbg p-3 rounded-lg border border-gray-100"><p class="text-xs text-gray-500 mb-1">Pay Rate</p><p class="text-lg font-semibold font-sora text-navy">' + (v.payRate ? A5.money(v.payRate) + ' <span class="text-xs font-normal text-gray-500">/ hr</span>' : '<span class="text-sm">No rate yet</span>') + '</p></div>';
+  }
+  function drawPicker(list, err) {
+    var host = document.getElementById('cp-pick'), c = chosen && list.filter(function (x) { return x.id === chosen; })[0];
+    var sel = c ? '<div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 shrink-0 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-xs">' + A5.initials(c.fullName) + '</div><div class="min-w-0"><p class="text-sm font-medium text-gray-900 leading-tight truncate">' + esc(c.fullName) + '</p><p class="text-xs text-gray-500">' + esc(c.agencyOrgNodeName || '') + '</p></div><span class="hidden sm:inline-flex">' + S5.ui.complianceBadge(c.complianceStatus, true) + '</span></div>'
+      : '<span class="text-sm text-gray-500">' + (list.length ? 'Choose one of your candidates' : 'You have no candidates yet') + '</span>';
+    host.innerHTML = '<label id="cp-pick-l" class="block text-sm font-medium text-gray-700 mb-1.5">Select Candidate <span class="text-danger">*</span></label>' +
+      '<div class="w-full relative">' +
+      '<button type="button" id="cp-pick-b" aria-haspopup="listbox" aria-expanded="' + open + '" aria-labelledby="cp-pick-l" ' + (list.length ? '' : 'disabled ') + 'class="w-full text-left bg-lightbg border ' + (err ? 'border-danger' : 'border-gray-200') + ' rounded-md p-2.5 flex items-center justify-between gap-2 hover:border-blue transition-colors">' + sel + '<i class="fa-solid fa-chevron-down text-gray-400 text-xs shrink-0"></i></button>' +
+      '<div class="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-20 ' + (open ? '' : 'hidden') + '"><ul role="listbox" aria-labelledby="cp-pick-l" class="max-h-60 overflow-y-auto py-1">' +
+      list.map(function (x) { return '<li role="option" aria-selected="' + (x.id === chosen) + '" data-id="' + esc(x.id) + '" class="px-3 py-2 flex items-center justify-between gap-3 cursor-pointer hover:bg-gray-50 ' + (x.id === chosen ? 'bg-blue/5' : '') + '"><div class="min-w-0"><p class="text-sm font-medium text-gray-900 truncate">' + esc(x.fullName) + '</p><p class="text-xs text-gray-500 truncate">' + esc(x.agencyOrgNodeName || '') + (x.licences.length ? ' · ' + x.licences.map(function (l) { return esc(l.licenceType) + (l.expired ? ' (expired)' : ''); }).join(', ') : '') + '</p></div>' + S5.ui.complianceBadge(x.complianceStatus, true) + '</li>'; }).join('') +
+      '</ul></div></div>' +
+      (err ? A5.fieldError(err) : '') +
+      (list.length ? '<p class="text-xs text-gray-500 mt-1.5"><i class="fa-solid fa-circle-info mr-1 text-blue"></i> Only your agency’s own candidates in your branches are listed.</p>'
+        : '<div class="mt-3">' + A5.alert('info', 'Add your first candidate, then propose them here. <a href="agency.candidates.create-candidate.html" class="font-semibold underline">Add your first candidate</a>') + '</div>');
+    var b = document.getElementById('cp-pick-b'); if (b) b.onclick = function (e) { e.stopPropagation(); open = !open; drawPicker(list, err); };
+    host.querySelectorAll('li[data-id]').forEach(function (li) { li.onclick = function () { chosen = li.getAttribute('data-id'); open = false; drawPicker(list); }; });
+  }
+  document.addEventListener('click', function () { if (open) { open = false; paint(A5.state(), true); } });
+  function setSubmit(enabled, title) {
+    document.querySelectorAll('[data-cp-submit]').forEach(function (a) {
+      a.removeAttribute('href'); a.setAttribute('role', 'button'); a.tabIndex = 0; a.title = title || '';
+      a.classList.toggle('opacity-50', !enabled); a.classList.toggle('cursor-not-allowed', !enabled); a.setAttribute('aria-disabled', String(!enabled));
+      a.onclick = enabled ? submit : function (e) { e.preventDefault(); };
+    });
+  }
+  function showAlert(tone, html) { var a = document.getElementById('cp-alert'); a.hidden = !html; a.innerHTML = html ? A5.alert(tone, html) : ''; if (html) a.scrollIntoView({ block: 'nearest' }); }
+  function notesErr(m) { document.getElementById('cp-notes-err').innerHTML = m ? A5.fieldError(m) : ''; document.getElementById('cp-notes').classList.toggle('bg-danger/5', !!m); }
+  function submit(e) {
+    e.preventDefault();
+    var notes = document.getElementById('cp-notes').value, list = cands(A5.state());
+    notesErr(''); showAlert();
+    if (!chosen) { drawPicker(list, 'Choose a candidate to propose.'); if (!notes.trim()) notesErr('Say why this candidate suits the vacancy.'); return; }
+    try {
+      var id = S5.act.propose(vid(), chosen, notes);
+      try { sessionStorage.setItem('a5-flash', 'Proposal submitted. It reads Submitted until the client or Abstract starts a review.'); } catch (x) { /* blocked */ }
+      location.href = 'agency.demand.proposal-detail.html?id=' + encodeURIComponent(id);
+    } catch (err) {
+      if (err.code === 'VALIDATION_ERROR') { notesErr(err.message); return; }
+      if (err.code === 'PROPOSAL_CANDIDATE_DUPLICATE' || err.code === 'PROPOSAL_CANDIDATE_INVALID' || err.code === 'CANDIDATE_NOT_FOUND') { drawPicker(list, err.message); return; }
+      showAlert('error', esc(err.message)); paint(A5.state(), true);
+    }
+  }
+  function paint(state, keep) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('cp-state'), pg = document.getElementById('cp-page');
+    slot.hidden = true; pg.hidden = false;
+    var v = S5.releasedVacancy(vid());
+    if (state === 'error' || state === 'denied' || state === 'notfound' || (!v && state !== 'loading')) {
+      slot.hidden = false; pg.hidden = true;
+      slot.innerHTML = state === 'error' || state === 'denied' ? A5.stateCard(state) : A5.stateCard('notfound', { title: 'We can’t find that vacancy', body: 'It hasn’t been released to TechForce Recruitment, or it doesn’t exist.', action: '<a href="agency.demand.vacancies.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-arrow-left text-xs"></i> Back to vacancies</a>' });
+      return;
+    }
+    if (state === 'loading') { document.getElementById('cp-vacancy').innerHTML = '<div class="md:col-span-2 lg:col-span-4">' + A5.skeletonBlock(3) + '</div>'; document.getElementById('cp-pick').innerHTML = A5.skeletonBlock(2); setSubmit(false); return; }
+    document.getElementById('cp-crumb').innerHTML = '<a href="agency.demand.vacancies.html" class="hover:text-blue transition-colors">Vacancies</a><i class="fa-solid fa-chevron-right text-[10px]"></i><a href="agency.demand.vacancy-detail.html?id=' + encodeURIComponent(v.id) + '" class="hover:text-blue transition-colors">' + esc(v.reference) + '</a><i class="fa-solid fa-chevron-right text-[10px]"></i><span class="text-gray-900 font-medium">Propose a candidate</span>';
+    document.getElementById('cp-title').textContent = 'Propose a candidate';
+    document.querySelectorAll('[data-cp-cancel]').forEach(function (a) { a.href = 'agency.demand.vacancy-detail.html?id=' + encodeURIComponent(v.id); });
+    var list = cands(state), ref = REFUSE[state];
+    if (ref) {
+      // the form as the user filled it, refused by the server as POST /proposals answers
+      v = JSON.parse(JSON.stringify(v)); if (state === 'rcap') v.myPendingCount = v.myProposalCap;
+      chosen = state === 'rduplicate' ? 'ac-daniel' : state === 'rcandidate' ? 'ac-megan' : 'ac-liam';
+      document.getElementById('cp-notes').value = 'Holds a current licence for the role and has worked this Shift pattern before. Available from Monday.'; document.getElementById('cp-notes-n').textContent = document.getElementById('cp-notes').value.length + ' / 2,000';
+      drawVacancy(v);
+      var c = list.filter(function (x) { return x.id === chosen; })[0];
+      var msg = ref[1](v, c) + ' <span class="block text-xs opacity-70 mt-1">' + ref[0] + '</span>';
+      if (state === 'rduplicate' || state === 'rcandidate') { drawPicker(list, ref[1](v, c)); showAlert(); } else { drawPicker(list); showAlert('error', msg); }
+      setSubmit(true); return;
+    }
+    drawVacancy(v);
+    if (!keep) { chosen = null; showAlert(); notesErr(''); }
+    drawPicker(list);
+    var n = document.getElementById('cp-notes'); n.oninput = function () { document.getElementById('cp-notes-n').textContent = n.value.length.toLocaleString('en-GB') + ' / 2,000'; };
+    if (state === 'validation') { submit({ preventDefault: function () {} }); setSubmit(true); return; }
+    // a vacancy that takes no proposal: Submit disabled, the reason shown (§5 UI rules: blocked actions explain why)
+    var reason = v.status !== 'Released to Agencies' ? v.reference + ' is ' + v.status + ', so it takes no new proposal.' : v.openCount === 0 ? 'Every position on this vacancy is filled, so it takes no new proposal.' : v.myPendingCount >= v.myProposalCap ? 'You have reached your proposal limit for this vacancy (' + v.myPendingCount + ' of ' + v.myProposalCap + '). Withdraw a pending proposal, or wait for a decision, to propose another.' : null;
+    if (reason && !keep) showAlert('warning', esc(reason));
+    setSubmit(!reason && list.length > 0, reason || '');
+  }
+  A5.ready(function (s) { paint(s); });
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

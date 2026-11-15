@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vacancies - Abstractvms 2</title>
+    <title>Released Vacancies - Abstractvms 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,7 +40,7 @@
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading empty error validation denied large">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
@@ -151,11 +151,12 @@
                 <button class="md:hidden text-gray-500 hover:text-gray-700">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
-                <h1 class="text-xl font-sora font-semibold text-gray-900">Available Vacancies</h1>
+                <h1 class="text-xl font-sora font-semibold text-gray-900">Released Vacancies</h1>
             </div>
-            
+
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <!-- global search and the branch switcher: full product only (not slice 5) -->
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -163,8 +164,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -177,13 +178,22 @@
         </header>
 
         <!-- Scrollable Content -->
-        <div id="vacancies-scroll" class="flex-1 overflow-y-auto p-6 space-y-6">
-            
+        <div id="vacancies-scroll" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+            <!-- slice 5 (TSD 5.8 TV-1): the vacancies released to TechForce only; the page's states draw here -->
+            <div id="vac-state" hidden></div>
             <!-- Filters Section -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
-                    
-                    <div>
+            <div id="vac-filters" class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 items-end">
+                    <!-- slice 5: GET /released-vacancies q (reference, job title, client name) -->
+                    <div data-s4-later>
+                        <label for="f-q" class="block text-xs font-medium text-gray-500 mb-1.5">Search</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input id="f-q" type="text" placeholder="Reference, job title or client" class="w-full pl-8 pr-3 py-2 bg-lightbg border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
+                        </div>
+                    </div>
+                    <!-- the client filter is not a filter of GET /released-vacancies (TSD §3.1.2): full product only -->
+                    <div data-s5-later>
                         <label class="block text-xs font-medium text-gray-500 mb-1.5">Client</label>
                         <div class="relative">
                             <select class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
@@ -198,9 +208,9 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-gray-500 mb-1.5">Job Role</label>
+                        <label for="f-role" class="block text-xs font-medium text-gray-500 mb-1.5">Job Role</label>
                         <div class="relative">
-                            <select class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
+                            <select id="f-role" class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
                                 <option value="">All Roles</option>
                                 <option>Warehouse Operative</option>
                                 <option>FLT Reach Driver</option>
@@ -212,9 +222,9 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-medium text-gray-500 mb-1.5">Status</label>
+                        <label for="f-status" class="block text-xs font-medium text-gray-500 mb-1.5">Status</label>
                         <div class="relative">
-                            <select class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
+                            <select id="f-status" class="w-full appearance-none bg-lightbg border border-gray-200 text-gray-700 text-sm rounded-md pl-3 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
                                 <option value="">All Statuses</option>
                                 <option selected>Released to Agencies</option>
                                 <option>Filled</option>
@@ -225,7 +235,17 @@
                         </div>
                     </div>
 
-                    <div>
+                    <!-- slice 5: from / to on the start date (GET /released-vacancies from?, to?) -->
+                    <div data-s4-later>
+                        <label class="block text-xs font-medium text-gray-500 mb-1.5">Starts between</label>
+                        <div class="flex items-center gap-2">
+                            <input id="f-from" type="date" aria-label="Starts on or after" class="w-full min-w-0 px-2 py-2 bg-lightbg border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
+                            <span class="text-gray-400 text-xs">to</span>
+                            <input id="f-to" type="date" aria-label="Starts on or before" class="w-full min-w-0 px-2 py-2 bg-lightbg border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue focus:bg-white">
+                        </div>
+                        <div id="f-dates-err"></div>
+                    </div>
+                    <div data-s5-later>
                         <label class="block text-xs font-medium text-gray-500 mb-1.5">Date Range</label>
                         <div class="relative">
                             <i class="fa-regular fa-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
@@ -234,7 +254,7 @@
                     </div>
 
                     <div class="flex gap-2 lg:justify-end">
-                        <button class="px-4 py-2 border border-gray-200 text-gray-600 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors w-full lg:w-auto">
+                        <button id="f-clear" class="px-4 py-2 border border-gray-200 text-gray-600 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors w-full lg:w-auto">
                             Clear
                         </button>
                     </div>
@@ -242,8 +262,8 @@
             </div>
 
             <!-- Data Table -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
-                <div class="overflow-x-auto">
+            <div id="vac-card" class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
+                <div class="relative overflow-x-auto">
                     <table class="w-full text-left border-collapse min-w-[1200px]">
                         <thead>
                             <tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200">
@@ -261,15 +281,17 @@
                                 </th>
                                 <th class="py-3 px-4 font-medium text-center">Open Positions</th>
                                 <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
-                                    <div class="flex items-center gap-1">Start Date <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500"></i></div>
+                                    <div class="flex items-center gap-1">Dates &amp; Shift <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500"></i></div>
                                 </th>
+                                <th class="py-3 px-4 font-medium" data-s4-later>Status</th>
+                                <th class="py-3 px-4 font-medium" data-s4-later>My Proposals</th>
                                 <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
-                                    <div class="flex items-center gap-1">Deadline <i class="fa-solid fa-sort-down text-navy"></i></div>
+                                    <div class="flex items-center gap-1">Closes <i class="fa-solid fa-sort-down text-navy"></i></div>
                                 </th>
                                 <th class="py-3 px-4 font-medium text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
+                        <tbody id="vac-rows" class="text-sm text-gray-700 divide-y divide-gray-100">
                             <!-- Row 1 -->
                             <tr class="hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href='agency.demand.vacancy-detail.html'">
                                 <td class="py-4 px-4 font-mono text-xs text-gray-500">VAC-1042
@@ -431,7 +453,7 @@
                 </div>
                 
                 <!-- Pagination Footer -->
-                <div class="p-4 border-t border-gray-100 bg-white rounded-b-xl flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <div id="vac-pager" class="p-4 border-t border-gray-100 bg-white rounded-b-xl flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
                     <div class="flex items-center gap-2">
                         <span>Showing 1 to 5 of 38 entries</span>
                         <select class="bg-gray-50 border border-gray-200 text-gray-700 text-xs rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue">
@@ -738,6 +760,85 @@
             applyRole(r);
         })();
     </script>
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C1 — released vacancies (TSD 5.8 TV-1; §3.3.1 ReleasedVacancySummary; §3.1.2 GET /released-vacancies).
+   Drawn from S5 in slices 1 to 5 and the full product; the export's static rows stay in the file. An agency reads
+   only N open positions, the pay rate, the status and its own release date — never the roster, the position total,
+   a wave, another agency or a charge figure. */
+(function () {
+  var esc = A5.esc, page = 1;
+  function large() {
+    var base = S5.releasedVacancies(), out = [], roles = ['Warehouse Operative', 'Forklift Driver (Reach)', 'Picker Packer', 'Loader'], nodes = ['Birmingham DC', 'Leeds Hub', 'Nights', 'Wakefield Cross-dock'];
+    for (var i = 0; i < 46; i++) {
+      var b = JSON.parse(JSON.stringify(base[i % base.length]));
+      b.id = b.id + '-x' + i; b.reference = 'VAC-' + (1100 + i); b.jobRoleTitle = roles[i % 4]; b.orgNodeName = nodes[(i + 1) % 4];
+      b.openCount = (i * 7) % 5; b.status = b.openCount ? 'Released to Agencies' : (i % 3 ? 'Filled' : 'Closed'); b.myPendingCount = i % 3 === 0 ? Math.min(2, b.openCount) : i % 2; b.myProposalCap = Math.min(b.openCount, S5.MAX_PER_VACANCY);
+      out.push(b);
+    }
+    return out;
+  }
+  function filters() { return { q: (document.getElementById('f-q').value || '').trim().toLowerCase(), role: document.getElementById('f-role').value, status: document.getElementById('f-status').value, from: document.getElementById('f-from').value, to: document.getElementById('f-to').value }; }
+  function canPropose(v) { return v.status === 'Released to Agencies' && v.openCount > 0 && v.myPendingCount < v.myProposalCap; }
+  function why(v) { return v.status !== 'Released to Agencies' ? v.reference + ' is ' + v.status + ', so it takes no new proposal.' : v.openCount === 0 ? 'Every position is filled.' : 'You have reached your proposal limit for this vacancy (' + v.myPendingCount + ' of ' + v.myProposalCap + ').'; }
+  function row(v, live) {
+    var href = 'agency.demand.vacancy-detail.html?id=' + encodeURIComponent(v.id), ok = canPropose(v), atCap = v.myProposalCap > 0 && v.myPendingCount >= v.myProposalCap;
+    var openCls = v.openCount === 0 ? 'bg-gray-100 text-gray-500' : v.openCount === 1 ? 'bg-warning/10 text-warning border border-warning/20' : 'bg-blue/10 text-blue';
+    return '<tr class="hover:bg-gray-50 transition-colors cursor-pointer" ' + (live ? 'onclick="window.location.href=\'' + href + '\'"' : '') + '>' +
+      '<td class="py-4 px-4 font-mono text-xs text-gray-500">' + esc(v.reference) + '<div class="mt-1 text-[10px] text-purple font-sans normal-case flex items-center gap-1"><i class="fa-solid fa-share-nodes"></i> Released to you ' + S5.fmtDate(v.releasedAt) + '</div></td>' +
+      '<td class="py-4 px-4"><div class="font-medium text-gray-900">' + esc(v.jobTitle) + '</div><div class="text-xs text-gray-500 mt-0.5">' + esc(v.jobRoleTitle) + '</div></td>' +
+      '<td class="py-4 px-4"><div class="font-medium text-gray-900">' + esc(v.clientName) + '</div><div class="text-xs text-gray-500 mt-0.5">' + esc(v.orgNodeName) + '</div></td>' +
+      '<td class="py-4 px-4 font-mono text-gray-900 text-right">' + (v.payRate ? A5.money(v.payRate) + '/hr' : '<span class="font-sans text-xs text-gray-400">No rate yet</span>') + '</td>' +
+      '<td class="py-4 px-4 text-center"><span class="inline-flex items-center justify-center font-semibold px-2.5 py-1 rounded-md text-xs whitespace-nowrap ' + openCls + '">' + v.openCount + ' open position' + (v.openCount === 1 ? '' : 's') + '</span></td>' +
+      '<td class="py-4 px-4 text-gray-600 whitespace-nowrap">' + S5.fmtDate(v.startDate) + ' – ' + S5.fmtDate(v.endDate) + '<div class="text-xs text-gray-500 mt-0.5"><i class="fa-regular fa-clock mr-1"></i>' + esc(v.shiftName) + ' Shift</div></td>' +
+      '<td class="py-4 px-4">' + A5.badge(v.status) + '</td>' +
+      '<td class="py-4 px-4 whitespace-nowrap"><span class="text-sm font-medium ' + (atCap ? 'text-warning' : 'text-gray-900') + '">' + v.myPendingCount + ' of ' + v.myProposalCap + '</span>' + (atCap ? '<div class="text-[11px] text-warning mt-0.5">Limit reached</div>' : '') + '</td>' +
+      '<td class="py-4 px-4 text-gray-600 text-xs whitespace-nowrap">' + (v.closeDate ? S5.fmtDate(v.closeDate) : '—') + '</td>' +
+      '<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-2">' +
+        '<a href="' + href + '" onclick="event.stopPropagation()" class="px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>' +
+        (ok ? '<a href="agency.demand.create-proposal.html?vacancy=' + encodeURIComponent(v.id) + '" onclick="event.stopPropagation()" class="px-3 py-1.5 bg-blue text-white rounded text-xs font-medium hover:bg-blue/90 transition-colors">Propose</a>'
+            : '<span title="' + esc(why(v)) + '" class="px-3 py-1.5 bg-gray-100 text-gray-400 rounded text-xs font-medium cursor-not-allowed" aria-disabled="true">Propose</span>') +
+      '</div></td></tr>';
+  }
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('vac-state'), card = document.getElementById('vac-card'), fl = document.getElementById('vac-filters'), body = document.getElementById('vac-rows'), pager = document.getElementById('vac-pager');
+    var roleSel = document.getElementById('f-role');
+    if (!roleSel.dataset.s5) {
+      roleSel.dataset.s5 = '1';
+      var roles = {}; S5.releasedVacancies().forEach(function (v) { roles[v.jobRoleTitle] = 1; });
+      roleSel.innerHTML = '<option value="">All Roles</option>' + Object.keys(roles).sort().map(function (r) { return '<option>' + esc(r) + '</option>'; }).join('');
+      document.getElementById('f-status').innerHTML = '<option value="">All Statuses</option>' + ['Released to Agencies', 'Filled', 'Closed', 'Cancelled'].map(function (s) { return '<option>' + s + '</option>'; }).join('');
+      ['f-q', 'f-role', 'f-status', 'f-from', 'f-to'].forEach(function (id) { document.getElementById(id).addEventListener(id === 'f-q' ? 'input' : 'change', function () { page = 1; paint(A5.state()); }); });
+      document.getElementById('f-clear').onclick = function () { ['f-q', 'f-role', 'f-status', 'f-from', 'f-to'].forEach(function (id) { document.getElementById(id).value = ''; }); page = 1; S1.setState('default'); };
+    }
+    slot.hidden = true; card.hidden = false; fl.hidden = false; document.getElementById('f-dates-err').innerHTML = '';
+    if (state === 'error' || state === 'denied') { slot.hidden = false; card.hidden = true; fl.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
+    if (state === 'loading') { body.innerHTML = A5.skeletonRows(10, 6); pager.hidden = true; return; }
+    var list = state === 'empty' ? [] : state === 'large' ? large() : S5.releasedVacancies();
+    if (!list.length) { slot.hidden = false; card.hidden = true; fl.hidden = true; slot.innerHTML = A5.stateCard('empty', { icon: 'fa-briefcase', title: 'No vacancies have been released to you yet', body: 'When Abstract releases a vacancy to TechForce Recruitment it appears here with its open positions and your pay rate.' }); return; }
+    var f = filters();
+    if (state === 'validation') { f.from = '2026-11-01'; f.to = '2026-10-01'; document.getElementById('f-from').value = f.from; document.getElementById('f-to').value = f.to; }
+    if (f.from && f.to && f.from > f.to) {
+      document.getElementById('f-dates-err').innerHTML = A5.fieldError('The first date must be on or before the second.');
+      body.innerHTML = '<tr><td colspan="10" class="px-6 py-10 text-center text-sm text-gray-500">Change the dates to see vacancies. Nothing was searched.</td></tr>'; pager.hidden = true; return;
+    }
+    list = list.filter(function (v) {
+      if (f.q && (v.reference + ' ' + v.jobTitle + ' ' + v.clientName).toLowerCase().indexOf(f.q) < 0) return false;
+      if (f.role && v.jobRoleTitle !== f.role) return false;
+      if (f.status && v.status !== f.status) return false;
+      if (f.from && v.startDate < f.from) return false;
+      if (f.to && v.startDate > f.to) return false;
+      return true;
+    });
+    if (!list.length) { body.innerHTML = '<tr><td colspan="10" class="px-6 py-10 text-center text-sm text-gray-500">No released vacancy matches these filters.</td></tr>'; pager.hidden = true; return; }
+    var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
+    body.innerHTML = list.slice(r.from, r.to).map(function (v) { return row(v, state !== 'large'); }).join('');
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

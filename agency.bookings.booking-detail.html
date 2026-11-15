@@ -40,7 +40,7 @@
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading error validation denied large notfound noweek justify conflict invoiced notinvoiced">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
@@ -159,7 +159,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -167,8 +167,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -181,12 +181,15 @@
         </header>
 
         <!-- Scrollable Content -->
-        <div class="flex-1 overflow-y-auto p-6 bg-lightbg">
-            <div class="max-w-7xl mx-auto space-y-6">
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 bg-lightbg">
+            <!-- slice 5 (TSD 5.8 TV-5 to TV-7): the not-found, error and denied states draw here -->
+            <div id="bd-state" class="max-w-7xl mx-auto" hidden></div>
+            <div id="bd-page" class="max-w-7xl mx-auto space-y-6">
+                <div id="bd-flash" hidden></div>
 
                 <!-- Page Header Card -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
+                    <div id="bd-head">
                         <div class="flex items-center gap-3 mb-1">
                             <h1 class="text-2xl font-sora font-bold text-navy">BKG-9942</h1>
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue/10 text-blue border border-blue/20">
@@ -196,10 +199,11 @@
                         <p class="text-sm text-gray-500">Booking for <span class="font-medium text-gray-900">John Doe</span> at Logistics Pro UK</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button onclick="window.print()" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">
+                        <!-- Print and the timesheet grid link: full product only (no agency Timesheets grid before slice 7) -->
+                        <button data-s5-later onclick="window.print()" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">
                             <i class="fa-solid fa-print mr-1.5"></i> Print Summary
                         </button>
-                        <a href="agency.timesheets.timesheets.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors">
+                        <a data-s5-later href="agency.timesheets.timesheets.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors">
                             Manage days on timesheet</a>
                     </div>
                 </div>
@@ -214,7 +218,7 @@
                             <div class="p-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                                 <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-briefcase text-gray-400 mr-2"></i>Booking Information</h3>
                             </div>
-                            <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div id="bd-info" class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Client</label>
                                     <p class="text-sm font-medium text-gray-900">Logistics Pro UK</p>
@@ -242,13 +246,20 @@
                             </div>
                         </div>
 
-                        <!-- Timesheets Section -->
-                        <div class="flex items-start gap-3 bg-blue/5 border border-blue/20 rounded-lg p-4">
+                        <!-- slice 5: what the agency sees of the timesheet (TSD §3.3.6) -->
+                        <div data-s4-later class="flex items-start gap-3 bg-blue/5 border border-blue/20 rounded-lg p-4">
+                            <i class="fa-solid fa-circle-info text-blue mt-0.5"></i>
+                            <p class="text-sm text-gray-600">Booking dates, Shift and cancellation are managed by Abstract, and the client enters the hours. You see each day as recorded, read-only, and you <span class="font-medium text-gray-900">justify an absence</span> when the client or Abstract asks you to.</p>
+                        </div>
+                        <!-- AgencyBookingWeeks (TSD §3.3.11, owner 5.8): each week's days, read-only; pay figures only on an invoiced week -->
+                        <div id="bd-weeks" data-s4-later class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"></div>
+                        <!-- Timesheets Section (the export's weeks list and its un-book note): full product only -->
+                        <div data-s5-later class="flex items-start gap-3 bg-blue/5 border border-blue/20 rounded-lg p-4">
                     <i class="fa-solid fa-circle-info text-blue mt-0.5"></i>
                     <p class="text-sm text-gray-600">Booking dates, shift pattern and cancellation are managed by Abstract. What you control is <span class="font-medium text-gray-900">which days</span> your candidate is booked within this range &mdash; un-booking a future day raises a request the client approves (BK-018, TS-044).</p>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div data-s5-later class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                             <div class="p-5 border-b border-gray-200 flex justify-between items-center">
                                 <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-clock text-gray-400 mr-2"></i>Timesheets</h3>
                                 <span class="text-xs text-gray-500 italic">Visible after invoice cycle</span>
@@ -298,14 +309,14 @@
                         </div>
 
                         <!-- Absence Justification Section -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div id="bd-abs" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                             <div class="p-5 border-b border-gray-200 flex justify-between items-center">
                                 <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-notes-medical text-gray-400 mr-2"></i>Absence Confirmation</h3>
                                 <span id="section-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
                                     <i class="fa-solid fa-hourglass-half text-[10px]"></i> Requested
                                 </span>
                             </div>
-                            <div class="p-5 space-y-4">
+                            <div id="bd-abs-body" class="p-5 space-y-4">
                                 <!-- Requested absence card -->
                                 <div id="absence-card" class="border border-amber-200 bg-amber-50/40 rounded-lg p-4">
                                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -373,7 +384,7 @@
                     <div class="space-y-6">
                         
                         <!-- Candidate Card -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div id="bd-cand" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                             <div class="p-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                                 <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-user text-gray-400 mr-2"></i>Candidate Profile</h3>
                                 <a href="#" class="text-sm text-blue hover:underline">Full Profile</a>
@@ -429,8 +440,8 @@
                             </div>
                         </div>
 
-                        <!-- AWR Status Card -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <!-- AWR Status Card: not slice 5 — full product only -->
+                        <div data-s5-later class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                             <div class="p-5 border-b border-gray-200 bg-gray-50">
                                 <h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-scale-balanced text-gray-400 mr-2"></i>AWR Tracker</h3>
                             </div>
@@ -771,6 +782,142 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C5 — Booking Detail with AgencyBookingWeeks (TSD 5.8 TV-5, TV-6, TV-7; §3.3.4 rule 2; §3.3.6; §3.3.7).
+   ?id=<booking id> (default b2210, BK-2210). The agency reads reference, candidate, job role, client, business unit,
+   dates, Shift and its pay rate — no other rate, no margin, no source. Each week's days read-only; pay figures only on a
+   week that is invoiced (the 28 Sep week is the prototype's stand-in for slice 6's timesheet_invoiced_periods); an
+   absence whose pay Abstract overrode shows only "Overridden by Abstract". Justify (reason required) moves a requested
+   day to Justified; 409 TIMESHEET_CONFIRMATION_STATE_INVALID reloads the week. */
+(function () {
+  var esc = A5.esc, banner = null, openDay = null;
+  var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  function bid() { return A5.q('id') || 'b2210'; }
+  function dayName(d) { var p = d.split('-'); return DOW[new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])).getUTCDay()] + ' ' + S5.fmtDate(d).replace(/ \d{4}$/, ''); }
+  function addDays(d, n) { var p = d.split('-'), x = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2] + n)); return x.toISOString().slice(0, 10); }
+  function info(label, value, hl) { return hl ? '<div class="bg-blue/5 p-3 rounded-lg border border-blue/10"><label class="block text-xs font-bold text-blue uppercase tracking-wider mb-1">' + label + '</label>' + value + '</div>' : '<div><label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">' + label + '</label><p class="text-sm font-medium text-gray-900">' + value + '</p></div>'; }
+  function weeksFor(b, state) {
+    if (state === 'noweek') return [];
+    var w = S5.agencyWeeks(b.id);
+    if (state === 'notinvoiced') w = w.map(function (x) { x = JSON.parse(JSON.stringify(x)); x.invoicedAt = null; delete x.agencyCost; x.days.forEach(function (y) { delete y.agencyPayRate; delete y.agencyCost; }); return x; });
+    if (state === 'large') { var base = w[w.length - 1]; for (var i = 1; i <= 6; i++) { var c = JSON.parse(JSON.stringify(base)); c.id = null; c.weekStart = addDays(base.weekStart, -7 * i); c.status = 'Approved'; c.invoicedAt = null; delete c.agencyCost; c.days = c.days.map(function (y, k) { return { date: addDays(c.weekStart, k), dayStatus: k < 5 ? 'Worked' : 'Not Booked', hours: k < 5 ? '8.00' : null, shiftName: k < 5 ? b.shiftName : null, inRange: true, confirmationState: null }; }); w.push(c); } }
+    return w;
+  }
+  // one row per day: day, status with hours and Shift, the absence and its confirmation, and on an invoiced week the pay
+  function dayRow(w, y, b) {
+    var abs = ['Sick Leave', 'Holiday', 'No-show'].indexOf(y.dayStatus) >= 0, inv = !!w.invoicedAt;
+    var conf = '';
+    if (y.confirmationState) conf = '<div class="flex flex-wrap items-center gap-2 mt-1">' + S5.ui.confBadge(y.confirmationState, true) + (y.confirmationState === 'Requested (awaiting agency)' ? '<button type="button" data-justify="' + y.date + '" class="px-3 py-1 bg-blue text-white rounded text-xs font-semibold hover:bg-blue/90"><i class="fa-solid fa-clipboard-check mr-1"></i>Justify</button>' : '') + '</div>';
+    if (y.confirmationState === 'Justified' && y.confirmation && y.confirmation.justification) conf += '<p class="text-xs text-gray-600 mt-1">Reason: “' + esc(y.confirmation.justification) + '”</p>';
+    var absHtml = abs ? '<div class="flex flex-wrap items-center gap-2">' + (y.absencePay ? '<span class="text-xs text-gray-700">' + esc(y.absencePay) + ' absence</span>' : '') + (y.overridden ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200"><i class="fa-solid fa-user-shield text-[10px]"></i> Overridden by Abstract</span>' : '') + '</div>' + (y.absenceComment ? '<p class="text-xs text-gray-500 mt-1">' + esc(y.absenceComment) + '</p>' : '') + conf : '<span class="text-xs text-gray-300 hidden xl:inline">—</span>';
+    return '<div class="px-5 py-3 flex flex-col xl:flex-row xl:items-start gap-1.5 xl:gap-4 ' + (y.confirmationState === 'Requested (awaiting agency)' ? 'bg-amber-50/40' : '') + '">' +
+      '<div class="xl:w-20 shrink-0 text-sm font-medium text-gray-900">' + dayName(y.date) + '</div>' +
+      '<div class="xl:w-36 shrink-0 flex flex-wrap items-center gap-x-2 gap-y-1">' + (y.dayStatus ? A5.badge(y.dayStatus, true) : '<span class="text-xs text-gray-400">Not entered</span>') +
+        (y.hours ? '<span class="text-xs font-mono text-gray-700">' + y.hours + ' h</span>' : '') + (y.shiftName ? '<span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock mr-1"></i>' + esc(y.shiftName) + '</span>' : '') + '</div>' +
+      '<div class="flex-1 min-w-0">' + absHtml + '</div>' +
+      (inv ? '<div class="xl:w-28 shrink-0 xl:text-right text-xs font-mono">' + (y.agencyCost ? '<span class="text-gray-500">' + A5.money(y.agencyPayRate) + '/hr</span><span class="block text-sm text-gray-900">' + A5.money(y.agencyCost) + '</span>' : '<span class="text-gray-300">—</span>') + '</div>' : '') + '</div>';
+  }
+  function weekBlock(w, b) {
+    var inv = !!w.invoicedAt, total = w.days.reduce(function (m, y) { return m + (y.hours ? Number(y.hours) : 0); }, 0);
+    return '<div class="border-t border-gray-200 first:border-t-0">' +
+      '<div class="px-5 py-3 bg-gray-50 flex flex-wrap items-center justify-between gap-2"><div class="flex flex-wrap items-center gap-2"><span class="text-sm font-semibold text-gray-900">Week of ' + S5.fmtDate(w.weekStart) + '</span>' + A5.badge(w.status, true) +
+      (inv ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-file-invoice text-[10px]"></i> Invoiced ' + S5.fmtDate(w.invoicedAt) + '</span>' : '') + '</div>' +
+      '<span class="text-xs text-gray-500">' + total.toFixed(2) + ' hours worked' + (inv && w.agencyCost ? ' · <span class="font-semibold text-gray-900">Pay ' + A5.money(w.agencyCost) + '</span>' : '') + '</span></div>' +
+      '<div class="hidden xl:flex px-5 py-2 gap-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-100"><span class="w-20">Day</span><span class="w-36">Status · hours · Shift</span><span class="flex-1">Absence and confirmation</span>' + (inv ? '<span class="w-28 text-right">Pay</span>' : '') + '</div>' +
+      '<div class="divide-y divide-gray-100">' + w.days.map(function (y) { return dayRow(w, y, b); }).join('') + '</div>' +
+      (inv ? '' : '<div class="px-5 py-2.5 border-t border-gray-100 text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-lock text-gray-400 mt-0.5"></i><span>Pay figures appear once this week is invoiced.</span></div>') + '</div>';
+  }
+  function absenceCard(b, weeks) {
+    var items = []; weeks.forEach(function (w) { w.days.forEach(function (y) { if (y.confirmationState === 'Requested (awaiting agency)' || y.confirmationState === 'Justified') items.push(y); }); });
+    var waiting = items.filter(function (y) { return y.confirmationState !== 'Justified'; }).length;
+    var badge = document.getElementById('section-badge');
+    badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ' + (waiting ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200');
+    badge.innerHTML = waiting ? '<i class="fa-solid fa-hourglass-half text-[10px]"></i> ' + waiting + ' awaiting you' : '<i class="fa-solid fa-circle-check text-[10px]"></i> Nothing awaiting you';
+    var by = { client: b.clientName, abstract: 'Abstract', policy: b.clientName + '’s policy' };
+    var html = items.length ? items.map(function (y) {
+      var req = y.confirmationState !== 'Justified', c = y.confirmation || {};
+      return '<div class="border ' + (req ? 'border-amber-200 bg-amber-50/40' : 'border-emerald-200 bg-emerald-50/40') + ' rounded-lg p-4"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div class="flex items-start gap-3">' +
+        '<div class="w-10 h-10 rounded-full ' + (req ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700') + ' flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-notes-medical"></i></div><div>' +
+        '<p class="text-sm font-semibold text-gray-900">' + esc(b.candidateName) + ' — ' + dayName(y.date) + ' ' + y.date.slice(0, 4) + '</p>' +
+        '<p class="text-xs text-gray-600 mt-0.5">Day status: ' + A5.badge(y.dayStatus, true) + ' ' + S5.ui.confBadge(y.confirmationState, true) + '</p>' +
+        '<p class="text-xs text-gray-500 mt-1">' + (c.requestedByParty ? 'Requested by ' + esc(by[c.requestedByParty] || c.requestedByParty) + (c.requestedAt ? ' on ' + S5.fmtDateTime(c.requestedAt) : '') + '.' : '') + '</p></div></div>' +
+        (req ? '<div class="flex-shrink-0"><button type="button" data-justify="' + y.date + '" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90 transition-colors"><i class="fa-solid fa-clipboard-check mr-1.5"></i> Justify absence</button></div>' : '') + '</div>' +
+        (req ? '<div class="mt-3 pt-3 border-t border-amber-200/70 text-xs text-amber-800 flex items-center gap-2"><i class="fa-solid fa-circle-info"></i><span>Awaiting your justification.</span></div>'
+          : '<div class="mt-3 pt-3 border-t border-emerald-200/70 text-xs text-emerald-800 flex items-start gap-2"><i class="fa-solid fa-circle-check mt-0.5"></i><span>Justified' + (c.justifiedAt ? ' on ' + S5.fmtDateTime(c.justifiedAt) : '') + ' — reason: ' + esc(c.justification) + '</span></div>') +
+        (openDay === y.date ? justifyPanel(b, y) : '') + '</div>';
+    }).join('') : '<p class="text-sm text-gray-500">No absence on this booking is waiting for a reason from you.</p>';
+    document.getElementById('bd-abs-body').innerHTML = (banner ? A5.alert('warning', esc(banner)) : '') + html +
+      '<div class="text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-shield-halved text-gray-400 mt-0.5"></i><span>Your justification is shared with the client and Abstract. It does not delay the client’s timesheet or invoicing (XR-015).</span></div>';
+  }
+  function justifyPanel(b, y, err) {
+    return '<div id="justify-panel" class="mt-4 border border-gray-200 rounded-lg p-4 bg-white"><h4 class="text-sm font-sora font-semibold text-gray-900 mb-3">Justify absence</h4>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4"><div><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Candidate</label><p class="text-sm font-medium text-gray-900">' + esc(b.candidateName) + '</p></div>' +
+      '<div><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Day</label><p class="text-sm font-medium text-gray-900">' + dayName(y.date) + ' ' + y.date.slice(0, 4) + '</p></div>' +
+      '<div><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Day status</label><p class="text-sm font-medium text-gray-900">' + esc(y.dayStatus) + '</p></div></div>' +
+      '<label for="justify-reason" class="block text-xs font-bold text-gray-600 mb-1">Your reason <span class="text-danger">*</span></label>' +
+      '<textarea id="justify-reason" rows="3" maxlength="1000" placeholder="e.g. Kofi phoned the branch at 12:40, before his shift, to say he was unwell." class="w-full p-3 bg-lightbg border ' + (err ? 'border-danger' : 'border-gray-200') + ' rounded-md text-sm focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue outline-none"></textarea>' + (err ? A5.fieldError(err) : '') +
+      '<div class="flex items-center justify-end gap-3 mt-4"><button type="button" data-jcancel class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50">Cancel</button><button type="button" data-jsubmit="' + y.date + '" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-semibold hover:bg-blue/90">Submit justification</button></div></div>';
+  }
+  var simulate = null;
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('bd-state'), pg = document.getElementById('bd-page');
+    slot.hidden = true; pg.hidden = false;
+    var b = S5.agencyBooking(bid());
+    if (state === 'error' || state === 'denied' || state === 'notfound' || (!b && state !== 'loading')) {
+      slot.hidden = false; pg.hidden = true;
+      slot.innerHTML = state === 'error' || state === 'denied' ? A5.stateCard(state) : A5.stateCard('notfound', { title: 'We can’t find that booking', body: 'It isn’t one of TechForce Recruitment’s bookings in your branches, or it doesn’t exist.', action: '<a href="agency.bookings.bookings.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-arrow-left text-xs"></i> Back to bookings</a>' });
+      return;
+    }
+    var wk = document.getElementById('bd-weeks');
+    if (state === 'loading') { ['bd-head', 'bd-info', 'bd-abs-body'].forEach(function (id) { document.getElementById(id).innerHTML = A5.skeletonBlock(3); }); document.getElementById('bd-cand').innerHTML = '<div class="p-5">' + A5.skeletonBlock(6) + '</div>'; document.getElementById('section-badge').innerHTML = ''; wk.innerHTML = '<div class="p-5">' + A5.skeletonBlock(7) + '</div>'; return; }
+    document.title = b.reference + ' - Booking - Abstractvms 2';
+    document.getElementById('bd-head').innerHTML = '<div class="flex flex-wrap items-center gap-3 mb-1"><h1 class="text-2xl font-sora font-bold text-navy">' + esc(b.reference) + '</h1>' + A5.badge(b.status) + '</div>' +
+      '<p class="text-sm text-gray-500">Booking for <span class="font-medium text-gray-900">' + esc(b.candidateName) + '</span> at ' + esc(b.clientName) + (b.proposalId ? ' · from proposal <a class="text-blue hover:underline" href="agency.demand.proposal-detail.html?id=' + encodeURIComponent(b.proposalId) + '">' + esc((S5.proposal(b.proposalId) || {}).reference || 'PRP') + '</a>' : '') + '</p>';
+    document.getElementById('bd-info').innerHTML = info('Client', esc(b.clientName)) + info('Business Unit', esc(b.orgNodeName)) + info('Job Role', esc(b.jobRoleTitle)) +
+      info('Shift', esc(b.shiftName) + (b.workingTimes ? '<span class="block text-xs text-gray-500 font-normal mt-0.5">' + esc(b.workingTimes) + '</span>' : '')) + info('Dates', S5.fmtDate(b.startDate) + ' – ' + S5.fmtDate(b.endDate)) +
+      info('Pay Rate', '<p class="text-lg font-mono font-bold text-navy">' + (b.payRate ? A5.money(b.payRate) : '—') + ' <span class="text-sm text-gray-500 font-manrope font-normal">/hr</span></p>', true);
+    var weeks = weeksFor(b, state);
+    var fl = document.getElementById('bd-flash'); fl.hidden = !banner; fl.innerHTML = banner ? A5.alert('warning', esc(banner)) : '';
+    wk.innerHTML = '<div class="p-5 border-b border-gray-200 flex flex-wrap justify-between items-center gap-2"><h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-clock text-gray-400 mr-2"></i>Timesheet weeks</h3><span class="text-xs text-gray-500"><i class="fa-solid fa-lock mr-1"></i>Read-only · entered by the client</span></div>' +
+      (weeks.length ? weeks.map(function (w) { return weekBlock(w, b); }).join('') : '<div class="px-5 py-12 text-center"><div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3"><i class="fa-regular fa-calendar text-gray-400"></i></div><p class="text-sm font-medium text-gray-900">No timesheet entered yet</p><p class="text-xs text-gray-500 mt-1">The client enters each week’s days; they appear here as soon as a week is started.</p></div>');
+    if (state === 'justify' || state === 'validation' || state === 'conflict') openDay = '2026-10-07';
+    absenceCard(b, weeks);
+    if (state === 'validation') document.getElementById('justify-panel').outerHTML = justifyPanel(b, { date: '2026-10-07', dayStatus: 'No-show' }, 'Give the reason for the absence.');
+    simulate = state === 'conflict';
+    // the candidate card: the agency's own candidate (pii_restricted, XR-002)
+    var c = S5.myCandidate(b.candidateId);
+    if (c) {
+      var a = c.address || {}, it = c.items || {};
+      document.getElementById('bd-cand').innerHTML = '<div class="p-5 border-b border-gray-200 bg-gray-50 flex justify-between items-center"><h3 class="font-sora font-semibold text-gray-900"><i class="fa-solid fa-user text-gray-400 mr-2"></i>Candidate Profile</h3><a href="agency.candidates.candidate-detail.html?id=' + encodeURIComponent(c.id) + '" class="text-sm text-blue hover:underline">Full Profile</a></div>' +
+        '<div class="p-5 space-y-4"><div class="flex items-center gap-4 border-b border-gray-100 pb-4"><div class="w-12 h-12 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-lg font-sora">' + A5.initials(c.fullName) + '</div><div><h4 class="text-base font-semibold text-gray-900">' + esc(c.fullName) + '</h4><p class="text-xs text-gray-500">' + esc(c.agencyOrgNodeName) + '</p></div></div>' +
+        '<div><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Contact Details</label><p class="text-sm text-gray-900 break-words">' + esc(c.email) + '</p><p class="text-sm text-gray-900">' + esc(c.telephone) + '</p></div>' +
+        '<div><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Address</label><p class="text-sm text-gray-900">' + [a.line1, a.town + (a.postcode ? ', ' + a.postcode : '')].filter(Boolean).map(esc).join('<br>') + '</p></div>' +
+        '<div class="pt-2 border-t border-gray-100"><label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2">Compliance Status</label><div class="space-y-2">' +
+        [['right_to_work', 'Right to Work', 'fa-id-card'], ['dbs_check', 'DBS Check', 'fa-user-shield'], ['references', 'References', 'fa-address-book'], ['hs_training', 'H&S Training', 'fa-helmet-safety']].map(function (x) { var s = (it[x[0]] || {}).status || 'Pending'; return '<div class="flex justify-between items-center text-sm"><span class="text-gray-700"><i class="fa-solid ' + x[2] + ' text-gray-400 mr-2"></i>' + x[1] + '</span><span class="text-xs ' + (s === 'Compliant' ? 'text-success' : s === 'Not Applicable' ? 'text-gray-500' : 'text-warning') + '">' + esc(s) + '</span></div>'; }).join('') +
+        '</div><div class="flex flex-wrap gap-1.5 mt-3">' + c.licences.map(S5.ui.licenceChip).join('') + '</div></div></div>';
+    }
+    banner = null;
+    if (state === 'invoiced' || state === 'notinvoiced') { var t = wk.querySelector('.border-t'); if (t) t.scrollIntoView({ block: 'start' }); }
+  }
+  document.addEventListener('click', function (e) {
+    var j = e.target.closest && e.target.closest('[data-justify]'), x = e.target.closest && e.target.closest('[data-jcancel]'), s = e.target.closest && e.target.closest('[data-jsubmit]');
+    if (j) { openDay = j.getAttribute('data-justify'); paint('default'); var p = document.getElementById('justify-panel'); if (p) { p.scrollIntoView({ block: 'center' }); document.getElementById('justify-reason').focus(); } }
+    if (x) { openDay = null; paint('default'); }
+    if (s) {
+      var date = s.getAttribute('data-jsubmit'), reason = document.getElementById('justify-reason').value;
+      try { S5.act.justify(bid(), date, reason, { simulateStale: simulate }); openDay = null; simulate = false; S1.toast('Absence justified. The client and Abstract can see your reason.', 'success'); S1.setState('default'); }
+      catch (err) {
+        if (err.code === 'VALIDATION_ERROR') { var b = S5.agencyBooking(bid()); document.getElementById('justify-panel').outerHTML = justifyPanel(b, { date: date, dayStatus: (S5.agencyWeeks(bid()).reduce(function (m, w) { return m.concat(w.days); }, []).filter(function (y) { return y.date === date; })[0] || {}).dayStatus }, err.message); return; }
+        openDay = null; simulate = false; banner = err.message; paint('default');
+      }
+    }
+  });
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

@@ -42,7 +42,7 @@
         .tab-content.active { display: block; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading error denied large notfound licexpired">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
@@ -161,7 +161,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -169,8 +169,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -183,13 +183,15 @@
         </header>
 
         <!-- Scrollable Content -->
-        <div id="candidate-detail-scroll" class="flex-1 overflow-y-auto p-6">
-            <div class="max-w-7xl mx-auto space-y-6">
+        <div id="candidate-detail-scroll" class="flex-1 overflow-y-auto p-4 sm:p-6">
+            <!-- slice 5 (TSD 5.8 TV-4): the not-found, error and denied states draw here -->
+            <div id="cd-state" class="max-w-7xl mx-auto" hidden></div>
+            <div id="cd-page" class="max-w-7xl mx-auto space-y-6">
                 
                 <!-- Candidate Header Profile Card -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col sm:flex-row justify-between items-start gap-6 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue to-purple"></div>
-                    <div class="flex items-start gap-6">
+                    <div id="cd-head" class="flex items-start gap-6">
                         <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="James Smith" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-sm">
                         <div class="space-y-2">
                             <div class="flex items-center gap-3">
@@ -210,7 +212,7 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-3 w-full sm:w-auto">
-                        <a href="agency.candidates.create-candidate.html?mode=edit&amp;name=James%20Smith" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                        <a id="cd-edit" href="agency.candidates.create-candidate.html?mode=edit&amp;name=James%20Smith" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
                             <i class="fa-solid fa-pen"></i> Edit Profile
                         </a>
                     </div>
@@ -225,7 +227,8 @@
                         <button onclick="switchTab('documents')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="documents">Documents</button>
                         <button onclick="switchTab('proposals')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="proposals">Proposals History</button>
                         <button onclick="switchTab('bookings')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="bookings">Bookings</button>
-                        <button onclick="switchTab('awr')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="awr">AWR History</button>
+                        <!-- AWR: not slice 5 (an agency candidate's AWR clock is a later slice's) — full product only -->
+                        <button data-s5-later onclick="switchTab('awr')" class="tab-btn px-6 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 whitespace-nowrap" data-target="awr">AWR History</button>
                     </div>
 
                     <!-- Tab Content Area -->
@@ -798,6 +801,63 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C4 — Candidate Detail (TSD 5.8 TV-4; GET /candidates/:id for an agency caller: its own, with the
+   pii_restricted columns, XR-002; §3.3.3). ?id=<candidate id> (default ac-kofi). Personal details, the four compliance
+   items, licences, documents, this candidate's proposals and bookings. No availability, legal hold or job role. */
+(function () {
+  var esc = A5.esc;
+  var ITEMS = [['right_to_work', 'Right to Work'], ['dbs_check', 'DBS Check'], ['references', 'References'], ['hs_training', 'Health & Safety Training']];
+  function cid(state) { return state === 'licexpired' ? 'ac-ryan' : (A5.q('id') || 'ac-kofi'); }
+  function kv(k, v, mono) { return '<div class="grid grid-cols-3 gap-4"><div class="col-span-1 text-sm text-gray-500">' + k + '</div><div class="col-span-2 text-sm font-medium text-gray-900 break-words' + (mono ? ' font-mono' : '') + '">' + (v || '<span class="text-gray-400 font-normal">Not recorded</span>') + '</div></div>'; }
+  function card(icon, title, inner) { return '<div><h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="' + icon + ' text-blue"></i> ' + title + '</h3><div class="bg-gray-50/50 rounded-lg p-5 border border-gray-100 space-y-4">' + inner + '</div></div>'; }
+  function table(head, rows, empty) { return '<div class="bg-white rounded-lg border border-gray-200 overflow-x-auto"><table class="w-full text-left"><thead class="bg-gray-50 text-xs text-gray-500 uppercase"><tr>' + head.map(function (h) { return '<th class="py-3 px-4 font-medium whitespace-nowrap">' + h + '</th>'; }).join('') + '</tr></thead><tbody class="text-sm divide-y divide-gray-100">' + (rows.length ? rows.join('') : '<tr><td colspan="' + head.length + '" class="py-6 px-4 text-center text-gray-500">' + empty + '</td></tr>') + '</tbody></table></div>'; }
+  function itemStatus(s) { var t = s === 'Compliant' ? ['text-success', 'fa-check-circle'] : s === 'Expired' ? ['text-danger', 'fa-circle-xmark'] : s === 'Not Applicable' ? ['text-gray-500', 'fa-minus'] : ['text-warning', 'fa-clock']; return '<span class="' + t[0] + ' text-xs font-medium whitespace-nowrap"><i class="fa-solid ' + t[1] + ' mr-1"></i> ' + esc(s) + '</span>'; }
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('cd-state'), pg = document.getElementById('cd-page');
+    slot.hidden = true; pg.hidden = false;
+    var c = S5.myCandidate(cid(state));
+    if (state === 'error' || state === 'denied' || state === 'notfound' || (!c && state !== 'loading')) {
+      slot.hidden = false; pg.hidden = true;
+      slot.innerHTML = state === 'error' || state === 'denied' ? A5.stateCard(state) : A5.stateCard('notfound', { title: 'We can’t find that candidate', body: 'They aren’t one of TechForce Recruitment’s candidates in your branches, or the record doesn’t exist.', action: '<a href="agency.candidates.candidates.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-arrow-left text-xs"></i> Back to candidates</a>' });
+      return;
+    }
+    var head = document.getElementById('cd-head'), tabs = ['personal', 'compliance', 'documents', 'proposals', 'bookings'];
+    if (state === 'loading') { head.innerHTML = A5.skeletonBlock(3); tabs.forEach(function (t) { document.getElementById(t).innerHTML = A5.skeletonBlock(6); }); return; }
+    document.title = c.fullName + ' - Candidates - Abstractvms 2';
+    head.innerHTML = '<div class="w-20 h-20 rounded-full bg-purple/10 text-purple flex items-center justify-center font-sora font-bold text-2xl border-4 border-white shadow-sm shrink-0">' + A5.initials(c.fullName) + '</div>' +
+      '<div class="space-y-2 min-w-0"><div class="flex flex-wrap items-center gap-3"><h1 class="text-2xl font-sora font-semibold text-gray-900">' + esc(c.fullName) + '</h1><span class="text-sm text-gray-500 font-medium">Added ' + S5.fmtDate(c.createdAt) + '</span></div>' +
+      '<div class="flex flex-wrap items-center gap-3">' + S5.ui.complianceBadge(c.complianceStatus) + '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-blue bg-blue/10 border border-blue/20"><i class="fa-solid fa-sitemap text-[10px]"></i> ' + esc(c.agencyOrgNodeName) + '</span>' +
+      (c.licences.some(function (l) { return l.expired; }) ? '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium text-danger bg-danger/10 border border-danger/20"><i class="fa-solid fa-circle-xmark text-[10px]"></i> A licence has expired</span>' : '') + '</div></div>';
+    document.getElementById('cd-edit').href = 'agency.candidates.create-candidate.html?mode=edit&id=' + encodeURIComponent(c.id);
+    var a = c.address || {}, kin = c.nextOfKin;
+    document.getElementById('personal').innerHTML = '<div class="grid grid-cols-1 md:grid-cols-2 gap-8">' +
+      card('fa-regular fa-address-card', 'Core Details', kv('Full Name', esc(c.fullName)) + kv('Date of Birth', c.dateOfBirth ? S5.fmtDate(c.dateOfBirth) : null) + kv('NI Number', esc(c.nationalInsuranceNumber), true) + kv('Email', esc(c.email)) + kv('Telephone', esc(c.telephone)) + kv('Branch', esc(c.agencyOrgNodeName))) +
+      '<div class="space-y-8">' + card('fa-solid fa-location-dot', 'Address', '<p class="text-sm font-medium text-gray-900 leading-relaxed">' + [a.line1, a.line2, a.town, a.postcode].filter(Boolean).map(esc).join('<br>') + '</p>') +
+      card('fa-solid fa-heart-pulse', 'Next of Kin', kin ? kv('Name', esc(kin.name)) + kv('Relationship', esc(kin.relationship)) + kv('Telephone', esc(kin.telephone)) : '<p class="text-sm text-gray-500">No next of kin recorded.</p>') + '</div></div>';
+    var lic = c.licences.slice();
+    if (state === 'large') for (var i = 0; i < 12; i++) lic.push({ licenceType: ['Counterbalance (ITSSAR)', 'Reach truck (RTITB)', 'Order picker (RTITB)'][i % 3], issuingBody: ['ITSSAR', 'RTITB'][i % 2], expiryDate: '202' + (5 + i % 4) + '-0' + (1 + i % 9) + '-28', expired: i % 4 === 0 });
+    document.getElementById('compliance').innerHTML = '<div><h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Mandatory Compliance</h3>' +
+      table(['Requirement', 'Status', 'Expiry', 'Document'], ITEMS.map(function (x) { var it = (c.items || {})[x[0]] || { status: 'Pending' }; return '<tr><td class="py-3 px-4 font-medium text-gray-900">' + x[1] + '</td><td class="py-3 px-4">' + itemStatus(it.status) + '</td><td class="py-3 px-4 text-gray-600 whitespace-nowrap">' + (it.expiryDate ? S5.fmtDate(it.expiryDate) : '—') + '</td><td class="py-3 px-4">' + (it.doc ? '<span class="text-blue"><i class="fa-solid fa-file-pdf mr-1 text-gray-400"></i> ' + esc(it.doc) + '</span>' : '<span class="text-gray-400">—</span>') + '</td></tr>'; }), '') + '</div>' +
+      '<div><div class="flex items-center justify-between mb-4"><h3 class="text-lg font-sora font-semibold text-gray-900">Licences</h3><a href="agency.candidates.create-candidate.html?mode=edit&id=' + encodeURIComponent(c.id) + '#licences" class="text-sm font-medium text-blue hover:text-blue/80"><i class="fa-solid fa-plus mr-1"></i> Add</a></div>' +
+      table(['Type', 'Issuing Body', 'Expiry Date', 'Status'], lic.map(function (l) { return '<tr><td class="py-3 px-4 font-medium text-gray-900"><i class="fa-solid fa-id-card text-gray-400 mr-2"></i>' + esc(l.licenceType) + '</td><td class="py-3 px-4 text-gray-600">' + esc(l.issuingBody || '—') + '</td><td class="py-3 px-4 whitespace-nowrap ' + (l.expired ? 'text-danger font-medium' : 'text-gray-600') + '">' + (l.expiryDate ? S5.fmtDate(l.expiryDate) : 'No expiry') + '</td><td class="py-3 px-4">' + (l.expired ? '<span class="text-danger text-xs font-medium">Expired</span>' : '<span class="text-success text-xs font-medium">Valid</span>') + '</td></tr>'; }), 'No licences recorded.') + '</div>';
+    var docs = (c.documents || []).slice(); ITEMS.forEach(function (x) { var it = (c.items || {})[x[0]]; if (it && it.doc && !docs.some(function (d) { return d.name === it.doc; })) docs.push({ name: it.doc, size: '—', by: c.createdBy, at: c.createdAt }); });
+    document.getElementById('documents').innerHTML = '<div class="flex items-center justify-between mb-4"><h3 class="text-lg font-sora font-semibold text-gray-900">Uploaded Documents</h3><a href="agency.candidates.create-candidate.html?mode=edit&id=' + encodeURIComponent(c.id) + '#documents" class="text-sm font-medium text-blue hover:text-blue/80"><i class="fa-solid fa-upload mr-1"></i> Upload</a></div>' +
+      table(['Name', 'Size', 'Uploaded by', 'Date'], docs.map(function (d) { return '<tr><td class="py-3 px-4 font-medium text-gray-900"><i class="fa-solid fa-file-pdf text-red-500 mr-2"></i>' + esc(d.name) + '</td><td class="py-3 px-4 text-gray-600">' + esc(d.size) + '</td><td class="py-3 px-4 text-gray-600">' + esc(d.by || '—') + '</td><td class="py-3 px-4 text-gray-600 whitespace-nowrap">' + (d.at ? S5.fmtDate(d.at) : '—') + '</td></tr>'; }), 'No documents uploaded.');
+    var props = S5.proposals({ candidateId: c.id });
+    document.getElementById('proposals').innerHTML = '<h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Proposal History</h3>' +
+      table(['Proposal', 'Vacancy', 'Submitted', 'Status'], props.map(function (p) { return '<tr class="hover:bg-gray-50 cursor-pointer" onclick="location.href=\'agency.demand.proposal-detail.html?id=' + encodeURIComponent(p.id) + '\'"><td class="py-3 px-4 font-mono text-xs text-blue">' + esc(p.reference) + '</td><td class="py-3 px-4 text-gray-900">' + esc(p.jobTitle) + '<div class="text-xs text-gray-500">' + esc(p.clientName) + ' · ' + esc(p.vacancyReference) + '</div></td><td class="py-3 px-4 text-gray-600 whitespace-nowrap">' + S5.fmtDate(p.submittedAt) + '</td><td class="py-3 px-4">' + S5.ui.proposalBadge(p.status, true) + '</td></tr>'; }), 'Not proposed to any vacancy yet.');
+    var bks = S5.agencyBookings().filter(function (b) { return b.candidateId === c.id; });
+    document.getElementById('bookings').innerHTML = '<h3 class="text-lg font-sora font-semibold text-gray-900 mb-4">Active & Past Bookings</h3>' +
+      table(['Booking', 'Client', 'Dates', 'Status'], bks.map(function (b) { return '<tr class="hover:bg-gray-50 cursor-pointer" onclick="location.href=\'agency.bookings.booking-detail.html?id=' + encodeURIComponent(b.id) + '\'"><td class="py-3 px-4 font-mono text-xs text-blue">' + esc(b.reference) + '</td><td class="py-3 px-4 text-gray-900">' + esc(b.clientName) + '<div class="text-xs text-gray-500">' + esc(b.orgNodeName) + '</div></td><td class="py-3 px-4 text-gray-600 whitespace-nowrap">' + S5.fmtDate(b.startDate) + ' – ' + S5.fmtDate(b.endDate) + '</td><td class="py-3 px-4">' + A5.badge(b.status, true) + '</td></tr>'; }), 'No bookings yet.');
+    if (state === 'licexpired' && typeof switchTab === 'function') switchTab('compliance');
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

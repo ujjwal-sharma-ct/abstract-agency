@@ -40,7 +40,7 @@
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading empty error denied large notfound cap filled">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto">
@@ -155,14 +155,15 @@
                     <div class="flex items-center gap-2 text-xs text-gray-500 font-medium mb-0.5">
                         <a href="agency.demand.vacancies.html" class="hover:text-blue">Vacancies</a>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        <span class="text-gray-900">VAC-1042</span>
+                        <span id="vd-crumb" class="text-gray-900">VAC-1042</span>
                     </div>
                     <h1 class="text-xl font-sora font-semibold text-gray-900 leading-none">Vacancy Details</h1>
                 </div>
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <!-- global search and the branch switcher: full product only (not slice 5) -->
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -170,8 +171,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -184,12 +185,13 @@
         </header>
 
         <!-- Scrollable Content -->
-        <div id="vacancy-details-scroll" class="flex-1 overflow-y-auto p-6">
-            
-            <div class="max-w-6xl mx-auto space-y-6">
+        <div id="vacancy-details-scroll" class="flex-1 overflow-y-auto p-4 sm:p-6">
+            <!-- slice 5 (TSD 5.8 TV-1, TV-2): the not-found, error and denied states draw here -->
+            <div id="vd-state" class="max-w-6xl mx-auto" hidden></div>
+            <div id="vd-page" class="max-w-6xl mx-auto space-y-6">
                 <!-- Top Header Card -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
+                    <div id="vd-head">
                         <div class="flex items-center gap-3 mb-2">
                             <span class="px-2.5 py-1 bg-blue/10 text-blue font-semibold text-xs rounded-md border border-blue/20">VAC-1042</span>
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">Released to Agencies</span>
@@ -198,22 +200,25 @@
                         <p class="text-sm text-gray-600 font-medium">Logistics Corp Ltd <span class="text-gray-400 mx-1">•</span> Hub 1 - Birmingham</p>
                         <p class="text-xs text-purple font-medium mt-1.5 flex items-center gap-1"><i class="fa-solid fa-share-nodes"></i> Released to you on 12 Jun 2026</p>
                     </div>
-                    <div class="flex gap-3">
-                        <button onclick="toast('Link to this vacancy copied to your clipboard.','fa-link')" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                    <div id="vd-actions" class="flex flex-wrap gap-3">
+                        <!-- Share: full product only -->
+                        <button data-s5-later onclick="toast('Link to this vacancy copied to your clipboard.','fa-link')" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
                             <i class="fa-regular fa-share-from-square"></i> Share
                         </button>
-                        <a href="agency.demand.create-proposal.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2">
+                        <a id="vd-propose" href="agency.demand.create-proposal.html" class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2">
                             <i class="fa-solid fa-user-plus"></i> Propose Candidate
                         </a>
                     </div>
                 </div>
+                <!-- slice 5: why Propose is not available (the cap, a filled or closed vacancy) — DESIGN-SPEC §6.8 -->
+                <div id="vd-blocked" hidden></div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <!-- Left Column - Details -->
                     <div class="lg:col-span-2 space-y-6">
                         
                         <!-- Vacancy Details -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <div id="vd-overview" class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                             <h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 border-b border-gray-100 pb-3">Vacancy Overview</h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 mb-6">
@@ -267,7 +272,7 @@
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                             <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                                 <h3 class="text-lg font-sora font-semibold text-gray-900">My Proposals</h3>
-                                <span class="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md">3 Submissions</span>
+                                <span id="vd-count" class="px-2.5 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md">3 Submissions</span>
                             </div>
                             <div class="px-5 py-3 bg-blue/5 border-b border-gray-100 flex items-start gap-2 text-xs text-gray-600">
                                 <i class="fa-solid fa-shield-halved text-blue mt-0.5"></i>
@@ -283,7 +288,7 @@
                                             <th class="py-3 px-5 font-medium text-right">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-sm text-gray-700 divide-y divide-gray-50">
+                                    <tbody id="vd-rows" class="text-sm text-gray-700 divide-y divide-gray-50">
                                         <tr class="hover:bg-gray-50 transition-colors">
                                             <td class="py-3 px-5 font-medium text-gray-900">Michael Johnson</td>
                                             <td class="py-3 px-5 text-gray-500">24 Oct 2023</td>
@@ -334,16 +339,25 @@
                         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                             <h3 class="text-sm font-sora font-semibold text-gray-900 mb-4 uppercase tracking-wider text-gray-500">Client Information</h3>
                             <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 text-xl font-sora font-bold">
+                                <div id="vd-client-ini" class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 text-xl font-sora font-bold">
                                     LC
                                 </div>
                                 <div>
-                                    <h4 class="font-medium text-gray-900 text-sm">Logistics Corp Ltd</h4>
-                                    <p class="text-xs text-gray-500">Transportation & Warehousing</p>
+                                    <h4 id="vd-client" class="font-medium text-gray-900 text-sm">Logistics Corp Ltd</h4>
+                                    <!-- the client's industry and site address are not in ReleasedVacancy (TSD §3.3.1): full product only -->
+                                    <p class="text-xs text-gray-500" data-s5-later>Transportation & Warehousing</p>
                                 </div>
                             </div>
                             <div class="space-y-3 pt-3 border-t border-gray-100">
-                                <div class="flex items-start gap-3">
+                                <!-- slice 5: the business unit, the one place fact an agency reads -->
+                                <div class="flex items-start gap-3" data-s4-later>
+                                    <i class="fa-solid fa-sitemap mt-1 text-gray-400 w-4"></i>
+                                    <div>
+                                        <span class="block text-xs font-medium text-gray-900">Business unit</span>
+                                        <span id="vd-unit" class="block text-xs text-gray-600">—</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3" data-s5-later>
                                     <i class="fa-solid fa-location-dot mt-1 text-gray-400 w-4"></i>
                                     <div>
                                         <span class="block text-xs font-medium text-gray-900">Site Location</span>
@@ -353,8 +367,8 @@
                             </div>
                         </div>
 
-                        <!-- Documents -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <!-- Documents: not in ReleasedVacancy (TSD §3.3.1) — full product only -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6" data-s5-later>
                             <h3 class="text-sm font-sora font-semibold text-gray-900 mb-4 uppercase tracking-wider text-gray-500">Attached Documents</h3>
                             <div class="space-y-3">
                                 <a href="#" class="flex items-center justify-between p-3 border border-gray-100 rounded-lg hover:border-blue hover:bg-blue/5 transition-colors group">
@@ -676,6 +690,82 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C2 — Vacancy Detail (TSD 5.8 TV-1, TV-2; §3.3.1 ReleasedVacancy; §3.3.2 rule 2 the cap; §5 UI rules).
+   ?id=<vacancy id> (default v1041). A vacancy not released to TechForce is the not-found state
+   (404 RELEASED_VACANCY_NOT_FOUND). Propose a candidate opens the propose step (agency.demand.create-proposal.html);
+   at the cap the action is disabled with the limit explained. */
+(function () {
+  var esc = A5.esc, page = 1;
+  function vid() { return A5.q('id') || 'v1041'; }
+  function field(label, value, mono) { return '<div><span class="block text-xs font-medium text-gray-500 mb-1">' + label + '</span><span class="text-sm ' + (mono ? 'font-mono ' : '') + 'font-medium text-gray-900">' + value + '</span></div>'; }
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('vd-state'), pg = document.getElementById('vd-page');
+    slot.hidden = true; pg.hidden = false;
+    var v = S5.releasedVacancy(vid());
+    if (state === 'cap') v = S5.releasedVacancy('v1041');
+    if (state === 'filled') v = S5.releasedVacancy('v1043');
+    if (state === 'error' || state === 'denied' || state === 'notfound' || (!v && state !== 'loading')) {
+      slot.hidden = false; pg.hidden = true;
+      slot.innerHTML = state === 'error' || state === 'denied' ? A5.stateCard(state) : A5.stateCard('notfound', { title: 'We can’t find that vacancy', body: 'It hasn’t been released to TechForce Recruitment, or it doesn’t exist.', action: '<a href="agency.demand.vacancies.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-arrow-left text-xs"></i> Back to vacancies</a>' });
+      document.getElementById('vd-crumb').textContent = 'Not found';
+      return;
+    }
+    var head = document.getElementById('vd-head'), ov = document.getElementById('vd-overview'), rows = document.getElementById('vd-rows');
+    if (state === 'loading') {
+      head.innerHTML = '<div class="w-64 max-w-full">' + A5.skeletonBlock(3) + '</div>'; ov.innerHTML = A5.skeletonBlock(6); rows.innerHTML = A5.skeletonRows(4, 3); document.getElementById('vd-crumb').textContent = '…'; document.getElementById('vd-client').textContent = '…'; document.getElementById('vd-client-ini').textContent = ''; document.getElementById('vd-count').textContent = '';
+      document.getElementById('vd-propose').hidden = true; document.getElementById('vd-blocked').hidden = true; return;
+    }
+    document.getElementById('vd-crumb').textContent = v.reference;
+    document.title = v.reference + ' · ' + v.jobTitle + ' - Abstractvms 2';
+    head.innerHTML = '<div class="flex flex-wrap items-center gap-3 mb-2"><span class="px-2.5 py-1 bg-blue/10 text-blue font-semibold text-xs rounded-md border border-blue/20">' + esc(v.reference) + '</span>' + A5.badge(v.status) + '</div>' +
+      '<h2 class="text-2xl font-sora font-bold text-gray-900 mb-1">' + esc(v.jobTitle) + '</h2>' +
+      '<p class="text-sm text-gray-600 font-medium">' + esc(v.clientName) + ' <span class="text-gray-400 mx-1">•</span> ' + esc(v.orgNodeName) + '</p>' +
+      '<p class="text-xs text-purple font-medium mt-1.5 flex items-center gap-1"><i class="fa-solid fa-share-nodes"></i> Released to you on ' + S5.fmtDate(v.releasedAt) + '</p>';
+    var long = state === 'large';
+    ov.innerHTML = '<h3 class="text-lg font-sora font-semibold text-gray-900 mb-4 border-b border-gray-100 pb-3">Vacancy Overview</h3>' +
+      '<div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 mb-6">' +
+      field('Job Role', esc(v.jobRoleTitle)) + field('Shift', esc(v.shiftName) + (v.workingTimes ? '<span class="block text-xs text-gray-500 font-normal mt-0.5">' + esc(v.workingTimes) + '</span>' : '')) +
+      field('Start Date', S5.fmtDate(v.startDate)) + field('End Date', S5.fmtDate(v.endDate)) +
+      field('Open Positions', v.openCount + ' open position' + (v.openCount === 1 ? '' : 's')) + field('Pay Rate', v.payRate ? A5.money(v.payRate) + ' / hr' : 'No rate in force yet', !!v.payRate) +
+      field('Applications close', v.closeDate ? S5.fmtDate(v.closeDate) : 'No close date') + field('My proposals', v.myPendingCount + ' of ' + v.myProposalCap + ' pending') +
+      '</div><div class="space-y-4">' +
+      '<div><h4 class="text-sm font-semibold text-gray-900 mb-2">Description</h4><p class="text-sm text-gray-600 leading-relaxed">' + (v.description ? esc(v.description) : '<span class="text-gray-400">No description given.</span>') + (long ? ' ' + esc(Array(8).join('The site runs two loading bays and a returns cage; operatives rotate between them weekly. ')) : '') + '</p></div>' +
+      '<div><h4 class="text-sm font-semibold text-gray-900 mb-2">Requirements</h4><p class="text-sm text-gray-600 leading-relaxed">' + (v.requirements ? esc(v.requirements) : '<span class="text-gray-400">No requirements given.</span>') + '</p></div></div>';
+    document.getElementById('vd-client').textContent = v.clientName; document.getElementById('vd-client-ini').textContent = A5.initials(v.clientName); document.getElementById('vd-unit').textContent = v.orgNodeName;
+    // Propose, or why not (§5 UI rules: blocked actions explain why)
+    var btn = document.getElementById('vd-propose'), bl = document.getElementById('vd-blocked'), reason = null;
+    if (v.status !== 'Released to Agencies') reason = v.reference + ' is ' + v.status + ', so it takes no new proposal. Your proposals on it stay below.';
+    else if (v.openCount === 0) reason = 'Every position on this vacancy is filled, so it takes no new proposal.';
+    else if (v.myPendingCount >= v.myProposalCap) reason = 'You have reached your proposal limit for this vacancy (' + v.myPendingCount + ' of ' + v.myProposalCap + '). A proposal that is withdrawn, rejected or accepted no longer counts.';
+    btn.hidden = false;
+    if (reason) {
+      btn.removeAttribute('href'); btn.setAttribute('aria-disabled', 'true'); btn.className = 'px-4 py-2 bg-gray-100 text-gray-400 rounded-md text-sm font-medium flex items-center gap-2 cursor-not-allowed'; btn.title = reason;
+      bl.hidden = false; bl.innerHTML = A5.alert('warning', esc(reason));
+    } else {
+      btn.setAttribute('href', 'agency.demand.create-proposal.html?vacancy=' + encodeURIComponent(v.id)); btn.removeAttribute('aria-disabled'); btn.title = ''; btn.className = 'px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors flex items-center gap-2';
+      bl.hidden = true;
+    }
+    // My Proposals: the agency's own on this vacancy (PP-009)
+    var list = state === 'empty' ? [] : S5.proposals({ vacancyId: v.id });
+    if (long) { var st = ['Withdrawn', 'Rejected', 'Rejected (Position Filled)'], names = ['Aaron Bell', 'Bethany Cole', 'Callum Doyle', 'Dana Evans', 'Ethan Ford', 'Fiona Grant', 'George Hale']; for (var i = 0; i < 25; i++) list.push({ id: null, candidateName: names[i % 7] + ' ' + (i + 1), submittedAt: '2026-0' + (1 + i % 9) + '-1' + (i % 9) + 'T10:00:00', status: st[i % 3] }); }
+    document.getElementById('vd-count').textContent = list.length + ' proposal' + (list.length === 1 ? '' : 's');
+    var pager = document.getElementById('vd-pager');
+    if (!pager) { pager = document.createElement('div'); pager.id = 'vd-pager'; rows.closest('.overflow-x-auto').after(pager); }
+    if (!list.length) { rows.innerHTML = '<tr><td colspan="4" class="py-8 px-5 text-center text-sm text-gray-500">You have not proposed a candidate for this vacancy yet.</td></tr>'; pager.hidden = true; return; }
+    var r = list.length > A5.PAGE ? A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); }) : (pager.hidden = true, { from: 0, to: list.length });
+    rows.innerHTML = list.slice(r.from, r.to).map(function (p) {
+      return '<tr class="hover:bg-gray-50 transition-colors"><td class="py-3 px-5 font-medium text-gray-900">' + esc(p.candidateName) + (p.reference ? '<div class="text-xs text-gray-500 font-mono mt-0.5">' + esc(p.reference) + '</div>' : '') + '</td>' +
+        '<td class="py-3 px-5 text-gray-500 whitespace-nowrap">' + S5.fmtDate(p.submittedAt) + '</td><td class="py-3 px-5">' + S5.ui.proposalBadge(p.status) + '</td>' +
+        '<td class="py-3 px-5 text-right">' + (p.id ? '<a href="agency.demand.proposal-detail.html?id=' + encodeURIComponent(p.id) + '" class="text-blue hover:text-blue/80 text-sm font-medium">View</a>' : '') + '</td></tr>';
+    }).join('');
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>

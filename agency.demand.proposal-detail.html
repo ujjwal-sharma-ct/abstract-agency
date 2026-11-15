@@ -40,7 +40,7 @@
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
-<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden">
+<body class="m-0 p-0 bg-lightbg min-h-screen text-gray-800 flex overflow-hidden" data-s5-page data-s1-states="default loading error validation denied large notfound edit stale withdraw vacclosed vaccancelled">
 
     <!-- Sidebar -->
     <aside id="sidebar" class="w-64 bg-navy text-white flex-shrink-0 hidden md:flex flex-col h-screen sticky top-0 overflow-y-auto z-20">
@@ -157,7 +157,7 @@
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="relative hidden sm:block">
+                <div class="relative hidden sm:block" data-s5-later>
                     <a id="search-open" href="agency.shell.search-results.html" aria-label="Open search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue transition-colors"><i class="fa-solid fa-search text-gray-400 text-sm"></i></a>
                     <input type="text" onkeydown="if(event.key==='Enter'){window.location.href='agency.shell.search-results.html?q='+encodeURIComponent(this.value)}" aria-label="Search" placeholder="Search vacancies, candidates..." class="pl-9 pr-4 py-1.5 bg-lightbg border-transparent focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue rounded-md text-sm w-64 transition-all outline-none">
                 </div>
@@ -165,8 +165,8 @@
                     <i class="fa-regular fa-bell text-xl"></i>
                     <span class="bell-dot absolute top-0 right-0 w-2 h-2 bg-danger rounded-full border border-white"></span>
                 </button>
-                <div class="h-6 w-px bg-gray-200 mx-2"></div>
-                <div class="relative hidden sm:block">
+                <div class="h-6 w-px bg-gray-200 mx-2" data-s5-later></div>
+                <div class="relative hidden sm:block" data-s5-later>
                     <select aria-label="Branch scope" class="appearance-none bg-transparent border border-gray-200 rounded-md pl-3 pr-8 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue cursor-pointer">
                         <option>All branches</option>
                         <option>London HQ</option>
@@ -180,11 +180,13 @@
 
         <!-- Scrollable Content -->
         <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 w-full">
-            <div class="max-w-7xl mx-auto w-full">
-                
+            <!-- slice 5 (TSD 5.8 TV-3): the not-found, error and denied states draw here -->
+            <div id="pd-state" class="max-w-7xl mx-auto w-full" hidden></div>
+            <div id="pd-page" class="max-w-7xl mx-auto w-full">
+                <div id="pd-flash" class="mb-4" hidden></div>
                 <!-- Page Header -->
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                    <div>
+                    <div id="pd-head">
                         <nav class="flex items-center gap-2 text-sm text-gray-500 mb-1">
                             <a href="agency.demand.proposals.html" class="hover:text-blue transition-colors">Proposals</a>
                             <i class="fa-solid fa-chevron-right text-[10px]"></i>
@@ -198,7 +200,7 @@
                         </div>
                         <p class="text-sm text-gray-500 mt-1">for Senior FLT Driver (Reach) • PROP-9942</p>
                     </div>
-                    <div class="flex items-center gap-3">
+                    <div id="pd-actions" class="flex flex-wrap items-center gap-3">
                         <button onclick="openConfirm('withdrawProposal')" class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200">
                             Withdraw Proposal
                         </button>
@@ -214,7 +216,7 @@
                     <div class="lg:col-span-2 space-y-6">
                         
                         <!-- Vacancy Info -->
-                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <section id="pd-vacancy" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                             <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Vacancy Info</h2>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
                                 <div>
@@ -247,7 +249,7 @@
                         </section>
 
                         <!-- Candidate Summary -->
-                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <section id="pd-candidate" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                             <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2">
                                 <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider">Candidate Summary</h2>
                                 <a href="#" class="text-sm font-medium text-blue hover:text-navy transition-colors flex items-center gap-1.5">
@@ -304,7 +306,7 @@
                     <!-- Right Column (Timeline & Status) -->
                     <div class="lg:col-span-1 space-y-6">
                         
-                        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                        <section id="pd-timeline" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                             <h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-6 border-b border-gray-100 pb-2">Status Timeline</h2>
                             
                             <div class="relative">
@@ -729,6 +731,105 @@
         }
     </script>
 
+<script src="slice5-proto.js"></script>
+<script src="slice5-agency.js"></script>
+<script>
+/* Slice 5 C3 — Proposal Detail (TSD 5.8 TV-3; §3.3.2 Proposal, rules 3 and 9; PATCH /proposals/:id, POST …/withdraw).
+   ?id=<proposal id> (default p1002, Submitted). Edit notes while Submitted; Withdraw while Submitted or Under Review,
+   with a confirmation; a decision's reason shown; 409 PROPOSAL_STATUS_INVALID reloads the proposal and says so. */
+(function () {
+  var esc = A5.esc, banner = null, staleView = false;
+  function pid() { return A5.q('id') || 'p1002'; }
+  function fld(label, value) { return '<div><p class="text-xs text-gray-500 mb-1">' + label + '</p><p class="text-sm font-medium text-gray-900">' + value + '</p></div>'; }
+  var ITEMS = [['right_to_work', 'Right to Work', 'fa-passport'], ['dbs_check', 'DBS Check', 'fa-user-shield'], ['references', 'References', 'fa-address-book'], ['hs_training', 'H&S Training', 'fa-helmet-safety']];
+  function tile(it, label, icon) {
+    var s = it ? it.status : 'Pending', tone = s === 'Compliant' ? 'success' : s === 'Not Applicable' ? 'gray' : s === 'Expired' ? 'danger' : 'warning';
+    var box = tone === 'gray' ? 'bg-gray-50 border-gray-200' : 'bg-' + tone + '/5 border-' + tone + '/20', tx = tone === 'gray' ? 'text-gray-500' : 'text-' + tone;
+    return '<div class="' + box + ' border p-2.5 rounded-lg text-center"><i class="fa-solid ' + icon + ' ' + tx + ' text-lg mb-1.5"></i><p class="text-xs font-medium text-gray-900">' + label + '</p><p class="text-[10px] ' + tx + '">' + esc(s) + (it && it.expiryDate && s === 'Compliant' ? ' · until ' + S5.fmtDate(it.expiryDate) : '') + '</p></div>';
+  }
+  function step(done, cur, title, when, body, tone) {
+    var dot = done ? '<div class="w-6 h-6 rounded-full bg-' + (tone || 'success') + ' text-white flex items-center justify-center shrink-0 z-10 border-2 border-white"><i class="fa-solid ' + (tone === 'danger' ? 'fa-xmark' : tone === 'gray-400' ? 'fa-minus' : 'fa-check') + ' text-[10px]"></i></div>'
+      : cur ? '<div class="w-6 h-6 rounded-full bg-warning text-white flex items-center justify-center shrink-0 z-10 border-2 border-white ring-2 ring-warning/30"><i class="fa-solid fa-hourglass-half text-[10px]"></i></div>'
+      : '<div class="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center shrink-0 z-10"><div class="w-2 h-2 rounded-full bg-gray-400"></div></div>';
+    return '<div class="relative flex gap-4">' + dot + '<div class="pt-0.5 min-w-0' + (done || cur ? '' : ' opacity-50') + '"><p class="text-sm ' + (done || cur ? 'font-bold text-gray-900' : 'font-medium text-gray-500') + '">' + title + '</p>' + (when ? '<p class="text-xs text-gray-500 mt-0.5">' + when + '</p>' : '') + (body || '') + '</div></div>';
+  }
+  function reasonBox(t, who) { return '<div class="mt-2 bg-lightbg border border-gray-200 rounded p-2.5"><p class="text-xs text-gray-700">' + esc(t) + '</p>' + (who ? '<p class="text-[10px] text-gray-500 mt-1">— ' + esc(who) + '</p>' : '') + '</div>'; }
+  function paint(state) {
+    if (!A5.live()) return;
+    var slot = document.getElementById('pd-state'), pg = document.getElementById('pd-page');
+    slot.hidden = true; pg.hidden = false;
+    var p = S5.proposal(pid());
+    if (state === 'error' || state === 'denied' || state === 'notfound' || (!p && state !== 'loading')) {
+      slot.hidden = false; pg.hidden = true;
+      slot.innerHTML = state === 'error' || state === 'denied' ? A5.stateCard(state) : A5.stateCard('notfound', { title: 'We can’t find that proposal', body: 'It isn’t one of TechForce Recruitment’s proposals, or it doesn’t exist.', action: '<a href="agency.demand.proposals.html" class="inline-flex items-center gap-2 mt-5 px-4 py-2 border border-gray-200 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i class="fa-solid fa-arrow-left text-xs"></i> Back to proposals</a>' });
+      return;
+    }
+    var head = document.getElementById('pd-head'), act = document.getElementById('pd-actions'), vs = document.getElementById('pd-vacancy'), cs = document.getElementById('pd-candidate'), tl = document.getElementById('pd-timeline');
+    if (state === 'loading') { head.innerHTML = A5.skeletonBlock(2); act.innerHTML = ''; vs.innerHTML = A5.skeletonBlock(4); cs.innerHTML = A5.skeletonBlock(5); tl.innerHTML = A5.skeletonBlock(4); return; }
+    p = JSON.parse(JSON.stringify(p));
+    if (state === 'vacclosed' || state === 'vaccancelled') { p.status = 'Rejected'; p.decidedByParty = 'system'; p.decidedAt = '2026-10-09T17:00:00'; p.decisionReason = state === 'vacclosed' ? 'Vacancy closed' : 'Vacancy cancelled'; }
+    if (staleView) { p.status = 'Under Review'; p.reviewStartedAt = S5.now(); }
+    if (state === 'large') p.notes = Array(9).join(p.notes + ' ').trim().slice(0, 2000);
+    var v = S5.releasedVacancy(p.vacancyId) || {}, c = S5.myCandidate(p.candidateId) || { fullName: p.candidateName, items: {}, licences: [] };
+    var flash = null; try { flash = sessionStorage.getItem('a5-flash'); sessionStorage.removeItem('a5-flash'); } catch (e) { /* blocked */ }
+    var fl = document.getElementById('pd-flash'); if (flash || banner) { fl.hidden = false; fl.innerHTML = banner ? A5.alert('warning', esc(banner)) : A5.alert('success', esc(flash)); } else fl.hidden = true;
+    head.innerHTML = '<nav class="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-1"><a href="agency.demand.proposals.html" class="hover:text-blue transition-colors">Proposals</a><i class="fa-solid fa-chevron-right text-[10px]"></i><span class="text-gray-900 font-medium">' + esc(p.reference) + '</span></nav>' +
+      '<div class="flex flex-wrap items-center gap-3"><h1 class="text-2xl font-sora font-semibold text-gray-900">' + esc(p.candidateName) + '</h1>' + S5.ui.proposalBadge(p.status) + '</div>' +
+      '<p class="text-sm text-gray-500 mt-1">for <a class="text-blue hover:underline" href="agency.demand.vacancy-detail.html?id=' + encodeURIComponent(p.vacancyId) + '">' + esc(p.jobTitle) + '</a> • ' + esc(p.vacancyReference) + ' • ' + esc(p.reference) + '</p>';
+    var canEdit = p.status === 'Submitted', canWd = S5.PENDING.indexOf(p.status) >= 0;
+    act.innerHTML = (canWd ? '<button type="button" data-wd class="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors">Withdraw Proposal</button>' : '') +
+      (canEdit ? '<button type="button" data-edit class="px-4 py-2 bg-blue text-white rounded-md text-sm font-medium hover:bg-blue/90 transition-colors">Edit Notes</button>' : '') +
+      (!canEdit && canWd ? '<p class="text-xs text-gray-500 w-full sm:w-auto">Notes can’t be changed once a review has started.</p>' : '');
+    vs.innerHTML = '<h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Vacancy Info</h2><div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">' +
+      fld('Job Role', esc(v.jobRoleTitle || '—')) + fld('Client', esc(p.clientName)) + fld('Business Unit', esc(p.orgNodeName)) + fld('Dates', v.startDate ? S5.fmtDate(v.startDate) + ' – ' + S5.fmtDate(v.endDate) : '—') +
+      fld('Shift', esc(v.shiftName || '—') + (v.workingTimes ? '<span class="block text-xs text-gray-500 font-normal mt-0.5">' + esc(v.workingTimes) + '</span>' : '')) + fld('Vacancy status', v.status ? A5.badge(v.status) : '—') +
+      '<div class="sm:col-span-2 bg-lightbg p-4 rounded-lg border border-gray-100"><p class="text-xs text-gray-500 mb-1">Pay Rate</p><p class="text-lg font-semibold font-sora text-navy">' + (v.payRate ? A5.money(v.payRate) + ' <span class="text-xs font-normal text-gray-500">/ hr</span>' : '—') + '</p></div></div>';
+    cs.innerHTML = '<div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-2"><h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider">Candidate Summary</h2>' +
+      '<a href="agency.candidates.candidate-detail.html?id=' + encodeURIComponent(p.candidateId) + '" class="text-sm font-medium text-blue hover:text-navy transition-colors flex items-center gap-1.5">View Full Profile <i class="fa-solid fa-arrow-right text-xs"></i></a></div>' +
+      '<div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-full bg-blue/10 border border-blue/20 flex items-center justify-center text-blue font-bold text-lg font-sora">' + A5.initials(p.candidateName) + '</div><div><h3 class="text-base font-semibold text-gray-900">' + esc(p.candidateName) + '</h3><p class="text-xs text-gray-500">' + esc(c.agencyOrgNodeName || '') + '</p></div><div class="ml-auto">' + S5.ui.complianceBadge(p.candidateComplianceStatus) + '</div></div>' +
+      '<div class="mb-6"><h4 class="text-xs font-bold text-gray-700 uppercase mb-3">Compliance</h4><div class="grid grid-cols-2 sm:grid-cols-4 gap-3">' + ITEMS.map(function (x) { return tile((c.items || {})[x[0]], x[1], x[2]); }).join('') + '</div>' +
+      '<div class="flex flex-wrap gap-1.5 mt-3">' + (p.candidateLicences.length ? p.candidateLicences.map(S5.ui.licenceChip).join('') : '<span class="text-xs text-gray-500">No licences recorded.</span>') + '</div></div>' +
+      '<div><h4 class="text-xs font-bold text-gray-700 uppercase mb-2">Submitted Notes</h4><div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 leading-relaxed whitespace-pre-line break-words">' + esc(p.notes) + '</div></div>';
+    // timeline
+    var steps = [step(true, false, 'Proposal Submitted', S5.fmtDateTime(p.submittedAt), '<p class="text-xs text-gray-600 mt-1">Submitted by TechForce Recruitment</p>')];
+    var reviewed = !!p.reviewStartedAt;
+    if (reviewed) steps.push(step(true, p.status === 'Under Review', 'Under Review', S5.fmtDateTime(p.reviewStartedAt), '<p class="text-xs text-gray-600 mt-1">' + (p.status === 'Under Review' ? 'A decision is being made.' : 'Reviewed.') + '</p>'));
+    var dec = p.decidedAt ? S5.fmtDateTime(p.decidedAt) : null;
+    if (p.status === 'Submitted' || p.status === 'Under Review') { if (!reviewed) steps.push(step(false, true, 'Waiting for a review', null, '<p class="text-xs text-gray-600 mt-1">The client or Abstract starts the review.</p>')); steps.push(step(false, false, 'Accepted / Rejected', null, '<p class="text-xs text-gray-400 mt-0.5">Pending a decision</p>')); }
+    else if (p.status === 'Accepted') steps.push(step(true, false, 'Accepted', dec, '<p class="text-xs text-gray-600 mt-1">Booked to position ' + p.positionNumber + '.</p>' + (p.bookingId ? '<a href="agency.bookings.booking-detail.html?id=' + encodeURIComponent(p.bookingId) + '" class="inline-flex items-center gap-1 mt-1.5 text-xs font-medium text-blue hover:underline">Booking ' + esc(p.bookingReference) + ' <i class="fa-solid fa-arrow-right text-[9px]"></i></a>' : '')));
+    else if (p.status === 'Rejected') steps.push(step(true, false, 'Rejected', dec, p.decidedByParty === 'system' ? reasonBox(p.decisionReason, 'Closed automatically') : reasonBox(p.decisionReason || 'No reason was given.', 'Reason given with the decision'), 'danger'));
+    else if (p.status === 'Rejected (Position Filled)') steps.push(step(true, false, 'Rejected (Position Filled)', dec, '<p class="text-xs text-gray-600 mt-1">Every position on the vacancy was filled before a decision, so this proposal closed automatically.</p>', 'gray-400'));
+    else if (p.status === 'Withdrawn') steps.push(step(true, false, 'Withdrawn', dec, '<p class="text-xs text-gray-600 mt-1">Withdrawn by ' + esc(p.decidedByName || 'TechForce Recruitment') + '.</p>' + (p.decisionReason ? reasonBox(p.decisionReason) : ''), 'gray-400'));
+    tl.innerHTML = '<h2 class="text-sm font-bold font-sora text-navy uppercase tracking-wider mb-6 border-b border-gray-100 pb-2">Status Timeline</h2><div class="relative"><div class="absolute left-[11px] top-2 bottom-2 w-px bg-gray-200"></div><div class="space-y-6">' + steps.join('') + '</div>' +
+      '<p class="mt-5 pt-4 border-t border-gray-100 text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-circle-info text-blue mt-0.5"></i><span>If all positions are filled before a decision is made, this proposal is automatically closed as <span class="font-medium text-gray-700">Rejected (Position Filled)</span>.</span></p></div>';
+    var eb = act.querySelector('[data-edit]'); if (eb) eb.onclick = function () { editNotes(p, false); };
+    var wb = act.querySelector('[data-wd]'); if (wb) wb.onclick = function () { withdraw(p); };
+    if (state === 'edit' || state === 'validation') editNotes(p, state === 'validation');
+    if (state === 'stale') editNotes(p, false, true);
+    if (state === 'withdraw') withdraw(p);
+    banner = null; staleView = false;
+  }
+  function editNotes(p, invalid, stale) {
+    if (document.querySelector('[data-a5-body]')) return;
+    A5.modal({ title: 'Edit notes · ' + p.reference, confirm: 'Save notes',
+      body: '<label for="pd-notes" class="block text-sm font-medium text-gray-700">Why this candidate suits the vacancy <span class="text-danger">*</span></label><textarea id="pd-notes" maxlength="2000" rows="7" class="w-full p-3 bg-lightbg border border-gray-200 rounded-md text-sm text-gray-800 focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue outline-none">' + esc(invalid ? '' : p.notes) + '</textarea><div id="pd-notes-err">' + (invalid ? A5.fieldError('Say why this candidate suits the vacancy.') : '') + '</div><p class="text-xs text-gray-500">You can change the notes until a review starts.</p>',
+      onConfirm: function (close, el) {
+        try { S5.act.editNotes(p.id, el.querySelector('#pd-notes').value, { simulateStale: stale }); close(); S1.toast('Notes saved.', 'success'); S1.setState('default'); }
+        catch (e) { if (e.code === 'VALIDATION_ERROR') el.querySelector('#pd-notes-err').innerHTML = A5.fieldError(e.message); else { close(); banner = e.message; staleView = !!stale; paint('default'); } }
+      } });
+  }
+  function withdraw(p) {
+    if (document.querySelector('[data-a5-body]')) return;
+    A5.modal({ title: 'Withdraw ' + p.candidateName + '’s proposal?', confirm: 'Withdraw proposal', danger: true,
+      body: '<p>' + esc(p.reference) + ' for ' + esc(p.jobTitle) + ' becomes <strong>Withdrawn</strong>. The client and Abstract see that you withdrew it. This can’t be undone; you can propose ' + esc(p.candidateName.split(' ')[0]) + ' again while the vacancy takes proposals.</p><label for="pd-wd" class="block text-sm font-medium text-gray-700">Reason (optional)</label><textarea id="pd-wd" maxlength="1000" rows="3" class="w-full p-3 bg-lightbg border border-gray-200 rounded-md text-sm text-gray-800 focus:bg-white focus:border-blue focus:ring-1 focus:ring-blue outline-none"></textarea>',
+      onConfirm: function (close, el) {
+        try { S5.act.withdraw(p.id, el.querySelector('#pd-wd').value); close(); S1.toast('Proposal withdrawn.', 'success'); S1.setState('default'); }
+        catch (e) { close(); banner = e.message; paint('default'); }
+      } });
+  }
+  A5.ready(paint);
+})();
+</script>
 <script src="slice1-kit.js"></script>
 </body>
 </html>
