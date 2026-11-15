@@ -272,3 +272,11 @@ agency/client screens look different from the new kernel-styled ones until they 
 
 No requirement ID in the copy a user reads. Dropped from Booking Detail's slice 5 Absence Confirmation note (XR-015).
 The slice 5 design hub keeps its IDs (a reviewer page). Earlier slices' pages are not changed by this entry.
+
+
+## 2026-11-16 — Requirement IDs stripped from the earlier slices' pages too (ruled by Ujjwal Sharma)
+
+Extends the entry above to every page: no requirement ID in copy a user reads — text, tooltips (`title`), toasts
+and dialog bodies drawn by script. A trailing *(XX-NNN)* goes with its space; a leading *XX-NNN ·* label goes and
+the rest is capitalised (*SYS-007 · effective-dated* → *Effective-dated*). Code comments keep their IDs, and so do
+the slice design hubs (reviewer pages). Nothing else in the copy changed.
