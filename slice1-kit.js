@@ -29,6 +29,22 @@ window.S1_CONFIG = {
     'agency.organisations.compliance-documents.html', 'agency.notifications.notification-preferences.html', 'agency.design.slice-2-index.html'
   ],
   slice2NavHide: [],
+  // slice 5 screens (docs/slices/5/design/DESIGN-BRIEF.md Part C). Slices 3 and 4 drew no agency page, so "Slices 1 to 5"
+  // shows slice 1 + slice 2 + these. The agency has no s3/s4 mode of its own.
+  slice5Hub: 'agency.design.slice-5-index.html',
+  slice5Screens: [
+    'agency.demand.vacancies.html', 'agency.demand.vacancy-detail.html', 'agency.demand.create-proposal.html',
+    'agency.demand.proposals.html', 'agency.demand.proposal-detail.html',
+    'agency.candidates.candidates.html', 'agency.candidates.candidate-detail.html', 'agency.candidates.create-candidate.html',
+    'agency.bookings.bookings.html', 'agency.bookings.booking-detail.html',
+    'agency.timesheets.payroll.html', 'agency.timesheets.pay-statement.html', 'agency.design.slice-5-index.html'
+  ],
+  // TSD §3.3.11: the menu reads Dashboard, Vacancies, Proposals, Candidates, Bookings, Payroll. In s5 mode and the full
+  // product the kit adds Payroll after Bookings where a sidebar lacks it; in s5 mode it puts Proposals before Candidates.
+  slice5NavInsert: [{ after: 'agency.bookings.bookings.html', href: 'agency.timesheets.payroll.html', icon: 'fa-money-check-dollar', label: 'Payroll' }],
+  slice5NavOrder: ['agency.demand.vacancies.html', 'agency.demand.proposals.html', 'agency.candidates.candidates.html'],
+  // the older pages' View as role control (pay_statement:view: administrator, finance — TSD §3.3.10)
+  slice5RoleHides: { recruiter: ['agency.timesheets.payroll.html'] },
   // slice 1 raises no notification for agency users; the centre starts empty
   notifications: []
 };
@@ -52,7 +68,15 @@ window.S1_CONFIG = {
  *                                  that is not a slice 1 screen and every element marked data-s1-later);
  *                                  slices 1 + 2 (slice 1 + slice2Screens; hides data-s2-later — slice 2 brief A3).
  *                                  S1.slice1Mode(on) / S1.slice2Mode(on) are shorthands; data-s1-home links
- *                                  point at the slice 1 dashboard in either slice mode
+ *                                  point at the slice 1 dashboard in either slice mode.
+ *   S1.setMode('s5')               slices 1 to 5 (slice 1 + slice2Screens + slice5Screens; slices 3 and 4 drew no agency page,
+ *                                  so this portal has no s3/s4 mode — a stored 's3'/'s4' reads as the full product, as before).
+ *                                  S1.slice5Mode(on) / S1.isSlice5Mode(). Markers, as in the other portals' kits:
+ *                                  data-s1-later = a slice 2+ part (hidden in s1); data-s2-later = a slice 3+ part (hidden in
+ *                                  s1 and s2, shown in s5 and full); data-s3-later = a slice 4+ part (hidden in s1, s2; shown in
+ *                                  s5 and full); data-s4-later = a slice 5 part (shown in s5 and the full product only);
+ *                                  data-s5-later = a slice 6+ part (full product only). Script pages' later(n, h): n=3 shows in
+ *                                  s5 and full; n=4 in s5 and full; n=5 in full only — S1.later(n) answers whether to draw.
  *   ?embedded=1                    the page as a wizard step (slice 2 TSD §3.3.8): shell and Prototype menu
  *                                  hidden, states and actions kept; S1.stepEvent('dirty'|'saved', data)
  *                                  tells the framing wizard
@@ -352,6 +376,8 @@ window.S1_CONFIG = {
     sent: 'Link sent', passwordexpired: 'Password expired', notfound: 'Not found (404)', invited: 'Invited user', inactive: 'Inactive user', self: 'Your own record' };
   // Labels for states added in the 2026-11-13 audit fixes (and older states that showed their raw names).
   Object.assign(LABELS, { noexport: 'Without the export key', 'export-failed': 'Export failed', partial: 'Saved in part', photo: 'With a photo', histloading: 'History loading', histerror: 'History failed to load', used: 'Link already used', deactivated: 'Account deactivated', reach: 'Change reaches outside your scope', accessnotenabled: 'Portal access not enabled', nodeliveryview: 'Without the delivery-failures key', block: 'Margin floor: blocked', noshifts: 'No Shifts yet', importjob: 'Import runs as a job', importrefused: 'Import refused: preview expired', importfailed: 'Import failed', nopricing: 'Without the price-manually key', noclient: 'No client chosen', bkloading: 'Bookings loading', bkerror: 'Bookings failed to load', noaudit: 'Without the audit-log key', nofill: 'Without the fill key', noedit: 'Without the edit key' });
+  // Labels for the slice 5 pages' own states (agency portal, 2026-11-15).
+  Object.assign(LABELS, { cap: 'At the proposal limit (2 of 2)', filled: 'Vacancy filled', rcap: 'Refused: proposal limit (409)', rnoopen: 'Refused: no open positions (409)', rstatus: 'Refused: vacancy closed (409)', rduplicate: 'Refused: already proposed (409)', rnotapproved: 'Refused: agency not approved (422)', rcandidate: 'Refused: candidate anonymised (422)', rclientinactive: 'Refused: client not active (422)', nocandidates: 'No candidates to propose', edit: 'Edit notes open', withdraw: 'Withdraw: confirm', stale: 'Changed elsewhere (409)', vacclosed: 'Rejected: Vacancy closed', vaccancelled: 'Rejected: Vacancy cancelled', branchinvalid: 'Refused: branch (422)', fieldnotallowed: 'Refused: field not allowed (422)', noweek: 'No timesheet entered yet', justify: 'Justify open', invoiced: 'Invoiced week', notinvoiced: 'Week not invoiced', licexpired: 'Expired licence' });
   S1.setState = function (name) {
     document.body.setAttribute('data-s1-state', name);
     document.querySelectorAll('[data-s1-show]').forEach(function (e) {
@@ -369,11 +395,13 @@ window.S1_CONFIG = {
     var wrap = el('div', { 'class': 's1-sw' });
     var extra = (C.signIn ? '<button data-act="timeout"><i class="fa-solid fa-hourglass-half" style="width:14px"></i> Session timeout warning</button>' : '') +
       (C.hub ? '<a href="' + esc(C.hub) + '" style="display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;font:500 13px Inter,sans-serif;color:#334155;text-decoration:none"><i class="fa-solid fa-table-list" style="width:14px"></i> Slice 1 screen index</a>' : '') +
-      (C.slice2Hub ? '<a href="' + esc(C.slice2Hub) + '" style="display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;font:500 13px Inter,sans-serif;color:#334155;text-decoration:none"><i class="fa-solid fa-table-list" style="width:14px"></i> Slice 2 screen index</a>' : '');
+      (C.slice2Hub ? '<a href="' + esc(C.slice2Hub) + '" style="display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;font:500 13px Inter,sans-serif;color:#334155;text-decoration:none"><i class="fa-solid fa-table-list" style="width:14px"></i> Slice 2 screen index</a>' : '') +
+      (C.slice5Hub ? '<a href="' + esc(C.slice5Hub) + '" style="display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;font:500 13px Inter,sans-serif;color:#334155;text-decoration:none"><i class="fa-solid fa-table-list" style="width:14px"></i> Slice 5 screen index</a>' : '');
     var modes = '<p>Navigation</p>' +
       '<button data-mode="full" aria-pressed="false"><i class="fa-solid fa-layer-group" style="width:14px"></i> Full product</button>' +
       '<button data-mode="s1" aria-pressed="false"><i class="fa-solid fa-filter" style="width:14px"></i> Slice 1 only</button>' +
-      (C.slice2Screens ? '<button data-mode="s2" aria-pressed="false"><i class="fa-solid fa-filter" style="width:14px"></i> Slices 1 + 2</button>' : '');
+      (C.slice2Screens ? '<button data-mode="s2" aria-pressed="false"><i class="fa-solid fa-filter" style="width:14px"></i> Slices 1 + 2</button>' : '') +
+      (C.slice5Screens ? '<button data-mode="s5" aria-pressed="false"><i class="fa-solid fa-filter" style="width:14px"></i> Slices 1 to 5</button>' : '');
     wrap.innerHTML = '<div class="s1-sw-panel" role="menu">' +
       (states.length > 1 ? '<p>Screen state</p>' + states.map(function (s) { return '<button data-state="' + s + '" aria-pressed="false">' + (LABELS[s] || s) + '</button>'; }).join('') : '') +
       modes + '<p>Prototype</p>' + extra + '</div><button aria-haspopup="true" aria-label="Prototype controls"><i class="fa-solid fa-layer-group"></i> <span class="s1-sw-cur">Prototype</span></button>';
@@ -390,21 +418,28 @@ window.S1_CONFIG = {
   }
 
   // ---------- Slice modes: full product · slice 1 only · slices 1 + 2 (slice 2 brief A3) ----------
-  // Stored under one key: 'on' = slice 1 only (the slice 1 value, kept), 's2' = slices 1 + 2, 'off' = full product.
+  // Stored under one key: 'on' = slice 1 only (the slice 1 value, kept), 's2' = slices 1 + 2, 's5' = slices 1 to 5,
+  // 'off' = full product. The key is shared with the other portals on one origin: their 's3'/'s4' read as full here.
   var MKEY = 's1-mode';
-  S1.mode = function () { var m = sget(MKEY); return m === 'on' ? 's1' : m === 's2' ? 's2' : 'full'; };
+  S1.mode = function () { var m = sget(MKEY); return m === 'on' ? 's1' : m === 's2' ? 's2' : m === 's5' ? 's5' : 'full'; };
   S1.isSlice1Mode = function () { return S1.mode() === 's1'; };
   S1.isSlice2Mode = function () { return S1.mode() === 's2'; };
-  S1.setMode = function (m) { sset(MKEY, m === 's1' ? 'on' : m === 's2' ? 's2' : 'off'); applyMode(); };
+  S1.isSlice5Mode = function () { return S1.mode() === 's5'; };
+  S1.setMode = function (m) { sset(MKEY, m === 's1' ? 'on' : m === 's2' ? 's2' : m === 's5' ? 's5' : 'off'); applyMode(); };
   S1.slice1Mode = function (on) { S1.setMode(on ? 's1' : 'full'); };
   S1.slice2Mode = function (on) { S1.setMode(on ? 's2' : 'full'); };
+  S1.slice5Mode = function (on) { S1.setMode(on ? 's5' : 'full'); };
+  // later(n): may a later slice's part be drawn? n=1 -> not in s1; n=2, 3, 4 -> s5 and full; n=5 -> full only
+  S1.later = function (n) { var m = S1.mode(); if (m === 'full') return true; if (n >= 5) return false; if (n >= 2) return m === 's5'; return m !== 's1'; };
   function base(h) { try { return decodeURIComponent((h || '').split(/[?#]/)[0].split('/').pop()); } catch (e) { return h; } }
   function applyMode() {
     var mode = S1.mode(), on = mode !== 'full';
     var keep = (C.slice1Screens || []).slice();
-    if (mode === 's2') keep = keep.concat(C.slice2Screens || []);
-    var navHide = mode === 's2' ? (C.slice2NavHide || []) : [];
+    if (mode === 's2' || mode === 's5') keep = keep.concat(C.slice2Screens || []);
+    if (mode === 's5') keep = keep.concat(C.slice5Screens || []);
+    var navHide = mode === 's2' || mode === 's5' ? (C.slice2NavHide || []) : [];
     var nav = document.querySelectorAll(C.navSelector || '#sidebar-nav, aside nav');
+    slice5Nav(nav, mode);
     nav.forEach(function (n) {
       n.querySelectorAll('a[href]').forEach(function (a) {
         var f = base(a.getAttribute('href'));
@@ -433,6 +468,18 @@ window.S1_CONFIG = {
       if (mode === 's1') e.style.setProperty('display', 'none', 'important'); else e.style.removeProperty('display');
     });
     document.querySelectorAll('[data-s2-later]').forEach(function (e) {
+      if (mode === 's1' || mode === 's2') e.style.setProperty('display', 'none', 'important'); else e.style.removeProperty('display');
+    });
+    // data-s3-later: a slice 4+ part — the agency had none; kept for parity with the other kits (hidden in s1 and s2).
+    document.querySelectorAll('[data-s3-later]').forEach(function (e) {
+      if (mode === 's1' || mode === 's2') e.style.setProperty('display', 'none', 'important'); else e.style.removeProperty('display');
+    });
+    // data-s4-later: a slice 5 part on an earlier page — absent in slice 1 and slices 1 + 2, present in slices 1 to 5 and the full product.
+    document.querySelectorAll('[data-s4-later]').forEach(function (e) {
+      if (on && mode !== 's5') e.style.setProperty('display', 'none', 'important'); else e.style.removeProperty('display');
+    });
+    // data-s5-later: a slice 6+ part — absent in every slice mode, present in the full product only.
+    document.querySelectorAll('[data-s5-later]').forEach(function (e) {
       if (on) e.style.setProperty('display', 'none', 'important'); else e.style.removeProperty('display');
     });
     document.querySelectorAll('[data-s1-home]').forEach(function (a) {
@@ -442,6 +489,51 @@ window.S1_CONFIG = {
     document.documentElement.setAttribute('data-s1-mode', mode);
     document.dispatchEvent(new CustomEvent('s1:mode', { detail: { mode: mode } }));
   }
+  // Slice 5's navigation (TSD §3.3.11): Payroll after Bookings in s5 and the full product, Proposals before Candidates in s5.
+  function slice5Nav(navs, mode) {
+    var show = mode === 's5' || mode === 'full';
+    navs.forEach(function (n) {
+      (C.slice5NavInsert || []).forEach(function (ins) {
+        var have = n.querySelector('a[data-s5-nav="' + ins.href + '"]') || Array.prototype.filter.call(n.querySelectorAll('a[href]'), function (a) { return base(a.getAttribute('href')) === ins.href; })[0];
+        if (!have) {
+          var after = Array.prototype.filter.call(n.querySelectorAll('a[href]'), function (a) { return base(a.dataset.s1Orig || a.getAttribute('href')) === ins.after; })[0];
+          if (!after) return;
+          // copy an inactive sibling's look: the link after Bookings (Timesheets), or Bookings itself when that is all there is
+          var nx = after.nextElementSibling;
+          var model = nx && nx.tagName === 'A' && !nx.getAttribute('aria-current') && !/bg-blue|border-l-4/.test(nx.className) ? nx : after;
+          have = model.cloneNode(true);
+          have.removeAttribute('id'); have.removeAttribute('aria-current'); have.removeAttribute('style'); delete have.dataset.s1Orig;
+          have.setAttribute('href', ins.href); have.setAttribute('data-s5-nav', ins.href);
+          var ic = have.querySelector('i'), icCls = ic ? (ic.getAttribute('class') || '').replace(/\bfa-(?!solid\b|regular\b)[a-z0-9-]+/g, '').replace(/\s+/g, ' ').trim() : 'fa-solid w-5 text-center';
+          var span = have.querySelector('span');
+          while (have.firstChild) have.removeChild(have.firstChild);
+          var ni = document.createElement('i'); ni.className = (icCls.indexOf('fa-solid') < 0 ? 'fa-solid ' : '') + icCls + ' ' + ins.icon; ni.setAttribute('aria-hidden', 'true');
+          have.appendChild(ni);
+          if (span) { var sp = document.createElement('span'); sp.textContent = ins.label; have.appendChild(sp); } else have.appendChild(document.createTextNode(' ' + ins.label));
+          after.parentNode.insertBefore(have, after.nextSibling);
+        }
+        if (have.dataset.s5Nav) have.style.display = show ? '' : 'none';
+      });
+      // order: in s5 the listed links take the TSD's order within the slots they already hold; elsewhere the page's own order
+      var links = (C.slice5NavOrder || []).map(function (f) { return Array.prototype.filter.call(n.querySelectorAll('a[href]'), function (a) { return base(a.dataset.s1Orig || a.getAttribute('href')) === f; })[0]; });
+      if (!links.length || links.some(function (a) { return !a; })) return;
+      var parent = links[0].parentNode; if (links.some(function (a) { return a.parentNode !== parent; })) return;
+      if (!n.dataset.s5Order) { links.forEach(function (a) { a.dataset.s5Slot = Array.prototype.indexOf.call(parent.children, a); }); n.dataset.s5Order = '1'; }
+      var last = links.slice().sort(function (x, y) { return Array.prototype.indexOf.call(parent.children, y) - Array.prototype.indexOf.call(parent.children, x); })[0];
+      var anchor = last.nextSibling;
+      var want = mode === 's5' ? links : links.slice().sort(function (x, y) { return Number(x.dataset.s5Slot) - Number(y.dataset.s5Slot); });
+      want.forEach(function (a) { parent.insertBefore(a, anchor); });
+    });
+    paintRoleNav();
+  }
+  // The older pages' View as role control hides nav links per role; the kit adds Payroll's rule (pay_statement:view).
+  function paintRoleNav() {
+    if (!document.getElementById('role-switch')) return;
+    var r = null; try { r = window.sessionStorage.getItem('agencyRole'); } catch (e) { /* blocked */ }
+    var hide = (C.slice5RoleHides || {})[r || 'admin'] || [];
+    document.querySelectorAll('a[data-s5-nav]').forEach(function (a) { a.classList.toggle('hidden', hide.indexOf(a.getAttribute('data-s5-nav')) >= 0); });
+  }
+  S1.paintRoleNav = paintRoleNav;
   S1.home = function () { return S1.mode() !== 'full' && C.slice1Dashboard ? C.slice1Dashboard : (C.dashboard || '#'); };
 
   // ---------- Embedded framing (slice 2 TSD §3.3.8: a wizard step is the page with `embedded` on) ----------
@@ -468,12 +560,17 @@ window.S1_CONFIG = {
     if (q.get('s1') === '1') sset(MKEY, 'on');
     if (q.get('s1') === '0') sset(MKEY, 'off');
     if (q.get('s2') === '1') sset(MKEY, 's2');
+    if (q.get('s5') === '1') sset(MKEY, 's5');
+    // a slice 5 page opens in slices 1 to 5 when the stored mode is earlier (or none)
+    if (document.body.hasAttribute('data-s5-page') && (sget(MKEY) == null || sget(MKEY) === 'on' || sget(MKEY) === 's2')) sset(MKEY, 's5');
     if (sget(MKEY) == null) {
       if (document.body.hasAttribute('data-s2-page')) sset(MKEY, 's2');
       else if (document.body.hasAttribute('data-s1-page')) sset(MKEY, 'on');
     }
     if (EMBEDDED) C.noSwitcher = true;
     applyMode();
+    // the role switcher's onchange calls the page's applyRole; repaint the kit's own role rule after it
+    var rs = document.getElementById('role-switch'); if (rs) rs.addEventListener('change', function () { setTimeout(paintRoleNav, 0); });
 
     // wire bells: explicit [data-s1-bell], or (bellDrawer portals) any unwired bell button
     if (C.bellDrawer) {
