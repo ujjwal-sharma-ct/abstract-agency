@@ -831,6 +831,13 @@
       '<td class="px-4 sm:px-6 py-4 whitespace-nowrap">' + S5.ui.proposalBadge(p.status) + '</td>' +
       '<td class="px-4 sm:px-6 py-4 text-right whitespace-nowrap">' + (href ? '<a href="' + href + '" onclick="event.stopPropagation()" class="w-8 h-8 inline-flex items-center justify-center rounded-md text-gray-400 hover:text-blue hover:bg-blue/10 transition-colors" title="View Details" aria-label="View ' + esc(p.reference) + '"><i class="fa-solid fa-chevron-right text-sm"></i></a>' : '') + '</td></tr>';
   }
+  // below 1280 px each proposal as a card (A5.mirror): candidate, vacancy and client, submitted, status
+  function propCard(p) {
+    var href = p.id ? 'agency.demand.proposal-detail.html?id=' + encodeURIComponent(p.id) : null;
+    return '<div class="p-4 sm:px-6 hover:bg-blue/5 transition-colors' + (href ? ' cursor-pointer" onclick="window.location.href=\'' + href + '\'"' : '"') + '>' +
+      '<div class="flex flex-wrap items-start justify-between gap-3"><div class="flex items-center gap-3 min-w-0"><div class="w-10 h-10 rounded-full bg-navy/10 border border-navy/20 flex items-center justify-center text-navy font-bold font-sora text-sm shrink-0">' + A5.initials(p.candidateName) + '</div><div class="min-w-0"><p class="text-sm font-semibold text-gray-900">' + esc(p.candidateName) + '</p><div class="flex flex-wrap items-center gap-2 mt-0.5"><span class="text-xs text-gray-500 font-mono">' + esc(p.reference) + '</span>' + S5.ui.complianceBadge(p.candidateComplianceStatus, true) + '</div></div></div>' + S5.ui.proposalBadge(p.status) + '</div>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">' + A5.fact('Vacancy &amp; Client', esc(p.jobTitle) + ' <span class="text-xs text-gray-400 font-mono">' + esc(p.vacancyReference) + '</span><div class="text-xs text-gray-500">' + esc(p.clientName) + ' · ' + esc(p.orgNodeName) + '</div>') + A5.fact('Submitted', S5.fmtDate(p.submittedAt) + ' <span class="text-xs text-gray-500">' + p.submittedAt.slice(11, 16) + '</span>') + '</div></div>';
+  }
   function paint(state) {
     if (!A5.live()) return;
     var slot = document.getElementById('pl-state'), card = document.getElementById('proposals-table-container'), fb = document.getElementById('filter-bar'), body = document.getElementById('pl-rows'), pager = document.getElementById('pl-pager'), empty = document.getElementById('empty-proposals'), frame = body.closest('.overflow-x-auto');
@@ -844,20 +851,21 @@
     var grid = fb.querySelector('.grid'); grid.classList.toggle('lg:grid-cols-5', S1.mode() !== 's5'); grid.classList.toggle('lg:grid-cols-3', S1.mode() === 's5');
     var st = statuses(); document.getElementById('pf-status-t').textContent = st.length ? st.join(', ') : 'Any Status';
     if (state === 'error' || state === 'denied') { slot.hidden = false; card.hidden = true; fb.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
-    if (state === 'loading') { body.innerHTML = A5.skeletonRows(5, 6); pager.hidden = true; return; }
+    if (state === 'loading') { body.innerHTML = A5.skeletonRows(5, 6); A5.mirror(body); pager.hidden = true; return; }
     var all = state === 'empty' ? [] : state === 'large' ? large() : S5.proposals();
     if (!all.length) {
-      fb.hidden = true; frame.hidden = true; pager.hidden = true; empty.classList.remove('hidden');
+      fb.hidden = true; frame.hidden = true; pager.hidden = true; empty.classList.remove('hidden'); A5.mirror(body, ''); frame.nextElementSibling.hidden = true;
       document.getElementById('pl-empty-t').textContent = 'You have not proposed a candidate yet'; return;
     }
     var q = document.getElementById('pf-q').value.trim().toLowerCase();
     if (state === 'validation') q = '';
     var list = all.filter(function (p) { return (!st.length || st.indexOf(p.status) >= 0) && (!q || (p.reference + ' ' + p.candidateName + ' ' + p.vacancyReference).toLowerCase().indexOf(q) >= 0); });
     var err = document.getElementById('pf-err'); if (err) err.remove();
-    if (state === 'validation') { document.getElementById('pf-q').insertAdjacentHTML('afterend', '<div id="pf-err">' + A5.fieldError('That filter isn’t available to an agency. Search by reference, candidate or vacancy reference.') + '</div>'); body.innerHTML = '<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">Nothing was searched.</td></tr>'; pager.hidden = true; return; }
-    if (!list.length) { body.innerHTML = '<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">No proposal matches these filters.</td></tr>'; pager.hidden = true; return; }
+    if (state === 'validation') { document.getElementById('pf-q').insertAdjacentHTML('afterend', '<div id="pf-err">' + A5.fieldError('That filter isn’t available to an agency. Search by reference, candidate or vacancy reference.') + '</div>'); body.innerHTML = '<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">Nothing was searched.</td></tr>'; A5.mirror(body); pager.hidden = true; return; }
+    if (!list.length) { body.innerHTML = '<tr><td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">No proposal matches these filters.</td></tr>'; A5.mirror(body); pager.hidden = true; return; }
     var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
     body.innerHTML = list.slice(r.from, r.to).map(row).join('');
+    A5.mirror(body, list.slice(r.from, r.to).map(propCard).join(''));
   }
   A5.ready(paint);
 })();

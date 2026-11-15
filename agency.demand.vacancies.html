@@ -264,7 +264,7 @@
             <!-- Data Table -->
             <div id="vac-card" class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col">
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[1200px]">
+                    <table class="w-full text-left border-collapse min-w-[960px]">
                         <thead>
                             <tr class="bg-gray-50 text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200">
                                 <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
@@ -281,13 +281,9 @@
                                 </th>
                                 <th class="py-3 px-4 font-medium text-center">Open Positions</th>
                                 <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
-                                    <div class="flex items-center gap-1">Dates &amp; Shift <i class="fa-solid fa-sort text-gray-300 group-hover:text-gray-500"></i></div>
+                                    <div class="flex items-center gap-1">Dates, Shift &amp; Close <i class="fa-solid fa-sort-down text-navy"></i></div>
                                 </th>
-                                <th class="py-3 px-4 font-medium" data-s4-later>Status</th>
-                                <th class="py-3 px-4 font-medium" data-s4-later>My Proposals</th>
-                                <th class="py-3 px-4 font-medium cursor-pointer hover:bg-gray-100 group">
-                                    <div class="flex items-center gap-1">Closes <i class="fa-solid fa-sort-down text-navy"></i></div>
-                                </th>
+                                <th class="py-3 px-4 font-medium" data-s4-later>Status &amp; My Proposals</th>
                                 <th class="py-3 px-4 font-medium text-right">Actions</th>
                             </tr>
                         </thead>
@@ -791,15 +787,29 @@
       '<td class="py-4 px-4"><div class="font-medium text-gray-900">' + esc(v.clientName) + '</div><div class="text-xs text-gray-500 mt-0.5">' + esc(v.orgNodeName) + '</div></td>' +
       '<td class="py-4 px-4 font-mono text-gray-900 text-right">' + (v.payRate ? A5.money(v.payRate) + '/hr' : '<span class="font-sans text-xs text-gray-400">No rate yet</span>') + '</td>' +
       '<td class="py-4 px-4 text-center"><span class="inline-flex items-center justify-center font-semibold px-2.5 py-1 rounded-md text-xs whitespace-nowrap ' + openCls + '">' + v.openCount + ' open position' + (v.openCount === 1 ? '' : 's') + '</span></td>' +
-      '<td class="py-4 px-4 text-gray-600 whitespace-nowrap">' + S5.fmtDate(v.startDate) + ' – ' + S5.fmtDate(v.endDate) + '<div class="text-xs text-gray-500 mt-0.5"><i class="fa-regular fa-clock mr-1"></i>' + esc(v.shiftName) + ' Shift</div></td>' +
-      '<td class="py-4 px-4">' + A5.badge(v.status) + '</td>' +
-      '<td class="py-4 px-4 whitespace-nowrap"><span class="text-sm font-medium ' + (atCap ? 'text-warning' : 'text-gray-900') + '">' + v.myPendingCount + ' of ' + v.myProposalCap + '</span>' + (atCap ? '<div class="text-[11px] text-warning mt-0.5">Limit reached</div>' : '') + '</td>' +
-      '<td class="py-4 px-4 text-gray-600 text-xs whitespace-nowrap">' + (v.closeDate ? S5.fmtDate(v.closeDate) : '—') + '</td>' +
-      '<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-2">' +
-        '<a href="' + href + '" onclick="event.stopPropagation()" class="px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>' +
-        (ok ? '<a href="agency.demand.create-proposal.html?vacancy=' + encodeURIComponent(v.id) + '" onclick="event.stopPropagation()" class="px-3 py-1.5 bg-blue text-white rounded text-xs font-medium hover:bg-blue/90 transition-colors">Propose</a>'
-            : '<span title="' + esc(why(v)) + '" class="px-3 py-1.5 bg-gray-100 text-gray-400 rounded text-xs font-medium cursor-not-allowed" aria-disabled="true">Propose</span>') +
-      '</div></td></tr>';
+      '<td class="py-4 px-4 text-gray-600">' + dates(v) + '</td>' +
+      '<td class="py-4 px-4">' + statusMine(v, atCap) + '</td>' +
+      '<td class="py-4 px-4 text-right"><div class="flex items-center justify-end gap-2">' + actions(v, href, ok) + '</div></td></tr>';
+  }
+  function dates(v) { return '<div class="whitespace-nowrap">' + S5.fmtDate(v.startDate) + ' – ' + S5.fmtDate(v.endDate) + '</div><div class="text-xs text-gray-500 mt-0.5 whitespace-nowrap"><i class="fa-regular fa-clock mr-1"></i>' + esc(v.shiftName) + ' Shift</div><div class="text-xs text-gray-500 mt-0.5 whitespace-nowrap"><i class="fa-regular fa-calendar-xmark mr-1"></i>' + (v.closeDate ? 'Closes ' + S5.fmtDate(v.closeDate) : 'No close date') + '</div>'; }
+  function statusMine(v, atCap) { return A5.badge(v.status) + '<div class="mt-1.5 text-xs whitespace-nowrap ' + (atCap ? 'text-warning font-medium' : 'text-gray-600') + '">My proposals ' + v.myPendingCount + ' of ' + v.myProposalCap + (atCap ? ' · limit reached' : '') + '</div>'; }
+  function actions(v, href, ok) {
+    return '<a href="' + href + '" onclick="event.stopPropagation()" class="px-3 py-1.5 border border-gray-200 text-gray-600 rounded text-xs font-medium hover:bg-gray-50 transition-colors">View</a>' +
+      (ok ? '<a href="agency.demand.create-proposal.html?vacancy=' + encodeURIComponent(v.id) + '" onclick="event.stopPropagation()" class="px-3 py-1.5 bg-blue text-white rounded text-xs font-medium hover:bg-blue/90 transition-colors">Propose</a>'
+          : '<span title="' + esc(why(v)) + '" class="px-3 py-1.5 bg-gray-100 text-gray-400 rounded text-xs font-medium cursor-not-allowed" aria-disabled="true">Propose</span>');
+  }
+  // below 1280 px the same facts as a card per vacancy (A5.mirror), so nothing sits off-screen at 1024 or 375
+  function vacCard(v, live) {
+    var href = 'agency.demand.vacancy-detail.html?id=' + encodeURIComponent(v.id), atCap = v.myProposalCap > 0 && v.myPendingCount >= v.myProposalCap;
+    var openCls = v.openCount === 0 ? 'bg-gray-100 text-gray-500' : v.openCount === 1 ? 'bg-warning/10 text-warning border border-warning/20' : 'bg-blue/10 text-blue';
+    return '<div class="p-4 sm:px-5 hover:bg-gray-50 transition-colors' + (live ? ' cursor-pointer" onclick="window.location.href=\'' + href + '\'"' : '"') + '>' +
+      '<div class="flex flex-wrap items-start justify-between gap-3"><div class="min-w-0"><div class="font-mono text-xs text-gray-500">' + esc(v.reference) + ' <span class="font-sans text-[10px] text-purple ml-1"><i class="fa-solid fa-share-nodes"></i> Released to you ' + S5.fmtDate(v.releasedAt) + '</span></div>' +
+      '<div class="font-medium text-gray-900 mt-0.5">' + esc(v.jobTitle) + '</div><div class="text-xs text-gray-500">' + esc(v.jobRoleTitle) + '</div></div><div>' + statusMine(v, atCap) + '</div></div>' +
+      '<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">' + A5.fact('Client &amp; Unit', esc(v.clientName) + '<div class="text-xs text-gray-500">' + esc(v.orgNodeName) + '</div>') +
+      A5.fact('Pay Rate', '<span class="font-mono">' + (v.payRate ? A5.money(v.payRate) + '/hr' : 'No rate yet') + '</span>') +
+      A5.fact('Open Positions', '<span class="inline-flex items-center font-semibold px-2 py-0.5 rounded-md text-xs whitespace-nowrap ' + openCls + '">' + v.openCount + ' open position' + (v.openCount === 1 ? '' : 's') + '</span>') +
+      A5.fact('Dates &amp; Shift', dates(v)) + '</div>' +
+      '<div class="flex justify-end gap-2 mt-3">' + actions(v, href, canPropose(v)) + '</div></div>';
   }
   function paint(state) {
     if (!A5.live()) return;
@@ -815,14 +825,14 @@
     }
     slot.hidden = true; card.hidden = false; fl.hidden = false; document.getElementById('f-dates-err').innerHTML = '';
     if (state === 'error' || state === 'denied') { slot.hidden = false; card.hidden = true; fl.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
-    if (state === 'loading') { body.innerHTML = A5.skeletonRows(10, 6); pager.hidden = true; return; }
+    if (state === 'loading') { body.innerHTML = A5.skeletonRows(8, 6); A5.mirror(body); pager.hidden = true; return; }
     var list = state === 'empty' ? [] : state === 'large' ? large() : S5.releasedVacancies();
     if (!list.length) { slot.hidden = false; card.hidden = true; fl.hidden = true; slot.innerHTML = A5.stateCard('empty', { icon: 'fa-briefcase', title: 'No vacancies have been released to you yet', body: 'When Abstract releases a vacancy to TechForce Recruitment it appears here with its open positions and your pay rate.' }); return; }
     var f = filters();
     if (state === 'validation') { f.from = '2026-11-01'; f.to = '2026-10-01'; document.getElementById('f-from').value = f.from; document.getElementById('f-to').value = f.to; }
     if (f.from && f.to && f.from > f.to) {
       document.getElementById('f-dates-err').innerHTML = A5.fieldError('The first date must be on or before the second.');
-      body.innerHTML = '<tr><td colspan="10" class="px-6 py-10 text-center text-sm text-gray-500">Change the dates to see vacancies. Nothing was searched.</td></tr>'; pager.hidden = true; return;
+      body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">Change the dates to see vacancies. Nothing was searched.</td></tr>'; A5.mirror(body); pager.hidden = true; return;
     }
     list = list.filter(function (v) {
       if (f.q && (v.reference + ' ' + v.jobTitle + ' ' + v.clientName).toLowerCase().indexOf(f.q) < 0) return false;
@@ -832,9 +842,10 @@
       if (f.to && v.startDate > f.to) return false;
       return true;
     });
-    if (!list.length) { body.innerHTML = '<tr><td colspan="10" class="px-6 py-10 text-center text-sm text-gray-500">No released vacancy matches these filters.</td></tr>'; pager.hidden = true; return; }
+    if (!list.length) { body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">No released vacancy matches these filters.</td></tr>'; A5.mirror(body); pager.hidden = true; return; }
     var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
     body.innerHTML = list.slice(r.from, r.to).map(function (v) { return row(v, state !== 'large'); }).join('');
+    A5.mirror(body, list.slice(r.from, r.to).map(function (v) { return vacCard(v, state !== 'large'); }).join(''));
   }
   A5.ready(paint);
 })();

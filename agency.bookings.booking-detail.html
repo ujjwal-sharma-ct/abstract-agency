@@ -805,19 +805,28 @@
     if (state === 'large') { var base = w[w.length - 1]; for (var i = 1; i <= 6; i++) { var c = JSON.parse(JSON.stringify(base)); c.id = null; c.weekStart = addDays(base.weekStart, -7 * i); c.status = 'Approved'; c.invoicedAt = null; delete c.agencyCost; c.days = c.days.map(function (y, k) { return { date: addDays(c.weekStart, k), dayStatus: k < 5 ? 'Worked' : 'Not Booked', hours: k < 5 ? '8.00' : null, shiftName: k < 5 ? b.shiftName : null, inRange: true, confirmationState: null }; }); w.push(c); } }
     return w;
   }
-  // one row per day: day, status with hours and Shift, the absence and its confirmation, and on an invoiced week the pay
+  // One row per day, two lines at every width: the day's facts (status, hours, Shift; pay on an invoiced week, right) and,
+  // full width under them, the absence with its comment, the override marker, the confirmation, its reason and Justify.
   function dayRow(w, y, b) {
     var abs = ['Sick Leave', 'Holiday', 'No-show'].indexOf(y.dayStatus) >= 0, inv = !!w.invoicedAt;
-    var conf = '';
-    if (y.confirmationState) conf = '<div class="flex flex-wrap items-center gap-2 mt-1">' + S5.ui.confBadge(y.confirmationState, true) + (y.confirmationState === 'Requested (awaiting agency)' ? '<button type="button" data-justify="' + y.date + '" class="px-3 py-1 bg-blue text-white rounded text-xs font-semibold hover:bg-blue/90"><i class="fa-solid fa-clipboard-check mr-1"></i>Justify</button>' : '') + '</div>';
-    if (y.confirmationState === 'Justified' && y.confirmation && y.confirmation.justification) conf += '<p class="text-xs text-gray-600 mt-1">Reason: “' + esc(y.confirmation.justification) + '”</p>';
-    var absHtml = abs ? '<div class="flex flex-wrap items-center gap-2">' + (y.absencePay ? '<span class="text-xs text-gray-700">' + esc(y.absencePay) + ' absence</span>' : '') + (y.overridden ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200"><i class="fa-solid fa-user-shield text-[10px]"></i> Overridden by Abstract</span>' : '') + '</div>' + (y.absenceComment ? '<p class="text-xs text-gray-500 mt-1">' + esc(y.absenceComment) + '</p>' : '') + conf : '<span class="text-xs text-gray-300 hidden xl:inline">—</span>';
-    return '<div class="px-5 py-3 flex flex-col xl:flex-row xl:items-start gap-1.5 xl:gap-4 ' + (y.confirmationState === 'Requested (awaiting agency)' ? 'bg-amber-50/40' : '') + '">' +
-      '<div class="xl:w-20 shrink-0 text-sm font-medium text-gray-900">' + dayName(y.date) + '</div>' +
-      '<div class="xl:w-36 shrink-0 flex flex-wrap items-center gap-x-2 gap-y-1">' + (y.dayStatus ? A5.badge(y.dayStatus, true) : '<span class="text-xs text-gray-400">Not entered</span>') +
-        (y.hours ? '<span class="text-xs font-mono text-gray-700">' + y.hours + ' h</span>' : '') + (y.shiftName ? '<span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock mr-1"></i>' + esc(y.shiftName) + '</span>' : '') + '</div>' +
-      '<div class="flex-1 min-w-0">' + absHtml + '</div>' +
-      (inv ? '<div class="xl:w-28 shrink-0 xl:text-right text-xs font-mono">' + (y.agencyCost ? '<span class="text-gray-500">' + A5.money(y.agencyPayRate) + '/hr</span><span class="block text-sm text-gray-900">' + A5.money(y.agencyCost) + '</span>' : '<span class="text-gray-300">—</span>') + '</div>' : '') + '</div>';
+    var line1 = '<div class="flex flex-wrap items-center gap-x-3 gap-y-1.5">' +
+      '<span class="w-24 shrink-0 text-sm font-medium text-gray-900">' + dayName(y.date) + '</span>' +
+      (y.dayStatus ? A5.badge(y.dayStatus, true) : '<span class="text-xs text-gray-400">Not entered</span>') +
+      (y.hours ? '<span class="text-xs font-mono text-gray-700 whitespace-nowrap">' + y.hours + ' h</span>' : '') +
+      (y.shiftName ? '<span class="text-xs text-gray-500 whitespace-nowrap"><i class="fa-regular fa-clock mr-1"></i>' + esc(y.shiftName) + '</span>' : '') +
+      (inv ? '<span class="ml-auto text-right font-mono whitespace-nowrap">' + (y.agencyCost ? '<span class="text-xs text-gray-500">' + A5.money(y.agencyPayRate) + '/hr · </span><span class="text-sm text-gray-900">' + A5.money(y.agencyCost) + '</span>' : '<span class="text-xs text-gray-300">—</span>') + '</span>' : '') + '</div>';
+    var line2 = '';
+    if (abs) {
+      var bits = [];
+      if (y.absencePay) bits.push('<span class="text-xs text-gray-700">' + esc(y.absencePay) + ' absence</span>');
+      if (y.overridden) bits.push('<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200 whitespace-nowrap"><i class="fa-solid fa-user-shield text-[10px]"></i> Overridden by Abstract</span>');
+      if (y.confirmationState) bits.push(S5.ui.confBadge(y.confirmationState, true));
+      if (y.confirmationState === 'Requested (awaiting agency)') bits.push('<button type="button" data-justify="' + y.date + '" class="px-3 py-1 bg-blue text-white rounded text-xs font-semibold hover:bg-blue/90 whitespace-nowrap"><i class="fa-solid fa-clipboard-check mr-1"></i>Justify</button>');
+      line2 = '<div class="mt-2 sm:pl-[108px] space-y-1"><div class="flex flex-wrap items-center gap-2">' + bits.join('') + '</div>' +
+        (y.absenceComment ? '<p class="text-xs text-gray-500">' + esc(y.absenceComment) + '</p>' : '') +
+        (y.confirmationState === 'Justified' && y.confirmation && y.confirmation.justification ? '<p class="text-xs text-gray-700">Reason: “' + esc(y.confirmation.justification) + '”</p>' : '') + '</div>';
+    }
+    return '<div class="px-5 py-3 ' + (y.confirmationState === 'Requested (awaiting agency)' ? 'bg-amber-50/40' : '') + '">' + line1 + line2 + '</div>';
   }
   function weekBlock(w, b) {
     var inv = !!w.invoicedAt, total = w.days.reduce(function (m, y) { return m + (y.hours ? Number(y.hours) : 0); }, 0);
@@ -825,7 +834,6 @@
       '<div class="px-5 py-3 bg-gray-50 flex flex-wrap items-center justify-between gap-2"><div class="flex flex-wrap items-center gap-2"><span class="text-sm font-semibold text-gray-900">Week of ' + S5.fmtDate(w.weekStart) + '</span>' + A5.badge(w.status, true) +
       (inv ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-file-invoice text-[10px]"></i> Invoiced ' + S5.fmtDate(w.invoicedAt) + '</span>' : '') + '</div>' +
       '<span class="text-xs text-gray-500">' + total.toFixed(2) + ' hours worked' + (inv && w.agencyCost ? ' · <span class="font-semibold text-gray-900">Pay ' + A5.money(w.agencyCost) + '</span>' : '') + '</span></div>' +
-      '<div class="hidden xl:flex px-5 py-2 gap-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider border-b border-gray-100"><span class="w-20">Day</span><span class="w-36">Status · hours · Shift</span><span class="flex-1">Absence and confirmation</span>' + (inv ? '<span class="w-28 text-right">Pay</span>' : '') + '</div>' +
       '<div class="divide-y divide-gray-100">' + w.days.map(function (y) { return dayRow(w, y, b); }).join('') + '</div>' +
       (inv ? '' : '<div class="px-5 py-2.5 border-t border-gray-100 text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-lock text-gray-400 mt-0.5"></i><span>Pay figures appear once this week is invoiced.</span></div>') + '</div>';
   }

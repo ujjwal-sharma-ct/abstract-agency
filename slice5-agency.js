@@ -119,4 +119,17 @@
   var WORD = { 'Released to Agencies': 'released', 'Filled': 'good', 'Closed': 'closed', 'Cancelled': 'bad', 'Active': 'good', 'Completed': 'good', 'Extended': 'waiting', 'Pending Start': 'neutral', 'Draft': 'neutral', 'Submitted': 'info', 'Approved': 'good', 'Invoiced': 'closed', 'Adjusted': 'closed', 'Worked': 'good', 'Not Booked': 'neutral', 'Sick Leave': 'waiting', 'Holiday': 'info', 'No-show': 'bad' };
   A5.badge = function (s, small) { var b = B[WORD[s] || 'neutral']; return '<span class="inline-flex items-center gap-1.5 ' + (small ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs') + ' rounded-full font-semibold border whitespace-nowrap ' + b + '">' + esc(s) + '</span>'; };
   A5.fieldError = function (msg) { return '<p class="text-xs text-danger mt-1.5 flex items-center gap-1" role="alert"><i class="fa-solid fa-circle-exclamation"></i> ' + esc(msg) + '</p>'; };
+  // A list below 1280 px: the table frame shows from xl up, and a card list in the same white card below it, so every
+  // key column reads at 1024 and 375 without sideways scrolling. mirror(tbody, html): html is the cards for the rows
+  // just drawn; without it, a skeleton or message row of the table is mirrored as such.
+  A5.mirror = function (body, html) {
+    var frame = body.closest('.overflow-x-auto, .overflow-auto'); if (!frame) return;
+    frame.classList.add('hidden', 'xl:block');
+    var cards = frame.nextElementSibling && frame.nextElementSibling.hasAttribute('data-a5-cards') ? frame.nextElementSibling : null;
+    if (!cards) { cards = document.createElement('div'); cards.setAttribute('data-a5-cards', ''); cards.className = 'xl:hidden flex-1 overflow-y-auto divide-y divide-gray-100 border-t border-gray-100'; frame.after(cards); }
+    if (html == null) html = body.querySelector('.animate-pulse') ? '<div class="p-4">' + A5.skeletonBlock(6) + '</div>' : '<div class="px-6 py-10 text-center text-sm text-gray-500">' + esc(body.textContent.trim()) + '</div>';
+    cards.innerHTML = html; cards.hidden = false;
+  };
+  // one labelled fact in a list card
+  A5.fact = function (label, html) { return '<div class="min-w-0"><p class="text-[11px] font-medium text-gray-500 uppercase tracking-wider">' + label + '</p><div class="text-sm text-gray-900 mt-0.5">' + html + '</div></div>'; };
 })();
