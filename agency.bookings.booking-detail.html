@@ -857,7 +857,7 @@
         (openDay === y.date ? justifyPanel(b, y) : '') + '</div>';
     }).join('') : '<p class="text-sm text-gray-500">No absence on this booking is waiting for a reason from you.</p>';
     document.getElementById('bd-abs-body').innerHTML = (banner ? A5.alert('warning', esc(banner)) : '') + html +
-      '<div class="text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-shield-halved text-gray-400 mt-0.5"></i><span>Your justification is shared with the client and Abstract. It does not delay the client’s timesheet or invoicing (XR-015).</span></div>';
+      '<div class="text-xs text-gray-500 flex items-start gap-2"><i class="fa-solid fa-shield-halved text-gray-400 mt-0.5"></i><span>Your justification is shared with the client and Abstract. It does not delay the client’s timesheet or invoicing.</span></div>';
   }
   function justifyPanel(b, y, err) {
     return '<div id="justify-panel" class="mt-4 border border-gray-200 rounded-lg p-4 bg-white"><h4 class="text-sm font-sora font-semibold text-gray-900 mb-3">Justify absence</h4>' +

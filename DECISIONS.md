@@ -267,3 +267,8 @@ agency/client screens look different from the new kernel-styled ones until they 
 **Consequences:** In the full product Booking Detail shows both the new day view and the export's weeks list. The notification drawer on the older pages still carries the export's sample items.
 
 **Addendum (same day, layout at 1024 px):** the slice 5 lists (Released Vacancies, My Proposals, Candidates, Bookings, Payroll) show their table from 1280 px up and, below it, the same records as cards in the same white card (`A5.mirror`), because at 1024 the sidebar (and on Bookings the filter column) leaves too little room for the columns. The Released Vacancies table is condensed for 1280: close date under dates and Shift, status with *My proposals n of cap*. On Booking Detail each day is two lines at every width: status, hours, Shift and (on an invoiced week) pay, then the absence, override marker, confirmation, reason and Justify full width.
+
+## 2026-11-16 — No requirement IDs in copy (ruled by Ujjwal Sharma)
+
+No requirement ID in the copy a user reads. Dropped from Booking Detail's slice 5 Absence Confirmation note (XR-015).
+The slice 5 design hub keeps its IDs (a reviewer page). Earlier slices' pages are not changed by this entry.
