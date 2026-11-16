@@ -324,3 +324,11 @@ from the source in the Abstract repo.
 
 Not applied here: R5-D6's *Awaiting agency* label. The pass's brief scoped it to Abstract's and the client's pages, so
 the agency's confirmation badge still reads *Requested (awaiting agency)*; flagged for the owner.
+
+**Follow-up, same day (the brief's scope corrected):** R5-D6 is applied here too — a requested day's badge reads
+*Awaiting agency* (design-tokens §6); *Justified* is unchanged. Booking Detail's invoiced week now reads *24.00 hours
+worked · 40.00 hours paid · Agency gross pay £636.00 · Agency net margin −£121.30*: the figure is what Abstract pays
+the agency (R5-D10, never a bare *Pay*), and it pays for the three Worked days and the two paid absences (40 h × £15.90),
+so the paid hours are said beside the worked ones. For Finance the info note no longer says *you justify an absence*;
+it says a recruiter or administrator at the agency justifies one (R5-G6). TechForce's seeded NI numbers now use the
+sample prefix *AB* (they were *QQ…*), so Abstract's edits of an agency record save.

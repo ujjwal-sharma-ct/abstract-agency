@@ -249,7 +249,7 @@
                         <!-- slice 5: what the agency sees of the timesheet (TSD §3.3.6) -->
                         <div data-s4-later class="flex items-start gap-3 bg-blue/5 border border-blue/20 rounded-lg p-4">
                             <i class="fa-solid fa-circle-info text-blue mt-0.5"></i>
-                            <p class="text-sm text-gray-600">Booking dates, Shift and cancellation are managed by Abstract, and the client enters the hours. You see each day as recorded, read-only, and you <span class="font-medium text-gray-900">justify an absence</span> when the client or Abstract asks you to.</p>
+                            <p id="bd-note" class="text-sm text-gray-600">Booking dates, Shift and cancellation are managed by Abstract, and the client enters the hours. You see each day as recorded, read-only, and you <span class="font-medium text-gray-900">justify an absence</span> when the client or Abstract asks you to.</p>
                         </div>
                         <!-- AgencyBookingWeeks (TSD §3.3.11, owner 5.8): each week's days, read-only; pay figures only on an invoiced week -->
                         <div id="bd-weeks" data-s4-later class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"></div>
@@ -856,7 +856,11 @@
     return '<div class="border-t border-gray-200 first:border-t-0">' +
       '<div class="px-5 py-3 bg-gray-50 flex flex-wrap items-center justify-between gap-2"><div class="flex flex-wrap items-center gap-2"><span class="text-sm font-semibold text-gray-900">Week of ' + S5.fmtDate(w.weekStart) + '</span>' + A5.badge(w.status, true) +
       (inv ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-solid fa-file-invoice text-[10px]"></i> Invoiced ' + S5.fmtDate(w.invoicedAt) + '</span>' : '') + '</div>' +
-      '<span class="text-xs text-gray-500">' + total.toFixed(2) + ' hours worked' + (inv && w.agencyCost ? ' · <span class="font-semibold text-gray-900">Pay ' + A5.money(w.agencyCost) + '</span>' : '') +
+      '<span class="text-xs text-gray-500">' + total.toFixed(2) + ' hours worked' +
+        // what Abstract pays the agency is "Agency gross pay", never a bare "Pay" (R5-D10); it pays for the Worked hours and
+        // the paid absences, so the paid hours are said beside the worked ones
+        (inv && w.paidHours && w.paidHours !== total.toFixed(2) ? ' · ' + w.paidHours + ' hours paid' : '') +
+        (inv && w.agencyCost ? ' · <span class="font-semibold text-gray-900 whitespace-nowrap">Agency gross pay ' + A5.money(w.agencyCost) + '</span>' : '') +
         // the agency's own Agency Net Margin, on an invoiced week only (ruled 2026-11-16, R5-D7)
         (inv && w.agencyNetMargin != null ? ' · <span class="font-semibold whitespace-nowrap ' + (Number(w.agencyNetMargin) < 0 ? 'text-danger' : 'text-gray-900') + '">Agency net margin ' + signed(w.agencyNetMargin) + '</span>' : '') + '</span></div>' +
       '<div class="divide-y divide-gray-100">' + w.days.map(function (y) { return dayRow(w, y, b); }).join('') + '</div>' +
@@ -901,6 +905,8 @@
     if (!A5.live()) return;
     if (state === 'finance' && role() !== 'finance') { var rs = document.getElementById('role-switch'); if (rs) rs.value = 'finance'; if (window.applyRole) applyRole('finance'); if (window.S1 && S1.paintRoleNav) S1.paintRoleNav(); }
     fin = state === 'finance' || role() === 'finance';
+    // the note says who justifies: a Finance user can't (R5-G6)
+    var note = document.getElementById('bd-note'); if (note) { if (!note.dataset.orig) note.dataset.orig = note.innerHTML; note.innerHTML = fin ? 'Booking dates, Shift and cancellation are managed by Abstract, and the client enters the hours. You see each day as recorded, read-only. A recruiter or administrator at your agency <span class="font-medium text-gray-900">justifies an absence</span> when the client or Abstract asks.' : note.dataset.orig; }
     var slot = document.getElementById('bd-state'), pg = document.getElementById('bd-page');
     slot.hidden = true; pg.hidden = false;
     var b = S5.agencyBooking(bid());
