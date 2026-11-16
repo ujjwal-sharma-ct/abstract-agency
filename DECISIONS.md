@@ -288,3 +288,39 @@ now releases **VAC-1050 *Goods-in operatives*** (Acme Logistics, Leicester DC, M
 open positions, closes 23 Oct) to TechForce on 9 Oct 2026 at 11:30, pay rate £13.20/hr, so Released Vacancies opens
 with *Propose* enabled (0 of 2). The rebuilt `slice5-proto.js` still names no other agency and carries no charge rate,
 margin or wave; the agency's week and statement reads are unchanged.
+
+## 2026-11-16 — Slice 5 TSD review R5: the rulings applied to the agency's pages (ruled by Ujjwal Sharma)
+
+From the slice 5 TSD review R5 (project-docs `review/slices/SLICE-5-TSD-REVIEW-R5-RECORD.md`); `slice5-proto.js` rebuilt
+from the source in the Abstract repo.
+
+1. **R5-D4 — Finance keeps Settings.** The *View as role* switch no longer hides Settings for Finance, on every page
+   that has it. Finance still loses Vacancies, Proposals and Candidates; a Recruiter still has no Payroll.
+2. **R5-D5 — Filters trimmed to the API.** Candidates' branch filter and Vacancies' and Bookings' job-role filters are
+   full product only (`data-s5-later`, no longer wired); Candidates' `validation` state (*That branch is outside your
+   scope*) is gone. Kept: Candidates' name search and compliance; Vacancies' search, status and start-date range;
+   Bookings' status, dates and search; Payroll's as before. Create Candidate's `branchinvalid` and `fieldnotallowed`
+   stay (form fields).
+3. **R5-D7 — The agency's own Agency Net Margin on an invoiced week.** Booking Detail's invoiced week (28 Sep) reads
+   *Agency net margin −£121.30* beside its pay: agency cost − (worker gross pay + Σ statutory), £636.00 − (£580.00 +
+   £177.30), worked out per day in this copy as the server works it out with slice 4's engine (the rate card line's
+   worker pay rate and the statutory rates; neither is drawn). Never on a week that is not invoiced.
+4. **R5-D9 — A defaulted request.** The Absence Confirmation card reads *Requested automatically (client setting)* for
+   a request the client's setting made.
+5. **R5-D10 — "Agency gross pay".** Payroll's column and card fact and Pay Statement's total read *Agency gross pay*
+   for the £636.00 Abstract pays the agency, never *Gross pay*.
+6. **R5-G1 — No proposal reference on a booking.** Booking Detail's *· from proposal PRP-n* is gone.
+7. **R5-G6 — Finance's Booking Detail.** For Finance (the role switch, or the new `finance` state) the Candidate
+   Profile card (contact details, address) and every *Justify* action are not drawn; a requested day reads *Awaiting a
+   justification. Your role can’t give one.* Changing the role redraws the page.
+8. **R5-P3 — Bookings' Large state** lists all 48 bookings, 20 a page: no status box is ticked there.
+9. **R5-P4 — Vacancy Detail's Empty state** reads *0 of 2 pending* with no cap banner.
+10. **R5-P5 — The notification drawer** reads slice 5 events in the kernel's words in slice 5 mode, from the slice 5
+    sample data: *Vacancy released to you* (VAC-1050), *Absence confirmation requested* (Kofi Mensah, Wed 7 Oct),
+    *Proposal rejected* (PRP-1003), *Proposal accepted* (PRP-1001). The export's later-slice items (un-book requests,
+    compliance expiring, booking confirmed, self-bill generated) are full product only; its *Absence confirmation
+    requested*, *New vacancy posted* and *Proposal approved* items are replaced by the slice 5 ones. The unread count
+    counts the items the mode shows.
+
+Not applied here: R5-D6's *Awaiting agency* label. The pass's brief scoped it to Abstract's and the client's pages, so
+the agency's confirmation badge still reads *Requested (awaiting agency)*; flagged for the owner.

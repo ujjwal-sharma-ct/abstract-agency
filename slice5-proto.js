@@ -11,7 +11,8 @@
  *
  * What a copy carries (slice 4's rule): only what its portal's responses would carry. The client's copy has no pay
  * figure, no booking source, no wave number, no candidate's personal data and no agency status; the agency's copy has
- * no charge rate, no margin, no other agency, no wave, no roster and no position total. The demo store (localStorage
+ * no charge rate, no margin but its own Agency Net Margin on an invoiced week (R5-D7), no other agency, no wave, no
+ * roster and no position total. The demo store (localStorage
  * `s5-demo-v1`, shared by the three portals on one origin) holds the cross-portal facts — releases with their waves,
  * proposals, the agency's candidates, the Agency-sourced bookings, absence confirmations, and each released vacancy's
  * agency-facing facts and open count. A copy's accessors never return what its party may not read, even where the
@@ -210,6 +211,8 @@
     o.agencyOrgNodeName = branchName(c.agencyId, c.agencyOrgNodeId); o.jobRoleId = null; o.jobRoleTitle = null;
     o.availability = null; o.legalHold = false; o.anonymised = !!c.anonymisedAt; o.photo = null;
     o.unavailableFrom = null; o.unavailableUntil = null;
+    // what Abstract set on the record is not the agency's to read (R5-D1): the legal hold's facts
+    delete o.legalHoldReason; delete o.legalHoldSetBy; delete o.legalHoldSetAt;
     return o;
   }
   function allCandIds() { var ids = CANDS.map(function (c) { return c.id; }); db.candidates.forEach(function (c) { if (ids.indexOf(c.id) < 0) ids.push(c.id); }); return ids; }
@@ -360,6 +363,17 @@
       { date: '2026-10-08', dayStatus: 'Sick Leave', absenceComment: 'Texted the site at 12:00.', absencePay: 'Paid', shiftName: 'Afternoon' },
       { date: '2026-10-09', dayStatus: 'Worked', hours: '8.00', shiftName: 'Afternoon' }, { date: '2026-10-10', dayStatus: null }, { date: '2026-10-11', dayStatus: null }] }
   ];
+  // The agency's own Agency Net Margin on an invoiced booking-week (ruled 2026-11-16, slice 5 TSD review R5-D7; §3.3.6
+  // rule 3 sends it): per day agencyCost − (workerGrossPay + Σ statutory), worked out as the server works it out with slice
+  // 4's engine — the worker's gross pay at the rate card line's worker pay rate × the hours, and the statutory costs at the
+  // engine's rates (employer's NI 15 %, WTR accrual 12.07 %, pension 3 %, apprenticeship levy 0.5 %), each rounded per day.
+  // Only the margin is drawn: this copy uses these inputs for nothing else, and holds no charge rate and no Abstract margin.
+  var WORKER_RATE = { v1042: '14.50' }, STAT_BP = [1500, 1207, 300, 50];
+  function netMargin(vid, y, agencyCost) {
+    var r = WORKER_RATE[vid]; if (!r) return null;
+    var wgp = Math.round(Math.round(Number(r) * 100) * Number(y.hours || '8.00')), stat = STAT_BP.reduce(function (m, bp) { return m + Math.round(wgp * bp / 10000); }, 0);
+    return ((Math.round(Number(agencyCost) * 100) - (wgp + stat)) / 100).toFixed(2);
+  }
   S5.agencyWeeks = function (bookingId) {
     var b = rawAB(bookingId); if (!b || b.agencyId !== ME.agencyId) return [];
     var live = Object.keys(db.weeks).map(function (k) { return db.weeks[k]; }).filter(function (w) { return w.bookingId === bookingId; });
@@ -370,10 +384,12 @@
       o.days = w.days.map(function (y) {
         var x = { date: y.date, dayStatus: y.dayStatus, hours: y.hours || null, shiftName: y.shiftName || null, absenceComment: y.absenceComment || null, absencePay: y.absencePay || null, overridden: !!y.overridden, inRange: y.inRange !== false, confirmationState: confState(bookingId, y.date, y.dayStatus), confirmation: confOf(bookingId, y.date) };
         // pay figures (pay columns) only on an invoiced booking-week; absent, not null, otherwise
-        if (inv && rate && (y.dayStatus === 'Worked' || y.absencePay === 'Paid')) { x.agencyPayRate = rate; x.agencyCost = (Math.round(Number(rate) * Number(y.hours || '8.00') * 100) / 100).toFixed(2); }
+        if (inv && rate && (y.dayStatus === 'Worked' || y.absencePay === 'Paid')) { x.agencyPayRate = rate; x.agencyCost = (Math.round(Number(rate) * Number(y.hours || '8.00') * 100) / 100).toFixed(2); x.agencyNetMargin = netMargin(b.vacancyId, y, x.agencyCost); }
         return x;
       });
       if (inv) o.agencyCost = o.days.reduce(function (m, x) { return m + (x.agencyCost ? Number(x.agencyCost) : 0); }, 0).toFixed(2);
+      // the agency's own Agency Net Margin, on an invoiced week only (R5-D7): the Σ of the days', in pence
+      if (inv && o.days.some(function (x) { return x.agencyNetMargin != null; })) o.agencyNetMargin = (o.days.reduce(function (m, x) { return m + (x.agencyNetMargin != null ? Math.round(Number(x.agencyNetMargin) * 100) : 0); }, 0) / 100).toFixed(2);
       return o;
     }).sort(function (a, b2) { return a.weekStart < b2.weekStart ? 1 : -1; });
   };
@@ -414,10 +430,13 @@
   // judgement on the candidate (the pass's choice, flagged for K59). The confirmation words likewise (K59).
   var PWORD = { 'Submitted': ['info', 'fa-paper-plane'], 'Under Review': ['info', 'fa-magnifying-glass'], 'Accepted': ['good', 'fa-circle-check'], 'Rejected': ['bad', 'fa-circle-xmark'], 'Withdrawn': ['closed', 'fa-rotate-left'], 'Rejected (Position Filled)': ['closed', 'fa-user-check'] };
   var CWORD = { 'Not Requested': ['neutral', 'fa-minus'], 'Requested (awaiting agency)': ['waiting', 'fa-hourglass-half'], 'Justified': ['good', 'fa-circle-check'] };
-  function badge(map, s, small) { var w = map[s] || ['neutral', 'fa-circle']; return '<span class="inline-flex items-center gap-1.5 ' + (small ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs') + ' rounded-full font-semibold whitespace-nowrap ' + BUCKET[w[0]] + '"><i class="fa-solid ' + w[1] + ' text-[10px]" aria-hidden="true"></i>' + esc(s) + '</span>'; }
+  // the words a requested day reads on Abstract's and the client's pages: design-tokens §6's pill, "Awaiting agency" (pill,
+  // legend, cell mark and its aria text; ruled 2026-11-16, slice 5 TSD review R5-D6). The state's value is unchanged.
+  var CLABEL = {};
+  function badge(map, s, small, label) { var w = map[s] || ['neutral', 'fa-circle']; return '<span class="inline-flex items-center gap-1.5 ' + (small ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs') + ' rounded-full font-semibold whitespace-nowrap ' + BUCKET[w[0]] + '"><i class="fa-solid ' + w[1] + ' text-[10px]" aria-hidden="true"></i>' + esc(label || s) + '</span>'; }
   S5.ui = {
     proposalBadge: function (s, small) { return badge(PWORD, s, small); },
-    confBadge: function (s, small) { return badge(CWORD, s, small); },
+    confBadge: function (s, small) { return badge(CWORD, s, small, CLABEL[s]); },
     complianceBadge: function (s, small) { return badge({ Compliant: ['good', 'fa-circle-check'], Pending: ['waiting', 'fa-hourglass-half'], Expired: ['bad', 'fa-circle-xmark'] }, s, small); },
     licenceChip: function (l) { return '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium border ' + (l.expired ? 'bg-red-50 text-red-700 border-red-200' : 'bg-slate-50 text-slate-700 border-slate-200') + '"><i class="fa-solid ' + (l.expired ? 'fa-circle-xmark' : 'fa-id-card') + ' text-[10px]" aria-hidden="true"></i>' + esc(l.licenceType) + (l.expiryDate ? ' · ' + (l.expired ? 'expired ' : 'until ') + fmtDate(l.expiryDate) : '') + '</span>'; }
   };

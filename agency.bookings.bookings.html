@@ -285,8 +285,8 @@
                         </div>
                     </div>
 
-                    <!-- Job Role -->
-                    <div>
+                    <!-- Job Role: not a filter of GET /bookings (ruled 2026-11-16, R5-D5) — full product only -->
+                    <div data-s5-later>
                         <label class="block text-xs font-bold text-gray-700 uppercase mb-2">Job Role</label>
                         <div class="relative">
                             <select class="w-full appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue focus:border-blue">
@@ -668,7 +668,84 @@
             </div>
         </div>
         <div id="notif-list" class="flex-1 overflow-y-auto">
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                <!-- slice 5 events in the kernel's words, drawn from the slice 5 sample data (ruled 2026-11-16, R5-P5) -->
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1" data-s4-later>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-share-nodes text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Vacancy released to you</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">Yesterday</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Abstract released VAC-1050 Goods-in operatives (Acme Logistics, Leicester DC) to TechForce Recruitment: 3 open positions.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.vacancy-detail.html?id=v1050" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1" data-s4-later>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-user-clock text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">7 Oct</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Acme Logistics asked you to confirm Kofi Mensah’s absence (No-show) on Wed 7 Oct.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.bookings.booking-detail.html?id=b2210" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0" data-s4-later>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-xmark text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal rejected</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">26 Sep</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">PRP-1003 for Ryan Hughes on VAC-1042 Reach truck drivers was rejected.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html?id=p1003" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0" data-s4-later>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-check text-xs"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start justify-between gap-2">
+                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal accepted</p>
+                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 hidden"></span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">25 Sep</p>
+                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">PRP-1001 for Kofi Mensah on VAC-1042 Reach truck drivers was accepted: booking BK-2210.</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <a href="agency.demand.proposal-detail.html?id=p1001" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
+                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 hidden">Mark as read</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1" data-s5-later>
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-right-left text-xs"></i>
@@ -687,7 +764,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1" data-s5-later>
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-circle-check text-xs"></i>
@@ -706,64 +783,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-warning/10 text-warning flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-user-clock text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Absence confirmation requested</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">5m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Pro UK requested confirmation of John Doe&#39;s absence (Sick Leave) on Wed 25 Oct.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.bookings.booking-detail.html" class="text-xs font-medium text-blue hover:underline">Justify <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-briefcase text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">New vacancy posted</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">10m ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Logistics Corp UK posted FLT Driver (Night Shift) at the Birmingham Hub.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.demand.vacancy-detail.html" class="text-xs font-medium text-blue hover:underline">View vacancy <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors is-unread" data-unread="1">
-                    <div class="flex gap-3">
-                        <div class="w-8 h-8 rounded-full bg-success/10 text-success flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-signature text-xs"></i>
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-start justify-between gap-2">
-                                <p class="text-sm font-medium text-gray-900 leading-snug">Proposal approved</p>
-                                <span class="notif-dot w-2 h-2 rounded-full bg-blue flex-shrink-0 mt-1.5 "></span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-0.5">1h ago</p>
-                            <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Your proposal for John Doe was approved for the Warehouse Operative role.</p>
-                            <div class="flex items-center gap-3 mt-2">
-                                <a href="agency.demand.proposal-detail.html" class="text-xs font-medium text-blue hover:underline">View proposal <i class="fa-solid fa-arrow-right text-[9px]"></i></a>
-                                <button onclick="markNotifRead(this)" class="notif-read text-xs text-gray-400 hover:text-gray-600 ">Mark as read</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0" data-s5-later>
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-full bg-danger/10 text-danger flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-shield-halved text-xs"></i>
@@ -782,7 +802,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0" data-s5-later>
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-full bg-blue/10 text-blue flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-calendar-check text-xs"></i>
@@ -801,7 +821,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0">
+                <div class="notif-item px-5 py-4 border-b border-gray-100 hover:bg-gray-50/70 transition-colors " data-unread="0" data-s5-later>
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-full bg-purple/10 text-purple flex items-center justify-center flex-shrink-0">
                             <i class="fa-solid fa-file-invoice-dollar text-xs"></i>
@@ -845,13 +865,15 @@
             var b = document.getElementById('notif-backdrop');
             b.classList.add('opacity-0', 'pointer-events-none');
         }
+        // the count reads the items the slice mode shows (R5-P5): an item hidden in this mode is not counted
         function refreshNotifCount() {
-            var n = document.querySelectorAll('#notif-list .notif-item[data-unread="1"]').length;
+            var n = Array.prototype.filter.call(document.querySelectorAll('#notif-list .notif-item[data-unread="1"]'), function (i) { return i.style.display !== 'none'; }).length;
             var pill = document.getElementById('notif-unread-pill');
             pill.textContent = n + ' unread';
             pill.classList.toggle('hidden', n === 0);
             document.querySelectorAll('.bell-dot').forEach(function (d) { d.classList.toggle('hidden', n === 0); });
         }
+        document.addEventListener('s1:mode', refreshNotifCount);
         function markNotifRead(btn) {
             var item = btn.closest('.notif-item');
             item.dataset.unread = '0';
@@ -948,7 +970,7 @@
         var ROLE_HIDES = {
             admin:     [],
             recruiter: ['agency.money.self-bills.html', 'agency.reporting.reports.html', 'agency.organisations.agency-profile.html'],
-            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html', 'agency.organisations.agency-profile.html']
+            finance:   ['agency.candidates.candidates.html', 'agency.demand.proposals.html', 'agency.demand.vacancies.html']   // Finance keeps Settings (ruled 2026-11-16, R5-D4)
         };
         var ROLE_LABEL = { admin: 'Administrator', recruiter: 'Recruiter', finance: 'Finance' };
         function applyRole(role) {
@@ -997,7 +1019,7 @@
    column set — agencyPayRate only; §3.3.4 rule 2). Reference, candidate, client and business unit, job role, dates and
    Shift, pay rate, status. No source badge, no other rate, no export, no bulk action. */
 (function () {
-  var esc = A5.esc, page = 1;
+  var esc = A5.esc, page = 1, shown = null;
   function large() { var b = S5.agencyBookings(), out = [], st = ['Active', 'Pending Start', 'Completed', 'Cancelled', 'Extended']; for (var i = 0; i < 48; i++) { var x = JSON.parse(JSON.stringify(b[0])); x.id = null; x.reference = 'BK-' + (2400 + i); x.candidateName = ['Abi Shaw', 'Ben Pike', 'Cara Lowe', 'Dev Reid', 'Eve Hart'][i % 5]; x.status = st[i % 5]; out.push(x); } return out; }
   function row(b) {
     var href = b.id ? 'agency.bookings.booking-detail.html?id=' + encodeURIComponent(b.id) : null;
@@ -1023,17 +1045,17 @@
   function paint(state) {
     if (!A5.live()) return;
     var fl = document.getElementById('bk-filters'), slot = document.getElementById('bk-state'), main = document.getElementById('bk-main'), body = document.getElementById('bk-rows'), pager = document.getElementById('bk-pager');
-    var checks = fl.querySelectorAll('input[type=checkbox]'), sels = fl.querySelectorAll('select'), role = sels[sels.length - 1], dates = fl.querySelectorAll('input[type=date]');
+    // the filters are GET /bookings' own: status, the dates and the search (no job role, R5-D5)
+    var checks = fl.querySelectorAll('input[type=checkbox]'), dates = fl.querySelectorAll('input[type=date]');
     if (!fl.dataset.s5) {
       fl.dataset.s5 = '1';
-      var roles = {}; S5.agencyBookings().forEach(function (b) { roles[b.jobRoleTitle] = 1; });
-      role.innerHTML = '<option value="">All Roles</option>' + Object.keys(roles).map(function (r) { return '<option>' + esc(r) + '</option>'; }).join('');
       Array.prototype.forEach.call(checks, function (c) { c.addEventListener('change', function () { page = 1; paint(A5.state()); }); });
-      role.onchange = function () { page = 1; paint(A5.state()); };
       fl.querySelector('.p-4.border-t button').onclick = function () { page = 1; paint(A5.state()); };
-      var clr = fl.querySelector('.p-4.border-b button'); if (clr) clr.onclick = function () { Array.prototype.forEach.call(checks, function (c) { c.checked = false; }); role.value = ''; dates.forEach(function (d) { d.value = ''; }); page = 1; S1.setState('default'); };
+      var clr = fl.querySelector('.p-4.border-b button'); if (clr) clr.onclick = function () { Array.prototype.forEach.call(checks, function (c) { c.checked = false; }); dates.forEach(function (d) { d.value = ''; }); page = 1; S1.setState('default'); };
       document.getElementById('bk-q').oninput = function () { page = 1; paint(A5.state()); };
     }
+    // the large state lists the whole set, paged 20 a page: no status is ticked there (R5-P3); the other states start from the page's own ticks
+    if (state !== shown) { shown = state; Array.prototype.forEach.call(checks, function (c) { c.checked = state === 'large' ? false : c.defaultChecked; }); page = 1; }
     slot.hidden = true; main.hidden = false;
     var e0 = document.getElementById('bk-err'); if (e0) e0.remove();
     if (state === 'error' || state === 'denied') { slot.hidden = false; main.hidden = true; slot.innerHTML = A5.stateCard(state); return; }
@@ -1044,7 +1066,7 @@
     var q = document.getElementById('bk-q').value.trim().toLowerCase(), from = dates[0] && dates[0].value, to = dates[1] && dates[1].value;
     if (state === 'validation') { from = '2026-11-30'; to = '2026-10-01'; dates[0].value = from; dates[1].value = to; }
     if (from && to && from > to) { dates[1].closest('.grid').insertAdjacentHTML('afterend', '<div id="bk-err">' + A5.fieldError('The first date must be on or before the second.') + '</div>'); body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">Change the dates to see bookings. Nothing was searched.</td></tr>'; A5.mirror(body); pager.hidden = true; document.getElementById('bk-count').textContent = 'Filters need a change'; return; }
-    var list = all.filter(function (b) { return (!st.length || st.indexOf(b.status) >= 0) && (!role.value || b.jobRoleTitle === role.value) && (!q || (b.reference + ' ' + b.candidateName).toLowerCase().indexOf(q) >= 0) && (!from || b.endDate >= from) && (!to || b.startDate <= to); });
+    var list = all.filter(function (b) { return (!st.length || st.indexOf(b.status) >= 0) && (!q || (b.reference + ' ' + b.candidateName).toLowerCase().indexOf(q) >= 0) && (!from || b.endDate >= from) && (!to || b.startDate <= to); });
     document.getElementById('bk-count').textContent = list.length + ' Booking' + (list.length === 1 ? '' : 's') + ' Found';
     if (!list.length) { body.innerHTML = '<tr><td colspan="8" class="px-6 py-10 text-center text-sm text-gray-500">No booking matches these filters.</td></tr>'; A5.mirror(body); pager.hidden = true; return; }
     var r = A5.pager(pager, list.length, page, function (p) { page = p; paint(A5.state()); });
