@@ -223,7 +223,8 @@
   S5.act = S5.act || {};
   S5.act.saveCandidate = function (f, id) {
     if (!f.agencyOrgNodeId || !branchName(ME.agencyId, f.agencyOrgNodeId)) refuse('CANDIDATE_BRANCH_INVALID', 'Choose one of your branches for this candidate.');
-    ['jobRoleId', 'legalHold', 'unavailableFrom'].forEach(function (k) { if (f[k] != null) refuse('CANDIDATE_FIELD_NOT_ALLOWED', 'An agency can’t set ' + k + ' on a candidate.', { field: k }); });
+    if (f.unavailableFrom != null) refuse('CANDIDATE_NOT_IN_POOL', 'An agency’s candidate has no availability, so it can’t be set.', { field: 'unavailableFrom' });   // TSD §3.1.0: every caller
+    ['jobRoleId', 'legalHold'].forEach(function (k) { if (f[k] != null) refuse('CANDIDATE_FIELD_NOT_ALLOWED', 'An agency can’t set ' + k + ' on a candidate.', { field: k }); });
     var c = id ? rawCand(id) : null;
     if (!c) { c = { id: 'ac-n' + (++db.seq.cand), agencyId: ME.agencyId, items: items(PD, PD, PD, PD), licences: [], documents: [], createdAt: now(), createdBy: ME.userName }; }
     Object.keys(f).forEach(function (k) { c[k] = f[k]; }); c.updatedAt = now();

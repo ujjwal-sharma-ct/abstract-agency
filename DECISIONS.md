@@ -332,3 +332,5 @@ the agency (R5-D10, never a bare *Pay*), and it pays for the three Worked days a
 so the paid hours are said beside the worked ones. For Finance the info note no longer says *you justify an absence*;
 it says a recruiter or administrator at the agency justifies one (R5-G6). TechForce's seeded NI numbers now use the
 sample prefix *AB* (they were *QQ…*), so Abstract's edits of an agency record save.
+
+Availability on an agency's candidate is refused with `CANDIDATE_NOT_IN_POOL` for every caller (slice 5 TSD §3.1.0), not `CANDIDATE_FIELD_NOT_ALLOWED`; the agency's *fieldnotallowed* copy names the job role and the legal hold only (review R5 follow-up, from the TSD check of the design pass).

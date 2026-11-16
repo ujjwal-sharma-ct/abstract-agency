@@ -993,7 +993,7 @@
     var sv = document.getElementById('wizard-save'); sv.onclick = save; document.querySelectorAll('a, button').forEach(function (b) { if (b.textContent.trim() === 'Save & Exit') b.onclick = save; });
     if (state === 'validation') { if (!editing()) { byLabel(step1(), 'Email Address').value = 'kofi.mensah@'; } save({ preventDefault: function () {} }); }
     if (state === 'branchinvalid') { goToStep(1); alertBox('Choose one of your branches for this candidate. The branch sent is not one of TechForce Recruitment’s, or it is outside your scope. <span class="block text-xs opacity-70 mt-1">CANDIDATE_BRANCH_INVALID</span>'); fieldErr(branchSel().parentElement, 'Choose one of your branches for this candidate.'); }
-    if (state === 'fieldnotallowed') { goToStep(1); alertBox('An agency can’t set a job role, availability or a legal hold on a candidate, so the form has none of them. Abstract sets a job role on a booking. <span class="block text-xs opacity-70 mt-1">CANDIDATE_FIELD_NOT_ALLOWED</span>'); }
+    if (state === 'fieldnotallowed') { goToStep(1); alertBox('An agency can’t set a job role or a legal hold on a candidate, so the form has neither. Abstract sets a job role on a booking. <span class="block text-xs opacity-70 mt-1">CANDIDATE_FIELD_NOT_ALLOWED</span>'); }
   }
   A5.ready(paint);
 })();
