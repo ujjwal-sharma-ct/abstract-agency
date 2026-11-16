@@ -336,3 +336,5 @@ sample prefix *AB* (they were *QQ…*), so Abstract's edits of an agency record 
 Availability on an agency's candidate is refused with `CANDIDATE_NOT_IN_POOL` for every caller (slice 5 TSD §3.1.0), not `CANDIDATE_FIELD_NOT_ALLOWED`; the agency's *fieldnotallowed* copy names the job role and the legal hold only (review R5 follow-up, from the TSD check of the design pass).
 
 No *Not Requested* badge in the agency's day table either (Ujjwal Sharma, 2026-11-16, an R5 follow-up): design Q10 took it off Abstract's and the client's pages, and the agency cannot act on an unrequested day, so an unrequested absence there draws nothing.
+
+The agency's submission now stores the candidate's branch on the proposal (TSD §3.3.2 rule 6), which Abstract's Proposal Review reads (B5-N4, ruled 2026-11-16); rebuilt from the shared source.
