@@ -280,3 +280,11 @@ Extends the entry above to every page: no requirement ID in copy a user reads �
 and dialog bodies drawn by script. A trailing *(XX-NNN)* goes with its space; a leading *XX-NNN ·* label goes and
 the rest is capitalised (*SYS-007 · effective-dated* → *Effective-dated*). Code comments keep their IDs, and so do
 the slice design hubs (reviewer pages). Nothing else in the copy changed.
+
+## 2026-11-16 — One more released vacancy for TechForce (ruled by Ujjwal Sharma)
+
+The demo used to start with nothing to propose to (VAC-1041 at 2 of 2, VAC-1042 at 1 of 1, VAC-1043 Filled). The seed
+now releases **VAC-1050 *Goods-in operatives*** (Acme Logistics, Leicester DC, Morning, 26 Oct to 18 Dec 2026, three
+open positions, closes 23 Oct) to TechForce on 9 Oct 2026 at 11:30, pay rate £13.20/hr, so Released Vacancies opens
+with *Propose* enabled (0 of 2). The rebuilt `slice5-proto.js` still names no other agency and carries no charge rate,
+margin or wave; the agency's week and statement reads are unchanged.

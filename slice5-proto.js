@@ -122,7 +122,7 @@
   function by(x, extra) { return Object.assign({}, extra, x); }
   function seed() {
     var releases = [
-      rel('v1042', 'techforce', '2026-09-24T10:15:00'), rel('v1043', 'techforce', '2026-09-30T08:50:00'), rel('v1041', 'techforce', '2026-10-05T14:20:00')
+      rel('v1042', 'techforce', '2026-09-24T10:15:00'), rel('v1043', 'techforce', '2026-09-30T08:50:00'), rel('v1041', 'techforce', '2026-10-05T14:20:00'), rel('v1050', 'techforce', '2026-10-09T11:30:00')
     ];
     // who decided, as each party may read it: Abstract's user by name only in Abstract's copy
     var ABS_DEC = {};
@@ -145,6 +145,7 @@
     var vacancies = {
       v1041: facts('v1041', 'VAC-1041', 'Warehouse operatives, peak cover', 'Warehouse Operative', 'Birmingham DC', '2026-10-19', '2026-12-18', '2026-10-16', 'Morning', 'Mon to Fri, 06:00 to 14:00', 'General warehouse duties at the site: goods in, picking to order, and loading for despatch.', 'Safety boots and hi-vis provided on site. Able to lift up to 20 kg.', 3, 'Released to Agencies', '2026-10-05T14:20:00'),
       v1042: facts('v1042', 'VAC-1042', 'Reach truck drivers', 'Forklift Driver (Reach)', 'Leeds Hub', '2026-09-28', '2026-11-27', null, 'Afternoon', 'Mon to Fri, 14:00 to 22:00', 'Racking and replenishment in the high-bay aisles.', 'Current reach truck licence.', 1, 'Released to Agencies', '2026-09-24T10:15:00'),
+      v1050: facts('v1050', 'VAC-1050', 'Goods-in operatives', 'Warehouse Operative', 'Leicester DC', '2026-10-26', '2026-12-18', '2026-10-23', 'Morning', 'Mon to Fri, 06:00 to 14:00', 'Unloading inbound trailers, checking deliveries against the paperwork, and putting stock away.', 'Safety boots and hi-vis provided on site. Able to lift up to 20 kg.', 3, 'Released to Agencies', '2026-10-09T11:30:00'),
       v1043: facts('v1043', 'VAC-1043', 'Night shift operatives', 'Warehouse Operative', 'Nights', '2026-10-12', '2026-11-13', null, 'Night', 'Sun to Thu, 22:00 to 06:00', null, null, 0, 'Filled', '2026-09-30T08:50:00')
     };
     // Absence confirmations, keyed booking|date (glossary AbsenceConfirmationRequest; TSD §3.3.7)
@@ -274,7 +275,7 @@
   }
   // The agency pay rate of each seeded released vacancy (VacancyRate.agencyPayRate, slice 2's card); a vacancy released
   // later carries it in its facts. This copy holds no charge rate.
-  var PAY = { v1041: '14.10', v1042: '15.90', v1043: '15.70', v1047: '14.10' };
+  var PAY = { v1041: '14.10', v1042: '15.90', v1043: '15.70', v1047: '14.10', v1050: '13.20' };
   S5.releasedVacancies = function () { return db.releases.filter(function (r) { return r.agencyId === ME.agencyId; }).map(function (r) { return dressRV(r.vacancyId); }).filter(Boolean).sort(function (a, b) { return a.releasedAt < b.releasedAt ? 1 : -1; }); };
   S5.releasedVacancy = function (vid) { return dressRV(vid); };
   // POST /proposals — refusals in the TSD's order (§3.1.2)
